@@ -16,7 +16,7 @@ const StatusBadge = ({ value }: { value: "successful" | "pending" | "failed" }) 
       <div
         className={`capitalize ${getColor()?.bgColor} ${
           getColor()?.color
-        } px-3 py-2 border rounded-[10px] flex items-center justify-center ${getColor()?.border} `}
+        } px-3 py-2 border w-[100px] rounded-[10px] flex items-center justify-center ${getColor()?.border} `}
       >
         {value}
       </div>

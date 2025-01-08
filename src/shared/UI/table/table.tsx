@@ -20,7 +20,7 @@ const TableHeader = React.forwardRef<
   return (
     <thead
       ref={ref}
-      className={`w-full bg-[#D1DFFE80] text-[#0F00BD] rounded-2xl text-sm' ${className}`}
+      className={`w-full bg-brand-primary text-[#fff] rounded-2xl text-sm' ${className}`}
       {...props}
     />
   );
@@ -31,7 +31,7 @@ const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => {
-  return <tbody ref={ref} className={`w-full text-sm   ${className}`} {...props} />;
+  return <tbody ref={ref} className={`w-full text-sm  bg-[#D1DFFE80]  ${className}`} {...props} />;
 });
 
 TableBody.displayName = "TableBody";
@@ -52,7 +52,7 @@ const TableRow = React.forwardRef<
   return (
     <tr
       ref={ref}
-      className={`border-b [&:has([role=checkbox])]:pr-0 ${className}`}
+      className={` [&:has([role=checkbox])]:pr-0 ${className}`}
       {...props}
     />
   );

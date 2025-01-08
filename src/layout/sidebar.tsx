@@ -13,6 +13,7 @@ const Sidebar = () => {
       <div className="py-[30px] flex flex-1 flex-col gap-2.5  ">
         {DASHBOARD_SIDEBAR_LINKS.map((link) => {
           if (link.visible ) {
+            console.log(link)
             return <SidebarLink key={link.key} link={link} />;
           }
           

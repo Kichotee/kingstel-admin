@@ -89,7 +89,7 @@ function SidebarLink({ link }: ISidebarProps) {
         </div>
       ) : (
         <StyledLink
-          to={"/auth/home"}
+          to={link.path}
           className={` ${
             pathname === link.path
               ? " rounded-[10px] bg-[#D1DFFE] text-brand-primary"

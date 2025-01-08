@@ -1,8 +1,9 @@
-import { BsChevronRight } from "react-icons/bs";
 import { DataTable } from "../../../shared/Table/common-table";
 import { BarChart } from "../components/bar-chart";
 import { ColumnDef } from "@tanstack/react-table";
 import StatusBadge from "../../../shared/Table/status-badge";
+import {transactionsData} from "../../../../mockdata"
+import { ITransactions } from "../../../types";
 
 const Dashboard = () => {
   const overview = [
@@ -22,14 +23,18 @@ const Dashboard = () => {
       number: "200",
     },
   ];
-   const columns: ColumnDef<any>[] = [
+   const columns: ColumnDef<ITransactions>[] = [
     {
-      header: "Timestamp",
+      header: "S/N",
       accessorKey: "meta_data.date",
     },
     {
-      header: "description",
-      accessorKey: "type",
+      header: "Customer",
+      accessorKey: "customer",
+    },
+    {
+      header: "Description",
+      accessorKey: "description",
     },
     {
       header: "Type",
@@ -53,32 +58,33 @@ const Dashboard = () => {
       header: "Status",
       accessorKey: "status",
       cell: (row) => {
-       
+      //  @ts-expect-error type error
+     
         return <StatusBadge value={row.getValue()} />;
       },
     },
     {
-      header: "Action",
-      accessorKey: "action",
-      cell: () => {
-        return (
-          <button className="mx-auto">
-            <BsChevronRight />
-          </button>
-        );
-      },
+      header: "Timestamp",
+      accessorKey: "timestamp",
     },
+    // {
+    //   header: "Action",
+    //   accessorKey: "action",
+    //   cell: () => {
+    //     return (
+    //       <button className="mx-auto">
+    //         <BsChevronRight />
+    //       </button>
+    //     );
+    //   },
+    // },
 
     //...
   ];
   return (
     <div className="flex flex-col gap-[30px] font-poppins">
       <div className="gap-y-6 flex flex-col w-full items-center">
-        <input
-          type="text"
-          className="py-2.5 placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
-          placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
-        />
+      
         <div className="flex flex-col w-full gap-6">
           <h4 className="font-bold text-xs">Quick Overview</h4>
           <div className="rounded-[20px] bg-white p-[61px_58px] flex gap-4 justify-between">
@@ -97,10 +103,10 @@ const Dashboard = () => {
             <BarChart data={""}/>
         </div>
         <div className="bg-white w-full p-5 rounded-2xl">
-         <DataTable<any>
+         <DataTable<ITransactions>
           columns={columns}
           loading={false}
-          data={[]}
+          data={transactionsData}
         /></div>
       </div>
     </div>

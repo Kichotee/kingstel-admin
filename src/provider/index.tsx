@@ -1,3 +1,4 @@
+import { Provider } from "@/components/ui/provider";
 import { ReactNode } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -6,6 +7,8 @@ type Props = {
 }
 export const AppProvider = ({children}: Props) => {
     return ( 
-       <Router>{children}</Router>
+       <Provider>
+           <Router>{children}</Router>
+       </Provider>
     );
 }
