@@ -27,3 +27,10 @@ export interface ICurrencies {
   country: string;
   status: string;
 }
+export interface IUsers {
+  SN: number;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+}

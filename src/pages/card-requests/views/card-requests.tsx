@@ -13,6 +13,7 @@ import {
   PopoverBody,
 } from "@chakra-ui/react";
 import { VscEllipsis } from "react-icons/vsc";
+import { PageTitle } from "@/shared/UI/general-page-title";
 
 export const CardRequests = () => {
   const columns: ColumnDef<ICardRequests>[] = [
@@ -89,18 +90,23 @@ export const CardRequests = () => {
     },
   ];
   return (
-    <div className="">
+    <div className="flex flex-col gap-4 w-full items-center">
       <input
         type="text"
         className="py-2.5 bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
       />
-      <div className="space-y-12">
+      <div className="space-y-12 w-full">
         <div className="space-y-6">
-          <h4 className="text-xs font-bold">Card Requests</h4>
+          <PageTitle title="Card requests" />
           <div className="px-14 py-[61px] rounded-2xl w-max bg-white flex gap-40">
             {card.map((data) => {
-              return <CardRequestsCard type={data.type as "approved" | "pending" | "declined"} value={data.value} />;
+              return (
+                <CardRequestsCard
+                  type={data.type as "approved" | "pending" | "declined"}
+                  value={data.value}
+                />
+              );
             })}
           </div>
         </div>

@@ -1,26 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { currencies } from "@/mockdata";
+import { users } from "@/mockdata";
 import { ControlledInput } from "@/shared/input/Controllednput";
 import { DataTable } from "@/shared/Table/common-table";
-import { ICurrencies } from "@/types";
+import { PageTitle } from "@/shared/UI/general-page-title";
+import {  IUsers } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const ManageUsers = () => {
   const { control, watch } = useForm();
-  const columns: ColumnDef<ICurrencies>[] = [
+  const columns: ColumnDef<IUsers>[] = [
     {
       header: "S/N",
       accessorKey: "SN",
     },
     {
-      header: "currency",
-      accessorKey: "currency",
+      header: "name",
+      accessorKey: "name",
     },
     {
-      header: "code",
-      accessorKey: "code",
+      header: "email",
+      accessorKey: "email",
     },
     {
       header: "status",
@@ -38,7 +39,7 @@ const ManageUsers = () => {
       accessorKey: "SN",
       cell: (row) => {
         return (
-          <Link to={`/dashboard/edit-currency/${row.getValue()}`}>
+          <Link to={`/dashboard/edit-user/${row.getValue()}`}>
             {" "}
             <button className="text-brand-primary">Edit</button>
           </Link>
@@ -48,7 +49,7 @@ const ManageUsers = () => {
   ];
   return (
     <div className="space-y-7">
-      <p className="font-semibold">Manage user</p>
+     <PageTitle title={"Manage User"}/>
       <div className="flex gap-[18px]">
         <div className="basis-2/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
@@ -117,8 +118,8 @@ const ManageUsers = () => {
         </div>
         <div className="basis-3/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
-            <p className="font-semibold">Available Admin users</p>
-            <DataTable<ICurrencies> columns={columns} data={currencies} />
+          <PageTitle title="Available Admin users"/>
+            <DataTable<IUsers> columns={columns} data={users} />
           </div>
         </div>
       </div>

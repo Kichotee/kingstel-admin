@@ -88,3 +88,34 @@ export const currencies = [
     status: "live",
   },
 ];
+export const users = [
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    role: "Super admin",
+    status: "Active",
+  },
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    role: "Super admin",
+    status: "Active",
+  },
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    role: "Super admin",
+    status: "Active",
+  },
+    {
+      SN: 1,
+      name: "Kingstel",
+      email: "Johndoe@gmail.com",
+      role: "Super admin",
+      status: "Active",
+    },
+ 
+];

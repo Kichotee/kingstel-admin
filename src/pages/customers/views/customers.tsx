@@ -33,13 +33,13 @@ const Customers = () => {
     },
   ];
   return (
-    <div className="">
+    <div className="flex flex-col gap-4 items-center">
       <input
         type="text"
-        className="py-2.5 bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
+        className="py-2.5 mx-auto bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
       />
-      <div className="space-y-8">
+      <div className="space-y-8 w-full">
         <WalletBanner walletDetails={walletDetails} />
         <div className="">
           <Tabs.Root defaultValue={"Profile information"}>

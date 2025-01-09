@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import StatusBadge from "../../../shared/Table/status-badge";
 import { transactionsData } from "../../../mockdata";
 import { ITransactions } from "../../../types";
+import { PageTitle } from "@/shared/UI/general-page-title";
 
 const Dashboard = () => {
   const overview = [
@@ -85,9 +86,15 @@ const Dashboard = () => {
   ];
   return (
     <div className="flex flex-col gap-[30px] text-black font-poppins">
+       
+      <input
+        type="text"
+        className="py-2.5 mx-auto bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
+        placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
+      />
       <div className="gap-y-6 flex flex-col w-full items-center">
         <div className="flex flex-col w-full gap-6">
-          <h4 className="font-bold text-xs">Quick Overview</h4>
+        <PageTitle title="Quick Overview"/>
           <div className="rounded-[20px] bg-white p-[61px_58px] flex gap-4 justify-between">
             {overview.map((data) => {
               return (

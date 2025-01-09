@@ -57,7 +57,7 @@ const ProfileInfo = () => {
       <div className="flex flex-col basis-1/2  gap-y-[1px] *:py-3 ">
         {userData.map((data) => {
           return (
-            <div className="grid grid-cols-[1fr_3fr]  bg-white">
+            <div className="grid grid-cols-[1.5fr_3fr]  bg-white">
               <div className="px-6 text-brand-primary font-medium">{data.title}</div>
               <div className="px-6">{data.value}</div>
             </div>
