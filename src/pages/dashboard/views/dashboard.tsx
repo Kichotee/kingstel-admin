@@ -2,7 +2,7 @@ import { DataTable } from "../../../shared/Table/common-table";
 import { BarChart } from "../components/bar-chart";
 import { ColumnDef } from "@tanstack/react-table";
 import StatusBadge from "../../../shared/Table/status-badge";
-import {transactionsData} from "../../../../mockdata"
+import { transactionsData } from "../../../mockdata";
 import { ITransactions } from "../../../types";
 
 const Dashboard = () => {
@@ -23,9 +23,9 @@ const Dashboard = () => {
       number: "200",
     },
   ];
-   const columns: ColumnDef<ITransactions>[] = [
+  const columns: ColumnDef<ITransactions>[] = [
     {
-      header: "S/N",
+      header: "SN",
       accessorKey: "meta_data.date",
     },
     {
@@ -40,7 +40,9 @@ const Dashboard = () => {
       header: "Type",
       accessorKey: "transaction_type",
       cell: (row) => {
-        return <p className="capitalize">{row.getValue() as React.ReactNode}</p>;
+        return (
+          <p className="capitalize">{row.getValue() as React.ReactNode}</p>
+        );
       },
     },
     {
@@ -58,8 +60,8 @@ const Dashboard = () => {
       header: "Status",
       accessorKey: "status",
       cell: (row) => {
-      //  @ts-expect-error type error
-     
+        //  @ts-expect-error type error
+
         return <StatusBadge value={row.getValue()} />;
       },
     },
@@ -82,32 +84,34 @@ const Dashboard = () => {
     //...
   ];
   return (
-    <div className="flex flex-col gap-[30px] font-poppins">
+    <div className="flex flex-col gap-[30px] text-black font-poppins">
       <div className="gap-y-6 flex flex-col w-full items-center">
-      
         <div className="flex flex-col w-full gap-6">
           <h4 className="font-bold text-xs">Quick Overview</h4>
           <div className="rounded-[20px] bg-white p-[61px_58px] flex gap-4 justify-between">
-            {
-                overview.map((data)=>{
-                    return <div className="flex max-h-[216px] min-w-[220px] flex-col gap-4 items-center rounded-[30px] border border-[#D1DFFE80] py-[22px] shadow-[4px_4px_10px_1.4px_#D1DFFE80] px-2.5">
-                        <img src={data.icon} className="max-w-[74px]" alt="" />
-                        <p className="text-brand-primary text-sm font-semibold">{data.title}</p>
-                        <p className="font-bold">{data.number}</p>
-                    </div>
-                })
-            }
+            {overview.map((data) => {
+              return (
+                <div className="flex max-h-[216px] min-w-[220px] flex-col gap-4 items-center rounded-[30px] border border-[#D1DFFE80] py-[22px] shadow-[4px_4px_10px_1.4px_#D1DFFE80] px-2.5">
+                  <img src={data.icon} className="max-w-[74px]" alt="" />
+                  <p className="text-brand-primary text-sm font-semibold">
+                    {data.title}
+                  </p>
+                  <p className="font-bold">{data.number}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="bg-white w-full p-5 rounded-[20px]">
-            <BarChart data={""}/>
+          <BarChart data={""} />
         </div>
         <div className="bg-white w-full p-5 rounded-2xl">
-         <DataTable<ITransactions>
-          columns={columns}
-          loading={false}
-          data={transactionsData}
-        /></div>
+          <DataTable<ITransactions>
+            columns={columns}
+            loading={false}
+            data={transactionsData}
+          />
+        </div>
       </div>
     </div>
   );

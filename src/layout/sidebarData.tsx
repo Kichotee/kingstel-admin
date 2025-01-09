@@ -1,5 +1,4 @@
 import React from "react";
-import { BiUser } from "react-icons/bi";
 import { FaCreditCard, FaHouse } from "react-icons/fa6";
 import { LuReceipt, LuRefreshCcw, LuSend, LuWallet } from "react-icons/lu";
 import { PiUser } from "react-icons/pi";
@@ -50,7 +49,7 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
   {
     key: "Card request",
     label: "Card Request",
-    path: "/dashboard/card-request",
+    path: "/dashboard/card-requests",
     icon: <LuReceipt size={18} />,
     allowedRoles: true,
     visible: true,
@@ -58,7 +57,7 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
   {
     key: "Manage Currency",
     label: "Manage Currency",
-    path: "/dashboard/manage currency",
+    path: "/dashboard/manage-currency",
     icon: <LuRefreshCcw size={18} />,
     allowedRoles: true,
     visible: true,
@@ -70,13 +69,13 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     icon: <PiUser size={18} />,
     allowedRoles: true,
     visible: true,
-    links: [
-      {
-        key: "Create Admin account",
-        label: "Create admin account",
-        path: "/dashboard/manage-users/create-admin",
-      },
-    ],
+    // links: [
+    //   {
+    //     key: "Create Admin account",
+    //     label: "Create admin account",
+    //     path: "/dashboard/manage-users/create-admin",
+    //   },
+    // ],
   },
   {
     key: "Manage transfers",

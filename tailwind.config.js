@@ -114,7 +114,7 @@ export default {
         ...colors,
       },
       fontFamily:{
-        poppins:["poppins","Helvetica", "Segoe UI", ""]
+        poppins:["Poppins","Helvetica", "Segoe UI", ""]
       }
     },
   },

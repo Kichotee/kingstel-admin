@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
@@ -66,7 +68,7 @@ export const BarChart = ({ data }: Props) => {
           show: true,
         },
         zoom: {
-          enabled: true,
+          enabled: false,
         },
       },
       responsive: [

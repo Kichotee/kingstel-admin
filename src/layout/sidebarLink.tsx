@@ -64,7 +64,7 @@ function SidebarLink({ link }: ISidebarProps) {
               pathname === link.path
                 ? " rounded-[10px] bg-[#D1DFFE] text-brand-primary text-success"
                 : `text-[#A5ADC0] hover:text-white rounded-[10px] hover:bg-brand-primary/80`
-            }    flex items-center gap-2.5  text-sm duration-200   text-[14px] leading-[150%] font-[500]`}
+            }    flex items-center gap-2.5  text-xs duration-200  leading-[150%] font-[500]`}
             onClick={() =>
               setOpen((prev) => {
                 return prev == link.path ? "" : link.path;
@@ -94,7 +94,7 @@ function SidebarLink({ link }: ISidebarProps) {
             pathname === link.path
               ? " rounded-[10px] bg-[#D1DFFE] text-brand-primary"
               : `text-[#A5ADC0] hover:text-white rounded-[10px]  hover:bg-brand-primary/80`
-          }    flex items-center gap-2.5  text-sm duration-200   text-[14px] leading-[150%] font-[500]`}
+          }    flex items-center gap-2.5  text-xs duration-200   text-[14px] leading-[150%] font-[500]`}
         >
           <span className="">{link.icon}</span>
           <span className="hidden  lg:flex">{link.label}</span>

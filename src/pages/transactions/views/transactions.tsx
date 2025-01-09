@@ -1,14 +1,14 @@
 import StatusBadge from "@/shared/Table/status-badge";
 import { ITransactions } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { transactionsData } from "../../../../mockdata";
+import { transactionsData } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
 
 const Transactions = () => {
   const columns: ColumnDef<ITransactions>[] = [
     {
       header: "S/N",
-      accessorKey: "meta_data.date",
+      accessorKey: "SN",
     },
     {
       header: "Customer",

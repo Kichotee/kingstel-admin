@@ -33,24 +33,33 @@ const Customers = () => {
     },
   ];
   return (
-    <div className="space-y-8">
-      <WalletBanner walletDetails={walletDetails} />
+    <div className="">
+      <input
+        type="text"
+        className="py-2.5 bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
+        placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
+      />
+      <div className="space-y-8">
+        <WalletBanner walletDetails={walletDetails} />
+        <div className="">
+          <Tabs.Root defaultValue={"Profile information"}>
+            <Tabs.List>
+              {tabs.map((data) => {
+                return (
+                  <Tabs.Trigger px={6} value={data.tab}>
+                    {data.tab}
+                  </Tabs.Trigger>
+                );
+              })}
+            </Tabs.List>
 
-      <div className="">
-        <Tabs.Root defaultValue={"Profile information"}>
-          <Tabs.List >
-            {tabs.map((data) => {
-              return <Tabs.Trigger px={6} value={data.tab}>{data.tab}</Tabs.Trigger>;
-            })}
-          </Tabs.List>
-         
             {tabs.map((data) => {
               return (
                 <Tabs.Content value={data.tab}>{data.component}</Tabs.Content>
               );
             })}
-
-        </Tabs.Root>
+          </Tabs.Root>
+        </div>
       </div>
     </div>
   );

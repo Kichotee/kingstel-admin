@@ -1,7 +1,7 @@
 import StatusBadge from "@/shared/Table/status-badge";
 import { ITransactions } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { transactionsData } from "../../../../mockdata";
+import { transactionsData } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
 
 const AllTransactions = () => {

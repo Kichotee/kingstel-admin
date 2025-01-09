@@ -8,7 +8,7 @@ const Sidebar = () => {
 
   
   return (
-    <aside className="sticky top-0 bg-[#FFFFFF] border h-[calc(100vh-80px)] hidden w-[80px] px-[5px] sm:flex flex-col   lg:w-[186px] items-start transition-all duration-300">
+    <aside className="sticky top-0 bg-[#FFFFFF]  h-[100vh] hidden w-[80px] px-[5px] sm:flex flex-col max-h-max   lg:w-[186px] items-start transition-all duration-300">
 
       <div className="py-[30px] flex flex-1 flex-col gap-2.5  ">
         {DASHBOARD_SIDEBAR_LINKS.map((link) => {
