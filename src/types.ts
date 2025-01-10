@@ -8,6 +8,24 @@ export interface ITransactions {
   status: string;
   timestamp: string;
 }
+export interface ITransfers {
+  SN: number;
+  bank: string;
+  account_name: string;
+  currency: string;
+  amount: string;
+  date: string;
+  tx_ref: string;
+  status: string;
+}
+export interface ICompliance {
+  SN: number;
+  name:string;
+  date_submitted: string;
+  date_approved: string;
+  status: string;
+ 
+}
 export interface ICardRequests {
   SN: number;
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-const StatusBadge = ({ value }: { value: "successful" | "pending" | "failed" }) => {
+const StatusBadge = ({ value }: { value: "successful" | "pending" | "failed"|"approved" }) => {
     const getColor =React.useCallback( () => {
       // eslint-disable-next-line default-case
       switch (value) {
@@ -9,6 +9,8 @@ const StatusBadge = ({ value }: { value: "successful" | "pending" | "failed" }) 
         case "failed":
           return { bgColor: "bg-[#FFBFBF]", color: "text-[#EC1C24]", border: "border-[#EC1C24]" };
         case "successful":
+          return { bgColor: "bg-[#DDFFDA]", color: "text-[#2FBE22]", border: "border-[#2FBE22]" };
+        case "approved":
           return { bgColor: "bg-[#DDFFDA]", color: "text-[#2FBE22]", border: "border-[#2FBE22]" };
       }
     },[value]);

@@ -7,6 +7,8 @@ import ManageCurrencies from "@/pages/manage-currency/views/manage-currencies";
 import EditCurrency from "@/pages/manage-currency/views/edit-currency";
 import ManageUsers from "@/pages/manage-users/views/manage-users";
 import EditUser from "@/pages/manage-users/views/edit-user";
+import ManageTransfers from "@/pages/manage-transfers/views/transfers";
+import Compliance from "@/pages/compliance/views/compliance";
 
 const AuthRoutes = () => {
   return (
@@ -20,6 +22,9 @@ const AuthRoutes = () => {
       <Route path="/edit-currency/:id" element={<EditCurrency />} />
       <Route path="/manage-users" element={<ManageUsers />} />
       <Route path="/edit-user/:id" element={<EditUser />} />
+      <Route path="/manage-transfers" element={<ManageTransfers />} />
+      <Route path="/compliance" element={<Compliance />} />
+      <Route path="/compliance/:id" element={<Compliance />} />
     </Routes>
   );
 };

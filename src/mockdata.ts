@@ -1,3 +1,5 @@
+import { ICompliance, ITransfers } from "./types";
+
 export const transactionsData = [
   {
     SN: 1,
@@ -44,6 +46,74 @@ export const transactionsData = [
     timestamp: "Jan 01, 2025",
   },
 ];
+export const transfers: ITransfers[] = [
+  {
+    SN: 1,
+
+    bank: "GTB",
+    account_name: "Fola Babatunji",
+    date: "Jan 01,2025",
+    currency: "NGN",
+    amount: "5000",
+    status: "successful",
+    tx_ref: "0987wretrytyuyiu98",
+  },
+  {
+    SN: 2,
+
+    bank: "GTB",
+    account_name: "Fola Babatunji",
+    date: "Jan 01,2025",
+    currency: "NGN",
+    amount: "5000",
+    status: "successful",
+    tx_ref: "0987wretrytyuyiu98",
+  },
+  {
+    SN: 3,
+
+    bank: "GTB",
+    account_name: "Fola Babatunji",
+    date: "Jan 01,2025",
+    currency: "NGN",
+    amount: "5000",
+    status: "failed",
+    tx_ref: "0987wretrytyuyiu98",
+  },
+  {
+    SN: 4,
+
+    bank: "GTB",
+    account_name: "Fola Babatunji",
+    date: "Jan 01,2025",
+    currency: "NGN",
+    amount: "5000",
+    status: "successful",
+    tx_ref: "0987wretrytyuyiu98",
+  },
+  {
+    SN: 5,
+
+    bank: "GTB",
+    account_name: "Fola Babatunji",
+    date: "Jan 01,2025",
+    currency: "NGN",
+    amount: "5000",
+    status: "pending",
+    tx_ref: "0987wretrytyuyiu98",
+  },
+  {
+    SN: 6,
+
+    bank: "GTB",
+    account_name: "Fola Babatunji",
+    date: "Jan 01,2025",
+    currency: "GHS",
+    amount: "5000",
+    status: "successful",
+    tx_ref: "0987wretrytyuyiu98",
+  },
+];
 export const cardRequests = [
   {
     SN: 1,
@@ -88,6 +158,23 @@ export const currencies = [
     status: "live",
   },
 ];
+export const compliance:ICompliance[] = [
+  {
+    SN: 1,
+  name:"John doe",
+    status: "successful",
+    date_approved:"Jan 01,2024",
+    date_submitted:"Jan 01,2024"
+  },
+  {
+    SN: 1,
+  name:"John doe",
+    status: "successful",
+    date_approved:"Jan 01,2024",
+    date_submitted:"Jan 01,2024"
+  },
+
+];
 export const users = [
   {
     SN: 1,
@@ -110,12 +197,11 @@ export const users = [
     role: "Super admin",
     status: "Active",
   },
-    {
-      SN: 1,
-      name: "Kingstel",
-      email: "Johndoe@gmail.com",
-      role: "Super admin",
-      status: "Active",
-    },
- 
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    role: "Super admin",
+    status: "Active",
+  },
 ];
