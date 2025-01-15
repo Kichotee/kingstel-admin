@@ -7,7 +7,8 @@ export type IInputProps={
     size:'lg' | 'md' | 'sm' | 'xs';
     label:string;
     placeholder?:string;
-    helperText?:string
+    helperText?:string;
+    type?:string;
 
     
 } & UseControllerProps

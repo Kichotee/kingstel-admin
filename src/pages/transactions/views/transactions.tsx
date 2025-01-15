@@ -52,17 +52,17 @@ const Transactions = () => {
       header: "Timestamp",
       accessorKey: "timestamp",
     },
-    // {
-    //   header: "Action",
-    //   accessorKey: "action",
-    //   cell: () => {
-    //     return (
-    //       <button className="mx-auto">
-    //         <BsChevronRight />
-    //       </button>
-    //     );
-    //   },
-    // },
+    {
+      header: "Action",
+      accessorKey: "SN",
+      cell: () => {
+        return (
+          <button className="mx-auto text-brand-primary">
+            Edit
+          </button>
+        );
+      },
+    },
 
     //...
   ];

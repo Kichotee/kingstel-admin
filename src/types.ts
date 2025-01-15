@@ -20,11 +20,10 @@ export interface ITransfers {
 }
 export interface ICompliance {
   SN: number;
-  name:string;
+  name: string;
   date_submitted: string;
   date_approved: string;
   status: string;
- 
 }
 export interface ICardRequests {
   SN: number;
@@ -51,4 +50,21 @@ export interface IUsers {
   email: string;
   role: string;
   status: string;
+}
+export interface ICustomers {
+  SN: number;
+  name: string;
+  email: string;
+  phone: string;
+  BVN: string;
+  entry_date: string;
+}
+
+interface Transaction {
+  id: number;
+  currency_type:  string; // Use a string if other currencies are possible
+  amount: number;
+  status:  string; // Use a string if other statuses are possible
+  created_at: string; // ISO 8601 date string
+  updated_at: string; // ISO 8601 date string
 }

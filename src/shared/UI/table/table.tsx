@@ -1,5 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from "react";
+
+
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => {
@@ -65,7 +66,7 @@ const TableCell = React.forwardRef<
   return (
     <td
       ref={ref}
-      className={`px-6 py-3 font-semibold align-middle  ${className}`}
+      className={`px-6 py-3 font-medium align-middle  ${className}`}
       {...props}
     />
   );

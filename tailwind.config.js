@@ -110,8 +110,8 @@ export default {
     extend: {
       colors:{
 
-        ...palette,
         ...colors,
+        ...palette,
       },
       fontFamily:{
         poppins:["Poppins","Helvetica", "Segoe UI", ""]

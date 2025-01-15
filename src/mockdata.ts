@@ -1,4 +1,4 @@
-import { ICompliance, ITransfers } from "./types";
+import { ICompliance, ICustomers, ITransfers } from "./types";
 
 export const transactionsData = [
   {
@@ -204,4 +204,51 @@ export const users = [
     role: "Super admin",
     status: "Active",
   },
+];
+export const customersData:ICustomers[] = [
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    phone: "097654346787",
+    BVN: "2345678908",
+    entry_date: "Jan 01,2024",
+  },
+ 
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    phone: "097654346787",
+    BVN: "2345678908",
+    entry_date: "Jan 01,2024",
+  },
+ 
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    phone: "097654346787",
+    BVN: "2345678908",
+    entry_date: "Jan 01,2024",
+  },
+ 
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    phone: "097654346787",
+    BVN: "2345678908",
+    entry_date: "Jan 01,2024",
+  },
+ 
+  {
+    SN: 1,
+    name: "Kingstel",
+    email: "Johndoe@gmail.com",
+    phone: "097654346787",
+    BVN: "2345678908",
+    entry_date: "Jan 01,2024",
+  },
+ 
 ];

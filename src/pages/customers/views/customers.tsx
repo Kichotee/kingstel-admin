@@ -1,36 +1,53 @@
-import { Tabs } from "@chakra-ui/react";
-import ProfileInfo from "../components/profile-info";
-import { WalletBanner } from "../components/wallet-banner";
-import AllTransactions from "../components/all-transactions";
+import { ICustomers } from "@/types";
+import { ColumnDef } from "@tanstack/react-table";
+import { customersData } from "../../../mockdata";
+import { DataTable } from "@/shared/Table/common-table";
+import { PageTitle } from "@/shared/UI/general-page-title";
+import { Link } from "react-router-dom";
 
 const Customers = () => {
-  const walletDetails = [
+  const columns: ColumnDef<ICustomers>[] = [
     {
-      amount: 100,
-      currency: "NG",
+      header: "S/N",
+      accessorKey: "SN",
     },
     {
-      amount: 100,
-      currency: "GH",
+      header: "Name",
+      accessorKey: "name",
     },
     {
-      amount: 100,
-      currency: "US",
-    },
-  ];
-  const tabs = [
-    {
-      tab: "Profile information",
-      component: <ProfileInfo />,
+      header: "Email",
+      accessorKey: "email",
     },
     {
-      tab: "Transactions",
-      component: <AllTransactions />,
+      header: "Phone",
+      accessorKey: "phone",
     },
     {
-      tab: "Card",
-      component: <ProfileInfo />,
+      header: "bvn",
+      accessorKey: "BVN",
+      cell: (row) => {
+        return (
+          <p className="capitalize">{row.getValue() as React.ReactNode}</p>
+        );
+      },
     },
+   
+    {
+      header: "Action",
+      accessorKey: "SN",
+      cell: (row) => {
+        return (
+          <Link to={`/dashboard/customers/${row.getValue()}`}>
+            <button className="mx-auto text-brand-primary">
+              View
+            </button>
+          </Link>
+        );
+      },
+    },
+
+    //...
   ];
   return (
     <div className="flex flex-col gap-4 items-center">
@@ -39,26 +56,16 @@ const Customers = () => {
         className="py-2.5 mx-auto bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
       />
-      <div className="space-y-8 w-full">
-        <WalletBanner walletDetails={walletDetails} />
-        <div className="">
-          <Tabs.Root defaultValue={"Profile information"}>
-            <Tabs.List>
-              {tabs.map((data) => {
-                return (
-                  <Tabs.Trigger px={6} value={data.tab}>
-                    {data.tab}
-                  </Tabs.Trigger>
-                );
-              })}
-            </Tabs.List>
-
-            {tabs.map((data) => {
-              return (
-                <Tabs.Content value={data.tab}>{data.component}</Tabs.Content>
-              );
-            })}
-          </Tabs.Root>
+      <div className="w-full space-y-8">
+        <PageTitle title="All Customers"/>
+        <div className="w-full">
+          <DataTable<ICustomers>
+            columns={columns}
+            loading={false}
+            data={customersData}
+           
+            
+          />
         </div>
       </div>
     </div>

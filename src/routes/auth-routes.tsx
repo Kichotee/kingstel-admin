@@ -9,13 +9,15 @@ import ManageUsers from "@/pages/manage-users/views/manage-users";
 import EditUser from "@/pages/manage-users/views/edit-user";
 import ManageTransfers from "@/pages/manage-transfers/views/transfers";
 import Compliance from "@/pages/compliance/views/compliance";
+import CustomerDetails from "@/pages/customers/views/customer-details";
+import EditCompliance from "@/pages/compliance/views/editCompliance";
 
 const AuthRoutes = () => {
   return (
     <Routes>
       <Route path="/home" element={<Dashboard />} />
       <Route path="/customers" element={<Customers />} />
-      <Route path="/customers/:id" element={<></>} />
+      <Route path="/customers/:id" element={<CustomerDetails/>} />
       <Route path="/transactions" element={<Transactions />} />
       <Route path="/card-requests" element={<CardRequests />} />
       <Route path="/manage-currency" element={<ManageCurrencies />} />
@@ -24,7 +26,7 @@ const AuthRoutes = () => {
       <Route path="/edit-user/:id" element={<EditUser />} />
       <Route path="/manage-transfers" element={<ManageTransfers />} />
       <Route path="/compliance" element={<Compliance />} />
-      <Route path="/compliance/:id" element={<Compliance />} />
+      <Route path="/compliance/:id" element={<EditCompliance />} />
     </Routes>
   );
 };

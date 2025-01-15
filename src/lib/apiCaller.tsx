@@ -1,11 +1,10 @@
-import React from "react";
 import Axios, { InternalAxiosRequestConfig } from "axios";
-import Alert from "@/shared/Alert.tsx/Alert";
+
 const token = localStorage.getItem("token");
 function authRequestInterceptor(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
   if (config.headers) {
     if (token) {
-      // eslint-disable-next-line no-unused-expressions, no-param-reassign
+      // eslint-disable-next-line no-unused-expressions, no-param-reassign, @typescript-eslint/no-unused-expressions
       config.headers.authorization ? (config.headers.authorization = `${token}`) : "";
     }
     // eslint-disable-next-line no-param-reassign
@@ -27,8 +26,6 @@ axios.interceptors.response.use(
   },
   (error) => {
     const message = error.response?.data?.message || error.message;
-    <Alert severity="error">{message}</Alert>;
-
-    return Promise.reject(error);
+    return Promise.reject(message);
   }
 );
