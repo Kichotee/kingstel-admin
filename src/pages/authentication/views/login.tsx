@@ -4,12 +4,15 @@ import Logo from "@/shared/icons/logo";
 import { ControlledInput } from "@/shared/input/Controllednput";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useLogin } from "../queries";
 
 const Login = () => {
     type ILoginPayload = {
         email: string;
         password: string;
       };
+    const {login, isPending}= useLogin()
+
       const {control,formState:{errors}}= useForm()
   return (
     <div className="bg-neutral-commonBg min-h-screen gap-[25px] flex flex-col justify-center items-center">
@@ -29,8 +32,8 @@ const Login = () => {
                 placeholder=""
                 label="Email address"
                 name="email"
-                type="email"
                 size="lg"
+                type="email"
                 // errors={errors}
                 
               />
@@ -59,7 +62,7 @@ const Login = () => {
               type="submit"
             //   onClick={handleSubmit(onSubmit)}
             >
-              {false ? <CircularProgress size={24} color="white" /> : "Sign in"}
+              {isPending ? <CircularProgress size={24} color="white" /> : "Sign in"}
             </Button>
           </div>
         </div>
