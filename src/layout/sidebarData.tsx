@@ -10,13 +10,11 @@ type SidebarLink = Array<{
   icon: React.ReactNode;
   allowedRoles: boolean;
   visible?: boolean;
-  links?: [
-    {
-      key: string;
-      label: string;
-      path: string;
-    }
-  ];
+  links?: {
+    key: string;
+    label: string;
+    path: string;
+  }[ ];
 }>;
 
 export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
@@ -69,13 +67,19 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     icon: <PiUser size={18} />,
     allowedRoles: true,
     visible: true,
-    // links: [
-    //   {
-    //     key: "Create Admin account",
-    //     label: "Create admin account",
-    //     path: "/dashboard/manage-users/create-admin",
-    //   },
-    // ],
+    links: [
+      {
+        key: "currencies",
+        label: "Currencies",
+        path: "/dashboard/manage-currency/",
+      },
+      {
+        key: "configure-currencies",
+        label: "Configure currency",
+        path: "/dashboard/edit-currency/",
+      },
+     
+    ],
   },
   {
     key: "Manage transfers",
@@ -96,7 +100,7 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
   {
     key: "Rates",
     label: "Rates",
-    path: "/auth/rates",
+    path: "/dashboard/manage-charge",
     icon: <LuRefreshCcw size={18} />,
     allowedRoles: true,
     visible: true,

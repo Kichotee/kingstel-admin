@@ -11,9 +11,11 @@ import {
   PopoverContent,
   PopoverArrow,
   PopoverBody,
+  Dialog,
 } from "@chakra-ui/react";
 import { VscEllipsis } from "react-icons/vsc";
 import { PageTitle } from "@/shared/UI/general-page-title";
+import { AcceptModal } from "../components/accept-modal";
 
 export const CardRequests = () => {
   const columns: ColumnDef<ICardRequests>[] = [
@@ -66,8 +68,8 @@ export const CardRequests = () => {
               <PopoverContent className="absolute  z-50 -left-[100%] -top-[100%] max-w-[87px]  p-0 bg-white shadow-none">
                 <PopoverArrow />
                 <PopoverBody className="p-0">
-                  <div className="flex flex-col gap-4  text-sm">
-                    <Button className="p-[10px_20px] border-b">Accept</Button>
+                  <div className="flex flex-col gap-4 *:border-b  text-sm">
+                   <AcceptModal/>
                     <Button className="p-[10px_20px] border-b">Decline</Button>
                     <Button className="p-[10px_20px] border-b">Profile</Button>
                   </div>
@@ -112,6 +114,7 @@ export const CardRequests = () => {
         </div>
         <DataTable<ICardRequests> columns={columns} data={cardRequests} />
       </div>
+     
     </div>
   );
 };

@@ -51,8 +51,16 @@ export interface IUsers {
   role: string;
   status: string;
 }
+export interface ICharge {
+  SN: number;
+  country: string;
+  charge: string;
+  percentage: string;
+  currency: string;
+}
 export interface ICustomers {
   SN: number;
+  id?:number;
   name: string;
   email: string;
   phone: string;
@@ -62,9 +70,18 @@ export interface ICustomers {
 
 interface Transaction {
   id: number;
-  currency_type:  string; // Use a string if other currencies are possible
+  currency_type: string; // Use a string if other currencies are possible
   amount: number;
-  status:  string; // Use a string if other statuses are possible
+  status: string; // Use a string if other statuses are possible
   created_at: string; // ISO 8601 date string
   updated_at: string; // ISO 8601 date string
+}
+
+export interface ICreateUser {
+  name: string;
+  email: string;
+  phone_number: string;
+  password: string;
+  role: string;
+  status: string;
 }

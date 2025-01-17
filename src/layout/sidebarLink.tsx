@@ -59,7 +59,7 @@ function SidebarLink({ link }: ISidebarProps) {
       {link?.links ? (
         <div className="">
           <StyledLink
-            to={""}
+            to={link.path}
             className={` ${
               pathname === link.path
                 ? " rounded-[10px] bg-[#D1DFFE] text-brand-primary text-success"
@@ -71,18 +71,22 @@ function SidebarLink({ link }: ISidebarProps) {
               })
             }
           >
-          <span className="">{link.icon}</span>
-          <span className="hidden  lg:flex">{link.label}</span>
+            <span className="">{link.icon}</span>
+            <span className="hidden  lg:flex">{link.label}</span>
           </StyledLink>
           {open == link.path && (
-            <ul>
+            <ul className="pl-4">
               {link.links.map((data) => {
-                return <li className="list-disc list-inside text-[#A5ADC0] ">
-                  <StyledLink to={data.path}>
-
-                  <span className="text-xs font-medium text-[#A5ADC0]">{data.label}</span>
-                  </StyledLink>
-                  </li>;
+                return (
+                  <li className=" list-inside text-[#A5ADC0] ">
+                    <Link
+                      to={data.path}
+                      className={`text-[#A5ADC0] w-[148]  text-xs rounded-[10px] hover:underline ${pathname===data.path ? "text-brand-primary" : ""}`}
+                    >
+                      {data.label}
+                    </Link>
+                  </li>
+                );
               })}
             </ul>
           )}

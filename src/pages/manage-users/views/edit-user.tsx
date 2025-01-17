@@ -6,7 +6,7 @@ const EditUser = () => {
   const { control } = useForm();
   return (
     <div className="space-y-[52px] w-full ">
-      <p className="font-semibold text-center">Create new user</p>
+      <p className="font-semibold text-center">Edit user</p>
       <div className="p-[43px_37px] shadow-[0px_4px_10px_0_#D1DFFE80] rounded-[14px]  max-w-[426px] mx-auto bg-white">
         <div className="flex flex-col gap-36">
           <div className="flex flex-col gap-5">

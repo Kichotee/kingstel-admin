@@ -1,4 +1,4 @@
-import { ICompliance, ICustomers, ITransfers } from "./types";
+import { ICharge, ICompliance, ICustomers, ITransfers } from "./types";
 
 export const transactionsData = [
   {
@@ -158,22 +158,21 @@ export const currencies = [
     status: "live",
   },
 ];
-export const compliance:ICompliance[] = [
+export const compliance: ICompliance[] = [
   {
     SN: 1,
-  name:"John doe",
+    name: "John doe",
     status: "successful",
-    date_approved:"Jan 01,2024",
-    date_submitted:"Jan 01,2024"
+    date_approved: "Jan 01,2024",
+    date_submitted: "Jan 01,2024",
   },
   {
     SN: 1,
-  name:"John doe",
+    name: "John doe",
     status: "successful",
-    date_approved:"Jan 01,2024",
-    date_submitted:"Jan 01,2024"
+    date_approved: "Jan 01,2024",
+    date_submitted: "Jan 01,2024",
   },
-
 ];
 export const users = [
   {
@@ -205,7 +204,7 @@ export const users = [
     status: "Active",
   },
 ];
-export const customersData:ICustomers[] = [
+export const customersData: ICustomers[] = [
   {
     SN: 1,
     name: "Kingstel",
@@ -214,7 +213,7 @@ export const customersData:ICustomers[] = [
     BVN: "2345678908",
     entry_date: "Jan 01,2024",
   },
- 
+
   {
     SN: 1,
     name: "Kingstel",
@@ -223,7 +222,7 @@ export const customersData:ICustomers[] = [
     BVN: "2345678908",
     entry_date: "Jan 01,2024",
   },
- 
+
   {
     SN: 1,
     name: "Kingstel",
@@ -232,7 +231,7 @@ export const customersData:ICustomers[] = [
     BVN: "2345678908",
     entry_date: "Jan 01,2024",
   },
- 
+
   {
     SN: 1,
     name: "Kingstel",
@@ -241,7 +240,7 @@ export const customersData:ICustomers[] = [
     BVN: "2345678908",
     entry_date: "Jan 01,2024",
   },
- 
+
   {
     SN: 1,
     name: "Kingstel",
@@ -250,5 +249,29 @@ export const customersData:ICustomers[] = [
     BVN: "2345678908",
     entry_date: "Jan 01,2024",
   },
- 
+];
+export const chargeData: ICharge[] = [
+  {
+    SN: 1,
+    country: "Ghana",
+    currency: "Cedi",
+    charge: "GHS10.00",
+    percentage: "0",
+  },
+
+  {
+    SN: 2,
+    country: "Nigeria",
+    currency: "Naira",
+    charge: "NGN100.00",
+    percentage: "0",
+  },
+
+  {
+    SN: 1,
+    country: "USA",
+    currency: "Dollar",
+    charge: "USD10.00",
+    percentage: "2",
+  },
 ];
