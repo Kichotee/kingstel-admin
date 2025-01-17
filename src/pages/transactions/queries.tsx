@@ -1,10 +1,14 @@
 import instance from "@/lib/api";
+import { Response } from "@/lib/api/type";
+import { ITransaction } from "@/types";
 import { useQuery } from "@tanstack/react-query";
+
+type TransactionResponse= Response<ITransaction>
 
 const getTransactions = async () => {
   try {
-    const response = await instance.get("/admin/transactions");
-    return response.data;
+    const response = await instance.get<TransactionResponse>("/admin/transaction");
+    return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(error);
@@ -12,8 +16,8 @@ const getTransactions = async () => {
 };
 const platformOverview = async () => {
   try {
-    const response = await instance.get("/admin/transactions");
-    return response.data;
+    const response = await instance.get("/admin/details");
+    return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(error);

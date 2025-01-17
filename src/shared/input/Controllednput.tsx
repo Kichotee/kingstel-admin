@@ -24,7 +24,7 @@ export const ControlledInput = ({
             <Input
               bg={"white"}
               _placeholder={{ fontSize: "12px" }}
-              className=" !border-[#AAAAAA] w-[352px] px-2 py-4 rounded-[10px]  !border !bg-white-900"
+              className=" !border-[#AAAAAA] min-w-[352px] px-2 py-4 rounded-[10px]  !border !bg-white-900"
               onChange={onChange}
               variant={variant}
               size={size}

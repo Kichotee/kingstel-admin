@@ -4,16 +4,24 @@ import { customersData } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { Link } from "react-router-dom";
+import { useGetAllCustomers } from "../queries";
 
 const Customers = () => {
+
+  const {customers}= useGetAllCustomers()
+
+  console.log(customers?.data)
   const columns: ColumnDef<ICustomers>[] = [
     {
       header: "S/N",
-      accessorKey: "SN",
+      accessorKey: "id",
     },
     {
       header: "Name",
-      accessorKey: "name",
+      accessorKey: "first_name",
+      cell: (row) => {
+        return row?.getValue()
+      }
     },
     {
       header: "Email",
@@ -21,17 +29,17 @@ const Customers = () => {
     },
     {
       header: "Phone",
-      accessorKey: "phone",
+      accessorKey: "phone_number",
     },
-    {
-      header: "bvn",
-      accessorKey: "BVN",
-      cell: (row) => {
-        return (
-          <p className="capitalize">{row.getValue() as React.ReactNode}</p>
-        );
-      },
-    },
+    // {
+    //   header: "bvn",
+    //   accessorKey: "BVN",
+    //   cell: (row) => {
+    //     return (
+    //       <p className="capitalize">{row.getValue() as React.ReactNode}</p>
+    //     );
+    //   },
+    // },
    
     {
       header: "Action",
@@ -49,6 +57,7 @@ const Customers = () => {
 
     //...
   ];
+
   return (
     <div className="flex flex-col gap-4 items-center">
       <input
@@ -59,12 +68,11 @@ const Customers = () => {
       <div className="w-full space-y-8">
         <PageTitle title="All Customers"/>
         <div className="w-full">
-          <DataTable<ICustomers>
+          <DataTable
             columns={columns}
             loading={false}
-            data={customersData}
+            data={customers?.data?.data || [] }
            
-            
           />
         </div>
       </div>

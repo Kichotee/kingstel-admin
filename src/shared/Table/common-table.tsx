@@ -68,7 +68,7 @@ export const DataTable = <T,>({
         </TableHeader>
 
         <TableBody>
-          {table?.getRowModel().rows.length ? (
+          {table?.getRowModel().rows?.length ? (
             table?.getRowModel().rows.map((row) => {
               return (
                 <TableRow key={row.id}>
@@ -88,7 +88,7 @@ export const DataTable = <T,>({
           ) : loading ? (
             <TableRow>
               {" "}
-              <TableCell colSpan={columns.length}>
+              <TableCell colSpan={columns?.length}>
                 <div className="mx-auto w-max">
                   <CircularProgress />{" "}
                 </div>
@@ -96,7 +96,7 @@ export const DataTable = <T,>({
             </TableRow>
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns?.length} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

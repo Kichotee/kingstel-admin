@@ -2,6 +2,7 @@ import { Tabs } from "@chakra-ui/react";
 import ProfileInfo from "../components/profile-info";
 import { WalletBanner } from "../components/wallet-banner";
 import AllTransactions from "../components/all-transactions";
+import CardDetails from "../components/card-details";
 
 const CustomerDetails = () => {
   const walletDetails = [
@@ -29,7 +30,7 @@ const CustomerDetails = () => {
     },
     {
       tab: "Card",
-      component: <ProfileInfo />,
+      component: <CardDetails />,
     },
   ];
   return (

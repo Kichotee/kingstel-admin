@@ -1,22 +1,33 @@
 import StatusBadge from "@/shared/Table/status-badge";
-import { ITransactions } from "@/types";
+import { ITransaction } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { transactionsData } from "../../../mockdata";
+
+import { format } from "date-fns";
+// import { transactionsData } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
+import { useTransactions } from "@/pages/transactions/queries";
 
 const AllTransactions = () => {
-  const columns: ColumnDef<ITransactions>[] = [
+  const { data, isLoading } = useTransactions();
+
+  // console.log(format("2024-10-30T12:45:30.000000Z","dd/MM/yyyy"))
+
+  const columns: ColumnDef<ITransaction>[] = [
     {
       header: "S/N",
-      accessorKey: "meta_data.date",
+      accessorKey: "id",
     },
     {
       header: "Customer",
-      accessorKey: "customer",
+      accessorKey: "name",
     },
     {
-      header: "Description",
-      accessorKey: "description",
+      header: "email",
+      accessorKey: "email",
+    },
+    {
+      header: "description",
+      accessorKey: "type",
     },
     {
       header: "Type",
@@ -29,13 +40,13 @@ const AllTransactions = () => {
     },
     {
       header: "Wallet",
-      accessorKey: "wallet",
+      accessorKey: "currency_type",
     },
     {
       header: "Amount",
       //   accessorKey: "amount",
       accessorFn: (row) => {
-        return row.amount;
+        return row?.amount;
       },
     },
     {
@@ -44,12 +55,15 @@ const AllTransactions = () => {
       cell: (row) => {
         //  @ts-expect-error type error
 
-        return <StatusBadge value={row.getValue()} />;
+        return <StatusBadge value={row?.getValue()} />;
       },
     },
     {
       header: "Timestamp",
-      accessorKey: "timestamp",
+      accessorKey: "created_at",
+      accessorFn: (row) => {
+        return format(new Date(row?.created_at), "dd/MM/yyyy");
+      },
     },
     // {
     //   header: "Action",
@@ -67,10 +81,10 @@ const AllTransactions = () => {
   ];
   return (
     <div className="">
-      <DataTable<ITransactions>
+      <DataTable<ITransaction>
         columns={columns}
-        loading={false}
-        data={transactionsData}
+        loading={isLoading}
+        data={(data?.data as ITransaction[]) || []}
       />
     </div>
   );

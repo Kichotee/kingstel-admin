@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { transactionsData } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
+import AllTransactions from "@/pages/customers/components/all-transactions";
 
 const Transactions = () => {
   const columns: ColumnDef<ITransactions>[] = [
@@ -76,11 +77,12 @@ const Transactions = () => {
       <div className="w-full space-y-8">
         <PageTitle title="Customer Transactions"/>
         <div className="w-full">
-          <DataTable<ITransactions>
+          {/* <DataTable<ITransactions>
             columns={columns}
             loading={false}
             data={transactionsData}
-          />
+          /> */}
+          <AllTransactions/>
         </div>
       </div>
     </div>

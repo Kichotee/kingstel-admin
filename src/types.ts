@@ -1,13 +1,13 @@
-export interface ITransactions {
-  SN: number;
-  customer: string;
-  description: string;
-  transaction_type: string;
-  wallet: string;
-  amount: string;
-  status: string;
-  timestamp: string;
-}
+// export interface ITransactions {
+//   SN: number;
+//   customer: string;
+//   description: string;
+//   transaction_type: string;
+//   wallet: string;
+//   amount: string;
+//   status: string;
+//   timestamp: string;
+// }
 export interface ITransfers {
   SN: number;
   bank: string;
@@ -68,7 +68,7 @@ export interface ICustomers {
   entry_date: string;
 }
 
-interface Transaction {
+export interface ITransaction {
   id: number;
   currency_type: string; // Use a string if other currencies are possible
   amount: number;

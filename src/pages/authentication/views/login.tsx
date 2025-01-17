@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import CircularProgress from "@/shared/CircularProgress";
 import Logo from "@/shared/icons/logo";
@@ -7,26 +8,37 @@ import { Link } from "react-router-dom";
 import { useLogin } from "../queries";
 
 const Login = () => {
-    type ILoginPayload = {
-        email: string;
-        password: string;
-      };
-    const {login, isPending}= useLogin()
+  type ILoginPayload = {
+    email: string;
+    password: string;
+  };
+  const { login, isPending } = useLogin();
 
-      const {control,formState:{errors}}= useForm()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILoginPayload>();
+
+  const onSubmit = async (body: ILoginPayload) => {
+    console.log(body)
+    await login(body);
+  };
   return (
     <div className="bg-neutral-commonBg min-h-screen gap-[25px] flex flex-col justify-center items-center">
       <div className="rounded-md">
         <Logo />
       </div>
-         <div className="bg-white min-w-[30%]  items-center p-[25px_26px] rounded-[30px]">
+      <div className="bg-white min-w-[30%]  items-center p-[25px_26px] rounded-[30px]">
         <div className="flex  flex-col gap-16">
           <div className="flex flex-col gap-2.5 text-center">
-            <p className="font-semibold text-[15px] leading-[22.5px]">Welcome back</p>
+            <p className="font-semibold text-[15px] leading-[22.5px]">
+              Welcome back
+            </p>
             <p className="text-sm leading-[0.8em]">Sign in with your email</p>
           </div>
           <div className=" flex flex-col gap-[60px] w-full">
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 w-full =">
               <ControlledInput
                 control={control}
                 placeholder=""
@@ -35,34 +47,39 @@ const Login = () => {
                 size="lg"
                 type="email"
                 // errors={errors}
-                
               />
               <ControlledInput
-              size="lg"
+                size="lg"
                 control={control}
                 label="Password"
                 name="password"
                 type="password"
                 // errors={errors}
                 // className="py-3"
-                
               />
               <div className="">
                 <Link to="/forgot-password">
                   <button>
-                    <p className="text-[#aaa] fonr-semibold text-xs">Forgot your password</p>
+                    <p className="text-[#aaa] fonr-semibold text-xs">
+                      Forgot your password
+                    </p>
                   </button>
                 </Link>
               </div>
             </div>
             <Button
-            //   themeColor="main"
-             
-              className="w-full flex justify-center items-center"
+            onClick={handleSubmit(onSubmit)}
+              //   themeColor="main"
+
+              className="w-full flex bg-brand-primary rounded-xl justify-center items-center"
               type="submit"
-            //   onClick={handleSubmit(onSubmit)}
+              //   onClick={handleSubmit(onSubmit)}
             >
-              {isPending ? <CircularProgress size={24} color="white" /> : "Sign in"}
+              {isPending ? (
+                <CircularProgress size={24} color="white" />
+              ) : (
+                "Sign in"
+              )}
             </Button>
           </div>
         </div>

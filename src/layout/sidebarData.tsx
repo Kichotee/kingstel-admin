@@ -56,6 +56,18 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     key: "Manage Currency",
     label: "Manage Currency",
     path: "/dashboard/manage-currency",
+    links:[
+      {
+        key: "currencies",
+        label: "Currencies",
+        path: "/dashboard/manage-currency/",
+      },
+      {
+        key: "configure-currencies",
+        label: "Configure currency",
+        path: "/dashboard/edit-currency/",
+      },
+    ],
     icon: <LuRefreshCcw size={18} />,
     allowedRoles: true,
     visible: true,
@@ -69,15 +81,11 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     visible: true,
     links: [
       {
-        key: "currencies",
+        key: "users",
         label: "Currencies",
-        path: "/dashboard/manage-currency/",
+        path: "/dashboard/create-admin-account/",
       },
-      {
-        key: "configure-currencies",
-        label: "Configure currency",
-        path: "/dashboard/edit-currency/",
-      },
+    
      
     ],
   },
