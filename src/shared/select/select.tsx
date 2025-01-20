@@ -40,6 +40,9 @@ export const ControlledSelect = <T extends FieldValues>({
         name={name}
         render={({ field: { onChange, value, onBlur } }) => (
           <SelectRoot
+            bg={"white"}
+            _placeholder={{ fontSize: "12px" }}
+            className=" !border-[#AAAAAA] min-w-[352px] px-2 rounded-[10px]  !border !bg-white-900"
             variant={variant}
             value={value}
             onValueChange={onChange}
@@ -49,15 +52,15 @@ export const ControlledSelect = <T extends FieldValues>({
           >
             {/* <SelectLabel>{label}</SelectLabel> */}
             <SelectTrigger>
-              <SelectValueText placeholder={placeholder} />
-              <SelectContent>
-                {options.map((option) => (
-                  <SelectItem item={option.value} key={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
+              <SelectValueText fontSize={12} placeholder={placeholder} />
             </SelectTrigger>
+            <SelectContent bg={"white"} shadow={"sm"} shadowColor={"#ffffff"} color={"black"}>
+              {options.map((option) => (
+                <SelectItem bg={"white"}  item={option.value} key={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
           </SelectRoot>
         )}
       />
