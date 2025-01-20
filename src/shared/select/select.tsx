@@ -1,4 +1,4 @@
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import { IInputProps } from "../input/type";
 
 import {
@@ -6,17 +6,17 @@ import {
   SelectItem,
   SelectRoot,
   SelectTrigger,
-  SelectLabel,
   SelectValueText,
 } from "@/components/ui/select";
 import { IOptionType } from "@/types";
 import { ListCollection } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
 
-type Props = {
+type Props<T extends FieldValues> = {
   options: IOptionType[];
   collection: ListCollection<IOptionType>;
-} & IInputProps;
-export const ControlledSelect = ({
+} & IInputProps<T>;
+export const ControlledSelect = <T extends FieldValues>({
   control,
   placeholder,
   size,
@@ -24,35 +24,43 @@ export const ControlledSelect = ({
   label,
   options,
   name,
+  errors,
   helperText,
   collection,
-}: Props) => {
+}: Props<T>) => {
   return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field: { onChange, value, onBlur } }) => (
-        <SelectRoot
-          variant={variant}
-          value={value}
-          onValueChange={onChange}
-          collection={collection}
-          size={size}
-          onInteractOutside={() => onBlur()}
-        >
-          <SelectLabel>{label}</SelectLabel>
-          <SelectTrigger>
-            <SelectValueText placeholder={helperText || placeholder} />
-            <SelectContent>
-              {options.map((option) => (
-                <SelectItem item={option.value} key={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </SelectTrigger>
-        </SelectRoot>
-      )}
-    />
+    <Field
+      label={label}
+      invalid={!!errors?.name}
+      errorText={errors?.name?.message as string}
+      helperText={helperText}
+    >
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, value, onBlur } }) => (
+          <SelectRoot
+            variant={variant}
+            value={value}
+            onValueChange={onChange}
+            collection={collection}
+            size={size}
+            onInteractOutside={() => onBlur()}
+          >
+            {/* <SelectLabel>{label}</SelectLabel> */}
+            <SelectTrigger>
+              <SelectValueText placeholder={placeholder} />
+              <SelectContent>
+                {options.map((option) => (
+                  <SelectItem item={option.value} key={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </SelectTrigger>
+          </SelectRoot>
+        )}
+      />
+    </Field>
   );
 };

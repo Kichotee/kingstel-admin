@@ -3,17 +3,24 @@ import { users } from "@/mockdata";
 import { ControlledInput } from "@/shared/input/Controllednput";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
-import {  IUsers } from "@/types";
+import { IUsers } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useGetUsers } from "../queries";
+import { ControlledSelect } from "@/shared/select/select";
 
 const ManageUsers = () => {
   const { control, watch } = useForm();
-  
-  const {data}= useGetUsers()
-  console.log(data)
+
+  const userOptions = [
+    {
+      value: "admin",
+      label: "Admin",
+    },
+  ];
+  const { data } = useGetUsers();
+  console.log(data);
   const columns: ColumnDef<IUsers>[] = [
     {
       header: "S/N",
@@ -53,7 +60,7 @@ const ManageUsers = () => {
   ];
   return (
     <div className="space-y-7">
-     <PageTitle title={"Manage User"}/>
+      <PageTitle title={"Manage User"} />
       <div className="flex gap-[18px]">
         <div className="basis-2/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
@@ -108,6 +115,15 @@ const ManageUsers = () => {
                   label="Role"
                   placeholder="Select Role"
                 />
+                <ControlledSelect
+                  variant={"outline"}
+                  control={control}
+                  options={userOptions}
+                  name="iso_code"
+                  size="lg"
+                  label="Role"
+                  placeholder="Select Role"
+                />
               </div>
               <Button
                 className="bg-brand-primary text-white rounded-xl"
@@ -122,7 +138,7 @@ const ManageUsers = () => {
         </div>
         <div className="basis-3/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
-          <PageTitle title="Available Admin users"/>
+            <PageTitle title="Available Admin users" />
             <DataTable<IUsers> columns={columns} data={data?.data || []} />
           </div>
         </div>
