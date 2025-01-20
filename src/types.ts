@@ -85,3 +85,49 @@ export interface ICreateUser {
   role: string;
   status: string;
 }
+type User = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  username: string;
+  phone_number: string;
+  is_verified: boolean; // Assuming 0 represents false and 1 represents true
+  naira_balance: number;
+  cedis_balance: number;
+  dollar_balance: number;
+  kyc_verified: boolean; // Assuming 0 represents false and 1 represents true
+  bvn_verified: boolean; // Assuming 0 represents false and 1 represents true
+  kingstel_tag: string | null;
+  qr_image: string;
+  gender: string | null;
+  card_reference: string | null;
+  created_at: string;
+  updated_at: string;
+  dob: string | null;
+};
+
+type Card = {
+  card_id: number;
+  card_type: string;
+  card_number: string;
+  expiration_date: string;
+};
+
+type DvaAccount = {
+  dva_account_id: number;
+  account_number: string;
+  balance: number;
+  account_type: string;
+};
+
+export type UserResponse = {
+  user: User;
+  cards: Card[];
+  dva_accounts: DvaAccount[];
+};
+
+export interface IOptionType{
+  value:string;
+  label:string;
+}

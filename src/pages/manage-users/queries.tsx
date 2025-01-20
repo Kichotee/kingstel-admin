@@ -1,7 +1,7 @@
 import instance from "@/lib/api"
 import { SingleResponseData } from "@/lib/api/type";
 import { ICreateUser, ICustomers } from "@/types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 const createUser = async (body:ICreateUser) => {
@@ -14,6 +14,14 @@ const createUser = async (body:ICreateUser) => {
     } catch (error:any) {
         throw new Error(error);
         
+    }
+}
+const  getUsers= async ()=>{
+    try{
+        const response = await instance.get('/admin/allAdmin')
+        return response.data.data
+    } catch(e :any){
+        throw new Error(e)
     }
 }
 
@@ -29,4 +37,15 @@ export const useCreateUser=()=>{
         
     });
     return {login:mutateAsync, isPending}
+}
+
+
+export const useGetUsers=()=>{
+    const {data, isLoading}= useQuery({
+        queryKey:['admins'],
+        queryFn:()=>{
+            return getUsers()
+        }
+    })
+    return {data, isLoading}
 }

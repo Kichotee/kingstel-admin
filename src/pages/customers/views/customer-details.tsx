@@ -3,6 +3,9 @@ import ProfileInfo from "../components/profile-info";
 import { WalletBanner } from "../components/wallet-banner";
 import AllTransactions from "../components/all-transactions";
 import CardDetails from "../components/card-details";
+import { useGetSingleCustomer } from "../queries";
+import { useParams } from "react-router-dom";
+import { UserResponse } from "@/types";
 
 const CustomerDetails = () => {
   const walletDetails = [
@@ -19,10 +22,12 @@ const CustomerDetails = () => {
       currency: "US",
     },
   ];
+  const {id}= useParams()
+  const {data}= useGetSingleCustomer(id!)
   const tabs = [
     {
       tab: "Profile information",
-      component: <ProfileInfo />,
+      component: <ProfileInfo user={data as UserResponse} />,
     },
     {
       tab: "Transactions",

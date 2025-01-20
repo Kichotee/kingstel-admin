@@ -7,13 +7,17 @@ import {  IUsers } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useGetUsers } from "../queries";
 
 const ManageUsers = () => {
   const { control, watch } = useForm();
+  
+  const {data}= useGetUsers()
+  console.log(data)
   const columns: ColumnDef<IUsers>[] = [
     {
       header: "S/N",
-      accessorKey: "SN",
+      accessorKey: "id",
     },
     {
       header: "name",
@@ -36,7 +40,7 @@ const ManageUsers = () => {
     },
     {
       header: "Action",
-      accessorKey: "SN",
+      accessorKey: "id",
       cell: (row) => {
         return (
           <Link to={`/dashboard/edit-user/${row.getValue()}`}>
@@ -59,15 +63,15 @@ const ManageUsers = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="currency"
+                  name="firstName"
                   size="lg"
-                  label="first Name"
+                  label="First Name"
                   placeholder="Enter first Name"
                 />
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="Country"
+                  name="lastName"
                   size="lg"
                   label="Last name"
                   placeholder="Enter Last name"
@@ -75,7 +79,7 @@ const ManageUsers = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="Country"
+                  name="email"
                   size="lg"
                   label="Email address"
                   placeholder="Enter Email address"
@@ -83,7 +87,7 @@ const ManageUsers = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="Country"
+                  name="password"
                   size="lg"
                   label="Password"
                   placeholder="Enter Password"
@@ -91,7 +95,7 @@ const ManageUsers = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="iso_code"
+                  name="phone_number"
                   size="lg"
                   label="Phone number"
                   placeholder="Enter Phone number"
@@ -119,7 +123,7 @@ const ManageUsers = () => {
         <div className="basis-3/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
           <PageTitle title="Available Admin users"/>
-            <DataTable<IUsers> columns={columns} data={users} />
+            <DataTable<IUsers> columns={columns} data={data?.data || []} />
           </div>
         </div>
       </div>

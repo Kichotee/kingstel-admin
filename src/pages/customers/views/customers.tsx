@@ -43,7 +43,7 @@ const Customers = () => {
    
     {
       header: "Action",
-      accessorKey: "SN",
+      accessorKey: "id",
       cell: (row) => {
         return (
           <Link to={`/dashboard/customers/${row.getValue()}`}>
