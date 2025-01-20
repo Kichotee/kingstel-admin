@@ -1,9 +1,9 @@
 import instance from "@/lib/api";
-import { Response } from "@/lib/api/type";
+import { MultiResponse } from "@/lib/api/type";
 import { ITransaction } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
-type TransactionResponse= Response<ITransaction>
+type TransactionResponse= MultiResponse<ITransaction>
 
 const getTransactions = async () => {
   try {

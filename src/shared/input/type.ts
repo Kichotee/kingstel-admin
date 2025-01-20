@@ -13,4 +13,4 @@ export type IInputProps<T extends FieldValues>={
   
 
     
-} & UseControllerProps
+} & UseControllerProps<T>

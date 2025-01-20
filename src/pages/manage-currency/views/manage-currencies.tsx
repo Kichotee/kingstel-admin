@@ -1,22 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { currencies } from "@/mockdata";
+// import { currencies } from "@/mockdata";
 import { ControlledInput } from "@/shared/input/Controllednput";
 import { DataTable } from "@/shared/Table/common-table";
-import { ICurrencies } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { ICurrency } from "../types";
+import { useGetCurrencies } from "../queries";
 
 const ManageCurrencies = () => {
   const { control, watch } = useForm();
-  const columns: ColumnDef<ICurrencies>[] = [
+  const {currencies}= useGetCurrencies()
+  const columns: ColumnDef<ICurrency>[] = [
     {
       header: "S/N",
-      accessorKey: "SN",
+      accessorKey: "id",
     },
     {
       header: "currency",
-      accessorKey: "currency",
+      accessorKey: "name",
+      cell: (row) => {
+        return <p className="capitalize">{row.getValue() as string}</p>
+      }
     },
     {
       header: "code",
@@ -100,7 +105,7 @@ const ManageCurrencies = () => {
         <div className="basis-3/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
             <p className="font-semibold">Available currencies</p>
-            <DataTable<ICurrencies> columns={columns} data={currencies} />
+            <DataTable<ICurrency> columns={columns} data={currencies?.data || []} />
           </div>
         </div>
       </div>

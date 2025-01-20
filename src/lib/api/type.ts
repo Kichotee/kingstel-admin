@@ -10,7 +10,7 @@ export interface SingleResponseData<T> {
   message: string;
 }
 
-export interface Response<T> {
+export interface MultiResponse<T> {
   status: boolean;
   message: string;
   data: MultiResponseData<T>;

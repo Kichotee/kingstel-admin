@@ -1,6 +1,5 @@
 import { ICustomers } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { customersData } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { Link } from "react-router-dom";

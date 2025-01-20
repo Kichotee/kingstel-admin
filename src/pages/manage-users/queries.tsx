@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import instance from "@/lib/api"
 import { SingleResponseData } from "@/lib/api/type";
 import { ICreateUser, ICustomers } from "@/types";

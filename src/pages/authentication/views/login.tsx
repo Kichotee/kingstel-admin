@@ -21,7 +21,7 @@ const Login = () => {
   } = useForm<ILoginPayload>();
 
   const onSubmit = async (body: ILoginPayload) => {
-    console.log(body)
+    console.log(body);
     await login(body);
   };
   return (
@@ -39,23 +39,22 @@ const Login = () => {
           </div>
           <div className=" flex flex-col gap-[60px] w-full">
             <div className="flex flex-col gap-5 w-full =">
-              <ControlledInput
+              <ControlledInput<ILoginPayload>
                 control={control}
                 placeholder=""
                 label="Email address"
                 name="email"
                 size="lg"
                 type="email"
-                // errors={errors}
+                errors={errors}
               />
-              <ControlledInput
+              <ControlledInput<ILoginPayload>
                 size="lg"
                 control={control}
                 label="Password"
                 name="password"
                 type="password"
-                // errors={errors}
-                // className="py-3"
+                errors={errors}
               />
               <div className="">
                 <Link to="/forgot-password">
@@ -68,7 +67,7 @@ const Login = () => {
               </div>
             </div>
             <Button
-            onClick={handleSubmit(onSubmit)}
+              onClick={handleSubmit(onSubmit)}
               //   themeColor="main"
 
               className="w-full flex bg-brand-primary rounded-xl justify-center items-center"

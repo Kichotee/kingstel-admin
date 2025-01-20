@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { users } from "@/mockdata";
+
 import { ControlledInput } from "@/shared/input/Controllednput";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useGetUsers } from "../queries";
 import { ControlledSelect } from "@/shared/select/select";
-import { createListCollection, ListCollection } from "@chakra-ui/react";
+import { createListCollection,  } from "@chakra-ui/react";
 
 const ManageUsers = () => {
   const { control, watch } = useForm();
