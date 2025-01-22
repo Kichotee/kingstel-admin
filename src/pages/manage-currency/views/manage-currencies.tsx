@@ -6,10 +6,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { ICurrency } from "../types";
-import { useGetCurrencies } from "../queries";
+import { useCreateCurrency, useGetCurrencies } from "../queries";
 
 const ManageCurrencies = () => {
-  const { control, watch } = useForm();
+  const { control, handleSubmit } = useForm();
   const {currencies}= useGetCurrencies()
   const columns: ColumnDef<ICurrency>[] = [
     {
@@ -46,6 +46,16 @@ const ManageCurrencies = () => {
       },
     },
   ];
+  const {createCurrency,isPending}= useCreateCurrency()
+   const onSubmit = async (body: any) => {
+      const data = {
+        ...body,
+       
+      };
+      // console.log(data);
+  
+      await createCurrency(data);
+    };
   return (
     <div className="space-y-7">
       <p className="font-semibold">Manage currency</p>
@@ -58,7 +68,7 @@ const ManageCurrencies = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="currency"
+                  name="name"
                   size="lg"
                   label="Currency Name"
                 />
@@ -72,11 +82,11 @@ const ManageCurrencies = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="iso_code"
+                  name="code"
                   size="lg"
                   label="ISO Code"
                 />
-                <ControlledInput
+                {/* <ControlledInput
                   variant={"outline"}
                   control={control}
                   name="iso_code"
@@ -89,13 +99,13 @@ const ManageCurrencies = () => {
                   name="iso_code"
                   size="lg"
                   label="System flag code"
-                />
+                /> */}
               </div>
               <Button
+              loading={isPending}
+
                 className="bg-brand-primary text-white rounded-xl"
-                onClick={() => {
-                  console.log(watch());
-                }}
+                onClick={handleSubmit(onSubmit)}
               >
                 Save
               </Button>

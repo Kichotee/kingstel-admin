@@ -13,7 +13,7 @@ const getCurrencies = async () => {
 
     return response.data.data;
   } catch (error: any) {
-    throw new Error(error?.response?.message || error?.response?.message);
+    throw new Error(error?.response?.data?.message || error?.response?.message);
   }
 };
 const createCurrency = async (body: ICreateCurrencyPayload) => {
@@ -25,7 +25,7 @@ const createCurrency = async (body: ICreateCurrencyPayload) => {
 
     return response.data;
   } catch (error: any) {
-    throw new Error(error?.response?.message || error?.response?.message);
+    throw new Error(error?.response?.data?.message || error?.response?.message);
   }
 };
 
