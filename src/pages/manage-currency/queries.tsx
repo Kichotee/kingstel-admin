@@ -53,7 +53,7 @@ export const useCreateCurrency = () => {
     onError(error) {
       toaster.create({
         description: error?.message ?? error,
-        type: "success",
+        type: "error",
       });
     },
   });

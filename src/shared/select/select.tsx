@@ -40,12 +40,15 @@ export const ControlledSelect = <T extends FieldValues>({
         name={name}
         render={({ field: { onChange, value, onBlur } }) => (
           <SelectRoot
+          multiple={false}
             bg={"white"}
             _placeholder={{ fontSize: "12px" }}
             className=" !border-[#AAAAAA] min-w-[352px] px-2 rounded-[10px]  !border !bg-white-900"
             variant={variant}
             value={value}
-            onValueChange={onChange}
+            onValueChange={(val)=>{
+              return onChange(val.value[0])
+            }}
             collection={collection}
             size={size}
             onInteractOutside={() => onBlur()}

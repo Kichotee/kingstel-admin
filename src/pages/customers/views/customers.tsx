@@ -4,6 +4,7 @@ import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { Link } from "react-router-dom";
 import { useGetAllCustomers } from "../queries";
+import { format } from "date-fns";
 
 const Customers = () => {
 
@@ -30,6 +31,13 @@ const Customers = () => {
       header: "Phone",
       accessorKey: "phone_number",
     },
+     {
+          header: "Joined",
+          accessorKey: "created_at",
+          accessorFn: (row) => {
+            return format(new Date(row?.created_at), "dd/MM/yyyy");
+          },
+        },
     // {
     //   header: "bvn",
     //   accessorKey: "BVN",

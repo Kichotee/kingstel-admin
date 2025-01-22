@@ -3,20 +3,20 @@ import { Button } from "@/components/ui/button";
 import { ControlledInput } from "@/shared/input/Controllednput";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
-import { IUsers } from "@/types";
+import { ICreateUser, IUsers } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useGetUsers } from "../queries";
+import { useCreateAdmin, useGetUsers } from "../queries";
 import { ControlledSelect } from "@/shared/select/select";
-import { createListCollection,  } from "@chakra-ui/react";
+import { createListCollection } from "@chakra-ui/react";
 
 const ManageUsers = () => {
-  const { control, watch } = useForm();
+  const { control, handleSubmit } = useForm<ICreateUser>();
 
   const userOptions = [
     {
-      value: "admin",
+      value: "Admin",
       label: "Admin",
     },
   ];
@@ -60,6 +60,18 @@ const ManageUsers = () => {
       },
     },
   ];
+
+  const { createAdminFn, isPending } = useCreateAdmin();
+  const onSubmit = async (body: ICreateUser) => {
+    const data = {
+      ...body,
+      name: body.first_name + " " + body.last_name,
+      role: body.role,
+    };
+    // console.log(data);
+
+    await createAdminFn(data);
+  };
   return (
     <div className="space-y-7">
       <PageTitle title={"Manage User"} />
@@ -72,7 +84,7 @@ const ManageUsers = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="firstName"
+                  name="first_name"
                   size="lg"
                   label="First Name"
                   placeholder="Enter first Name"
@@ -80,7 +92,7 @@ const ManageUsers = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="lastName"
+                  name="last_name"
                   size="lg"
                   label="Last name"
                   placeholder="Enter Last name"
@@ -96,6 +108,7 @@ const ManageUsers = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
+                  type="password"
                   name="password"
                   size="lg"
                   label="Password"
@@ -109,30 +122,22 @@ const ManageUsers = () => {
                   label="Phone number"
                   placeholder="Enter Phone number"
                 />
-                <ControlledInput
-                  variant={"outline"}
-                  control={control}
-                  name="iso_code"
-                  size="lg"
-                  label="Role"
-                  placeholder="Select Role"
-                />
+
                 <ControlledSelect
                   collection={userCollection}
                   variant={"outline"}
                   control={control}
                   options={userOptions}
-                  name="phone_number"
+                  name="role"
                   size="lg"
                   label="Role"
                   placeholder="Select Role"
                 />
               </div>
               <Button
+                loading={isPending}
                 className="bg-brand-primary text-white rounded-xl"
-                onClick={() => {
-                  console.log(watch());
-                }}
+                onClick={handleSubmit(onSubmit)}
               >
                 Save
               </Button>

@@ -1,75 +1,11 @@
-import { DataTable } from "../../../shared/Table/common-table";
 import { BarChart } from "../components/bar-chart";
-import { ColumnDef } from "@tanstack/react-table";
-import StatusBadge from "../../../shared/Table/status-badge";
-import { transactionsData } from "../../../mockdata";
-import { ITransactions } from "../../../types";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { usePlatformOverview } from "@/pages/transactions/queries";
 import { useEffect, useState } from "react";
 import AllTransactions from "@/pages/customers/components/all-transactions";
 
 const Dashboard = () => {
-  const columns: ColumnDef<ITransactions>[] = [
-    {
-      header: "SN",
-      accessorKey: "meta_data.date",
-    },
-    {
-      header: "Customer",
-      accessorKey: "customer",
-    },
-    {
-      header: "Description",
-      accessorKey: "description",
-    },
-    {
-      header: "Type",
-      accessorKey: "transaction_type",
-      cell: (row) => {
-        return (
-          <p className="capitalize">{row.getValue() as React.ReactNode}</p>
-        );
-      },
-    },
-    {
-      header: "Wallet",
-      accessorKey: "wallet",
-    },
-    {
-      header: "Amount",
-      //   accessorKey: "amount",
-      accessorFn: (row) => {
-        return row.amount;
-      },
-    },
-    {
-      header: "Status",
-      accessorKey: "status",
-      cell: (row) => {
-        //  @ts-expect-error type error
-
-        return <StatusBadge value={row.getValue()} />;
-      },
-    },
-    {
-      header: "Timestamp",
-      accessorKey: "timestamp",
-    },
-    // {
-    //   header: "Action",
-    //   accessorKey: "action",
-    //   cell: () => {
-    //     return (
-    //       <button className="mx-auto">
-    //         <BsChevronRight />
-    //       </button>
-    //     );
-    //   },
-    // },
-
-    //...
-  ];
+ 
 
   const { data } = usePlatformOverview();
 
