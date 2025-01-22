@@ -1,14 +1,20 @@
 import StatusBadge from "@/shared/Table/status-badge";
 import { ITransaction } from "@/types";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, PaginationState } from "@tanstack/react-table";
 
 import { format } from "date-fns";
 // import { transactionsData } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
 import { useTransactions } from "@/pages/transactions/queries";
+import { useState } from "react";
+import { IPaginationLink } from "@/lib/api/type";
 
 const AllTransactions = () => {
-  const { data, isLoading } = useTransactions();
+    const [pagination, setPagination] = useState<PaginationState>({
+      pageIndex: 1,
+      pageSize: 10,
+    });
+  const { data, isLoading } = useTransactions(pagination.pageIndex);
 
   // console.log(format("2024-10-30T12:45:30.000000Z","dd/MM/yyyy"))
 
@@ -82,7 +88,12 @@ const AllTransactions = () => {
   return (
     <div className="">
       <DataTable<ITransaction>
+        pagination={pagination}
+        setPagination={setPagination}
+        pageCount={data?.total as number}
+        currentPage={data?.current_page as number}
         columns={columns}
+        paginationLinks={data?.links as IPaginationLink[]}
         loading={isLoading}
         data={(data?.data as ITransaction[]) || []}
       />

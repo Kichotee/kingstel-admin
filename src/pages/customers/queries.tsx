@@ -12,9 +12,9 @@ const getCardDetails = async (id:string, email:string) => {
       throw new Error(error);
     }
   };
-const getCustomers = async () => {
+const getCustomers = async (page:number) => {
     try {
-      const response = await instance.get(`/admin/user`);
+      const response = await instance.get(`/admin/user?page=`+page);
       return response.data.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -40,10 +40,10 @@ const getSingleCustomer = async (id:string) => {
     });
     return { data, isLoading };
   }
-export const useGetAllCustomers = () => {
+export const useGetAllCustomers = (page:number) => {
     const { data, isLoading } = useQuery({
-      queryKey: ["customers"],
-      queryFn: ()=> getCustomers(),
+      queryKey: ["customers",page],
+      queryFn: ()=> getCustomers(page),
     });
     return { customers:data, isLoading };
   }

@@ -1,16 +1,21 @@
 import { ICustomers } from "@/types";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { Link } from "react-router-dom";
 import { useGetAllCustomers } from "../queries";
 import { format } from "date-fns";
+import { useState } from "react";
+import { IPaginationLink } from "@/lib/api/type";
 
 const Customers = () => {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 1,
+    pageSize: 10,
+  });
+  const { customers, isLoading } = useGetAllCustomers(pagination.pageIndex);
 
-  const {customers}= useGetAllCustomers()
-
-  console.log(customers?.data)
+  console.log(customers?.data);
   const columns: ColumnDef<ICustomers>[] = [
     {
       header: "S/N",
@@ -20,8 +25,8 @@ const Customers = () => {
       header: "Name",
       accessorKey: "first_name",
       cell: (row) => {
-        return row?.getValue()
-      }
+        return row?.getValue();
+      },
     },
     {
       header: "Email",
@@ -31,13 +36,13 @@ const Customers = () => {
       header: "Phone",
       accessorKey: "phone_number",
     },
-     {
-          header: "Joined",
-          accessorKey: "created_at",
-          accessorFn: (row) => {
-            return format(new Date(row?.created_at), "dd/MM/yyyy");
-          },
-        },
+    {
+      header: "Joined",
+      accessorKey: "created_at",
+      accessorFn: (row) => {
+        return format(new Date(row?.created_at), "dd/MM/yyyy");
+      },
+    },
     // {
     //   header: "bvn",
     //   accessorKey: "BVN",
@@ -47,16 +52,14 @@ const Customers = () => {
     //     );
     //   },
     // },
-   
+
     {
       header: "Action",
       accessorKey: "id",
       cell: (row) => {
         return (
           <Link to={`/dashboard/customers/${row.getValue()}`}>
-            <button className="mx-auto text-brand-primary">
-              View
-            </button>
+            <button className="mx-auto text-brand-primary">View</button>
           </Link>
         );
       },
@@ -73,13 +76,17 @@ const Customers = () => {
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
       />
       <div className="w-full space-y-8">
-        <PageTitle title="All Customers"/>
+        <PageTitle title="All Customers" />
         <div className="w-full">
           <DataTable
             columns={columns}
-            loading={false}
-            data={customers?.data?.data || [] }
-           
+            pagination={pagination}
+            setPagination={setPagination}
+            paginationLinks={customers?.data?.links as IPaginationLink[]}
+            pageCount={customers?.data?.total as number}
+            currentPage={customers?.data?.current_page as number}
+            loading={isLoading}
+            data={customers?.data?.data || []}
           />
         </div>
       </div>

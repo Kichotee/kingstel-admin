@@ -2,15 +2,20 @@ import { Button } from "@/components/ui/button";
 // import { currencies } from "@/mockdata";
 import { ControlledInput } from "@/shared/input/Controllednput";
 import { DataTable } from "@/shared/Table/common-table";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { ICurrency } from "../types";
 import { useCreateCurrency, useGetCurrencies } from "../queries";
+import { useState } from "react";
 
 const ManageCurrencies = () => {
   const { control, handleSubmit } = useForm();
-  const {currencies}= useGetCurrencies()
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const { currencies } = useGetCurrencies();
   const columns: ColumnDef<ICurrency>[] = [
     {
       header: "S/N",
@@ -20,8 +25,8 @@ const ManageCurrencies = () => {
       header: "currency",
       accessorKey: "name",
       cell: (row) => {
-        return <p className="capitalize">{row.getValue() as string}</p>
-      }
+        return <p className="capitalize">{row.getValue() as string}</p>;
+      },
     },
     {
       header: "code",
@@ -42,20 +47,24 @@ const ManageCurrencies = () => {
       header: "Action",
       accessorKey: "SN",
       cell: (row) => {
-        return<Link to={`/dashboard/edit-currency/${row.getValue()}`}> <button className="text-brand-primary">Edit</button></Link>;
+        return (
+          <Link to={`/dashboard/edit-currency/${row.getValue()}`}>
+            {" "}
+            <button className="text-brand-primary">Edit</button>
+          </Link>
+        );
       },
     },
   ];
-  const {createCurrency,isPending}= useCreateCurrency()
-   const onSubmit = async (body: any) => {
-      const data = {
-        ...body,
-       
-      };
-      // console.log(data);
-  
-      await createCurrency(data);
+  const { createCurrency, isPending } = useCreateCurrency();
+  const onSubmit = async (body: any) => {
+    const data = {
+      ...body,
     };
+    // console.log(data);
+
+    await createCurrency(data);
+  };
   return (
     <div className="space-y-7">
       <p className="font-semibold">Manage currency</p>
@@ -102,8 +111,7 @@ const ManageCurrencies = () => {
                 /> */}
               </div>
               <Button
-              loading={isPending}
-
+                loading={isPending}
                 className="bg-brand-primary text-white rounded-xl"
                 onClick={handleSubmit(onSubmit)}
               >
@@ -115,7 +123,15 @@ const ManageCurrencies = () => {
         <div className="basis-3/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
             <p className="font-semibold">Available currencies</p>
-            <DataTable<ICurrency> columns={columns} data={currencies?.data || []} />
+            <DataTable<ICurrency>
+              columns={columns}
+              pagination={pagination}
+              setPagination={setPagination}
+              
+              pageCount={currencies?.total as number}
+              currentPage={currencies?.current_page as number}
+              data={currencies?.data || []}
+            />
           </div>
         </div>
       </div>

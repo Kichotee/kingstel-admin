@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-nested-ternary */
 
 import {
@@ -5,6 +6,7 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  PaginationState,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -21,28 +23,50 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "../UI/table/table";
+import { Dispatch, SetStateAction } from "react";
+import { Button } from "@/components/ui/button";
+import { IPaginationLink } from "@/lib/api/type";
 
 interface DataTableProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   loading?: boolean;
+  pagination: PaginationState;
+  pageCount: number;
+  currentPage: number;
+  paginationLinks: IPaginationLink[];
+  setPagination: Dispatch<SetStateAction<PaginationState>>;
 }
 
 export const DataTable = <T,>({
   columns,
   data,
   loading,
+  pagination,
+  pageCount,
+  currentPage,
+  paginationLinks,
+  setPagination,
 }: DataTableProps<T>) => {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    pageCount,
+
     getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
   });
+  // const getPages = () => {};
   return (
     <div>
       <Table>
@@ -96,13 +120,52 @@ export const DataTable = <T,>({
             </TableRow>
           ) : (
             <TableRow>
-              <TableCell colSpan={columns?.length} className="h-24 text-center">
+              <TableCell
+                colSpan={columns?.length}
+                className="h-24 text-black text-center"
+              >
                 No results.
               </TableCell>
             </TableRow>
           )}
-          <TableCell />
         </TableBody>
+        <TableFooter>
+          <TableCell colSpan={columns?.length}>
+            <div className="flex justify-between pr-4">
+              <Button variant={"outline"}>Prev</Button>
+              <div className="flex gap-4 max-w-1/2">
+                {paginationLinks?.slice(1, -2).map((data) => {
+                  return (
+                    <Button
+                      onClick={() => {
+                        setPagination((prev) => {
+                          return {
+                            ...prev,
+                            pageIndex: data.label as number,
+                          };
+                        });
+                      }}
+                      variant={data.active ? "outline" : "plain"}
+                    >
+                      {data.label}
+                    </Button>
+                  );
+                })}
+              </div>
+              <Button
+                variant={"outline"}
+                onClick={() =>
+                  setPagination((prev) => ({
+                    ...prev,
+                    pageIndex: prev.pageIndex + 1,
+                  }))
+                }
+              >
+                Next
+              </Button>
+            </div>
+          </TableCell>
+        </TableFooter>
       </Table>
     </div>
   );

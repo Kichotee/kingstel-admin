@@ -65,7 +65,8 @@ export interface ICustomers {
   email: string;
   phone: string;
   BVN: string;
-  entry_date: string;
+  created_at: string;
+
 }
 
 export interface ITransaction {

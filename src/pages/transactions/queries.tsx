@@ -5,9 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 
 type TransactionResponse= MultiResponse<ITransaction>
 
-const getTransactions = async () => {
+const getTransactions = async (current:number) => {
   try {
-    const response = await instance.get<TransactionResponse>("/admin/transaction");
+    const response = await instance.get<TransactionResponse>("/admin/transaction?page="+current);
     return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -33,11 +33,11 @@ export const usePlatformOverview = () => {
   });
   return { data, isLoading };
 };
-export const useTransactions = () => {
+export const useTransactions = (current:number) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["transactions"],
+    queryKey: ["transactions",current],
     queryFn: () => {
-      return getTransactions();
+      return getTransactions(current);
     },
   });
   return { data, isLoading };
