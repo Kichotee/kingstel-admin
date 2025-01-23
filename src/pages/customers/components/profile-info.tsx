@@ -1,13 +1,15 @@
 import { Switch } from "@/components/ui/switch";
 import { UserResponse } from "@/types";
 import { useMemo } from "react";
-type IProps={
-  user:UserResponse
-}
+import { useSearchParams } from "react-router-dom";
+import { RestrictModal } from "./restrict-acct-modal";
+type IProps = {
+  user: UserResponse;
+};
 
-const ProfileInfo = ({user}:IProps) => {
-  console.log(user)
-  const userData = useMemo(()=>{
+const ProfileInfo = ({ user }: IProps) => {
+  console.log(user);
+  const userData = useMemo(() => {
     return [
       {
         title: "Full Name",
@@ -19,7 +21,7 @@ const ProfileInfo = ({user}:IProps) => {
       },
       {
         title: "Phone Number",
-        value:user?.user?.phone_number,
+        value: user?.user?.phone_number,
       },
       {
         title: "DOB",
@@ -57,22 +59,27 @@ const ProfileInfo = ({user}:IProps) => {
         title: "KYC",
         value: user?.user?.kyc_verified ? "Verified" : "Not Verified",
       },
-    ]
-  },[user]) ;
+    ];
+  }, [user]);
+  const [searchParams, setsearchParams] = useSearchParams();
   return (
     <div className="flex gap-14 items-stretch">
       <div className="flex flex-col basis-1/2  gap-y-[1px] *:py-3 ">
         {userData.map((data) => {
           return (
             <div className="grid grid-cols-[1.5fr_3fr]  bg-white">
-              <div className="px-6 text-brand-primary font-medium">{data.title}</div>
+              <div className="px-6 text-brand-primary font-medium">
+                {data.title}
+              </div>
               <div className="px-6">{data.value}</div>
             </div>
           );
         })}
-        <div className="flex flex-row bg-white">
-          <div className="px-6">Restrict account</div>
-          <div className="px-6"><Switch variant="raised" /></div>
+        <div className="flex flex-row gap-4 bg-white">
+          <div className="px-6 text-brand-primary">Restrict account</div>
+          <div className="px-6 ">
+           <RestrictModal/>
+          </div>
         </div>
       </div>
       <div className="">

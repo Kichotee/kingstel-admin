@@ -21,7 +21,7 @@ const Login = () => {
   } = useForm<ILoginPayload>();
 
   const onSubmit = async (body: ILoginPayload) => {
-    console.log(body);
+ 
     await login(body);
   };
   return (
@@ -80,6 +80,7 @@ const Login = () => {
                 "Sign in"
               )}
             </Button>
+          
           </div>
         </div>
       </div>

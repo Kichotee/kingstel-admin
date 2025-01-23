@@ -9,6 +9,7 @@ type Props = {
 };
 export const AppProvider = ({ children }: Props) => {
   const queryClient = new QueryClient();
+  
   return (
     <Provider>
       <Toaster/>
