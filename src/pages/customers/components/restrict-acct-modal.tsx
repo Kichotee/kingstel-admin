@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   DialogActionTrigger,
   DialogBody,
@@ -12,8 +13,8 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@chakra-ui/react";
 
-type Props = {};
-export const RestrictModal = ({}: Props) => {
+
+export const RestrictModal = () => {
   return (
     <DialogRoot>
       <DialogTrigger>

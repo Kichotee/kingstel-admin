@@ -61,7 +61,7 @@ function SidebarLink({ link }: ISidebarProps) {
           <StyledLink
             to={link.path}
             className={` ${
-              pathname === link.path
+              pathname.includes(link.key)
                 ? " rounded-[10px] bg-[#D1DFFE] text-brand-primary text-success"
                 : `text-[#A5ADC0] hover:text-white rounded-[10px] hover:bg-brand-primary/80`
             }    flex items-center gap-2.5  text-xs duration-200  leading-[150%] font-[500]`}
@@ -81,7 +81,7 @@ function SidebarLink({ link }: ISidebarProps) {
                   <li className=" list-inside text-[#A5ADC0] ">
                     <Link
                       to={data.path}
-                      className={`text-[#A5ADC0] w-[148]  text-xs rounded-[10px] hover:underline ${pathname===data.path ? "text-brand-primary" : ""}`}
+                      className={`text-[#A5ADC0] w-[148]  text-xs rounded-[10px] hover:underline ${pathname.includes(data.path) ? "text-brand-primary" : ""}`}
                     >
                       {data.label}
                     </Link>

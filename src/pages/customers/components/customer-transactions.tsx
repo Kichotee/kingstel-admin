@@ -8,13 +8,16 @@ import { DataTable } from "@/shared/Table/common-table";
 import { useTransactions } from "@/pages/transactions/queries";
 import { useState } from "react";
 import { IPaginationLink } from "@/lib/api/type";
+import { useSearchParams } from "react-router-dom";
 
-const AllTransactions = () => {
+const CustomerTransactions = () => {
     const [pagination, setPagination] = useState<PaginationState>({
       pageIndex: 1,
       pageSize: 10,
     });
-  const { data, isLoading } = useTransactions({current:pagination.pageIndex});
+    const [searchParams]= useSearchParams()
+    
+  const { data, isLoading } = useTransactions({current:pagination.pageIndex, email:searchParams.get("email") as string});
 console.log(data);
 
   // console.log(format("2024-10-30T12:45:30.000000Z","dd/MM/yyyy"))
@@ -102,4 +105,4 @@ console.log(data);
   );
 };
 
-export default AllTransactions;
+export default CustomerTransactions;

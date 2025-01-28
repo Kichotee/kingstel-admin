@@ -1,29 +1,33 @@
 import { Tabs } from "@chakra-ui/react";
 import ProfileInfo from "../components/profile-info";
 import { WalletBanner } from "../components/wallet-banner";
-import AllTransactions from "../components/all-transactions";
+// import AllTransactions from "../components/all-transactions";
 import CardDetails from "../components/card-details";
 import { useGetSingleCustomer } from "../queries";
 import { useParams } from "react-router-dom";
 import { UserResponse } from "@/types";
+import CustomerTransactions from "../components/customer-transactions";
+import { useMemo } from "react";
 
 const CustomerDetails = () => {
-  const walletDetails = [
-    {
-      amount: 100,
-      currency: "NG",
-    },
-    {
-      amount: 100,
-      currency: "GH",
-    },
-    {
-      amount: 100,
-      currency: "US",
-    },
-  ];
-  const {id}= useParams()
-  const {data}= useGetSingleCustomer(id!)
+  const { id } = useParams();
+  const { data } = useGetSingleCustomer(id!);
+  const walletDetails = useMemo(() => {
+    return [
+      {
+        amount: data?.user?.naira_balance,
+        currency: "NG",
+      },
+      {
+        amount: data?.user?.cedis_balance,
+        currency: "GH",
+      },
+      {
+        amount: data?.user?.dollar_balance,
+        currency: "US",
+      },
+    ];
+  }, [data]);
   const tabs = [
     {
       tab: "Profile information",
@@ -31,11 +35,11 @@ const CustomerDetails = () => {
     },
     {
       tab: "Transactions",
-      component: <AllTransactions />,
+      component: <CustomerTransactions />,
     },
     {
       tab: "Card",
-      component: <CardDetails />,
+      component: <CardDetails card={data?.cards}  />,
     },
   ];
   return (

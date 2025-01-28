@@ -18,46 +18,6 @@ export const BarChart = ({ data }: Props) => {
         name: "february",
         data: [13, 23, 20, 8, 13, 27, 13, 78, 13, 28, 13],
       },
-      //   {
-      //     name: "March",
-      //     data: [13, 23, 20, 8, 13, 27, 13, 78, 13, 28, 13],
-      //   },
-      //   {
-      //     name: "March",
-      //     data: [11, 17, 15, 15, 21, 14],
-      //   },
-      //   {
-      //     name: "April",
-      //     data: [21, 7, 25, 13, 22, 8],
-      //   },
-      //   {
-      //     name: "June",
-      //     data: [11, 17, 15, 15, 21, 14],
-      //   },
-      //   {
-      //     name: "July",
-      //     data: [21, 7, 25, 13, 22, 8],
-      //   },
-      //   {
-      //     name: "August",
-      //     data: [11, 17, 15, 15, 21, 14],
-      //   },
-      //   {
-      //     name: "September",
-      //     data: [21, 7, 25, 13, 22, 8],
-      //   },
-      //   {
-      //     name: "October",
-      //     data: [11, 17, 15, 15, 21, 14],
-      //   },
-      //   {
-      //     name: "November",
-      //     data: [21, 7, 25, 13, 22, 8],
-      //   },
-      //   {
-      //     name: "December",
-      //     data: [21, 7, 25, 13, 22, 8],
-      //   },
     ],
     options: {
       chart: {
@@ -74,6 +34,10 @@ export const BarChart = ({ data }: Props) => {
       responsive: [
         {
           breakpoint: 480,
+          dataLabels: {
+            enabled: false,
+            enabledOnSeries: [],
+          },
           options: {
             legend: {
               position: "bottom",
@@ -83,21 +47,20 @@ export const BarChart = ({ data }: Props) => {
           },
         },
       ],
+      dataLabels: {
+        enabled: false,
+      },
+    
       plotOptions: {
         bar: {
           horizontal: false,
-          width: "25px",
+          columnWidth: "45px",
           borderRadius: 1,
-          borderRadiusApplication: "end", // 'around', 'end'
-          borderRadiusWhenStacked: "last", // 'all', 'last'
+          // borderRadiusApplication: "end", // 'around', 'end'
+          // borderRadiusWhenStacked: "last", // 'all', 'last'
           dataLabels: {
-            total: {
-              enabled: true,
-              style: {
-                fontSize: "13px",
-                fontWeight: 900,
-              },
-            },
+            // position:"bottom",
+            enabled: false,
           },
         },
       },
@@ -113,8 +76,9 @@ export const BarChart = ({ data }: Props) => {
         },
       },
       legend: {
-        position: "right",
-        offsetY: 40,
+        enabled:false,
+        // position: "right",
+        // offsetY: 40,
       },
       fill: {
         colors: ["#0F00BD", "#D1DFFE"],

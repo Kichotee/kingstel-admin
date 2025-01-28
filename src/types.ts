@@ -111,10 +111,24 @@ type User = {
 };
 
 type Card = {
-  card_id: number;
-  card_type: string;
-  card_number: string;
-  expiration_date: string;
+  id: number;
+  email: string;
+  resource: string;
+  reference: string;
+  card_reference: string;
+  currency: string;
+  brand: string | null;
+  type: string;
+  pan: string;
+  name_on_card: string;
+  first_six_number: string | null;
+  last_four_number: string | null;
+  expiry_month: string;
+  expiry_year: string;
+  card_balance: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
 };
 
 type DvaAccount = {
@@ -126,7 +140,7 @@ type DvaAccount = {
 
 export type UserResponse = {
   user: User;
-  cards: Card[];
+  cards: Card;
   dva_accounts: DvaAccount[];
 };
 

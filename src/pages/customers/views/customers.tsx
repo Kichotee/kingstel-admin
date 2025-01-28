@@ -58,7 +58,7 @@ const Customers = () => {
       accessorKey: "id",
       cell: (row) => {
         return (
-          <Link to={`/dashboard/customers/${row.getValue()}`}>
+          <Link to={`/dashboard/customers/${row.getValue()}?email=${row.row.original.email}`}>
             <button className="mx-auto text-brand-primary">View</button>
           </Link>
         );

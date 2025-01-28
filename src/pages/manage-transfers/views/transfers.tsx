@@ -1,19 +1,30 @@
 import StatusBadge from "@/shared/Table/status-badge";
 import { ITransfers } from "@/types";
-import { ColumnDef } from "@tanstack/react-table";
-import {  transfers } from "../../../mockdata";
+import { ColumnDef, PaginationState } from "@tanstack/react-table";
+import { transfers } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
+import { useState } from "react";
+import { useTransactions } from "@/pages/transactions/queries";
+import { IPaginationLink } from "@/lib/api/type";
 
 const ManageTransfers = () => {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading } = useTransactions({
+    current: pagination.pageIndex,
+    type: "transfers",
+  });
   const columns: ColumnDef<ITransfers>[] = [
     {
       header: "S/N",
-      accessorKey: "SN",
+      accessorKey: "id",
     },
     {
       header: "Account Name",
-      accessorKey: "account_name",
+      accessorKey: "meta_data.sender_name",
     },
     {
       header: "currency",
@@ -33,14 +44,12 @@ const ManageTransfers = () => {
     },
     {
       header: "Date",
-      accessorKey: "date",
+      accessorKey: "created_at",
     },
     {
       header: "Transaction ID",
 
-      accessorFn: (row) => {
-        return row.tx_ref;
-      },
+      accessorKey: "reference",
     },
     {
       header: "Status",
@@ -77,9 +86,14 @@ const ManageTransfers = () => {
         <PageTitle title="Completed Transfers" />
         <div className="w-full">
           <DataTable<ITransfers>
+            pagination={pagination}
+            setPagination={setPagination}
+            pageCount={data?.total as number}
+            currentPage={data?.current_page as number}
             columns={columns}
-            loading={false}
-            data={transfers}
+            paginationLinks={data?.links as IPaginationLink[]}
+            loading={isLoading}
+            data={data?.data || []}
           />
         </div>
       </div>

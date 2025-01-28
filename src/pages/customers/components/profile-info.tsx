@@ -1,7 +1,5 @@
-import { Switch } from "@/components/ui/switch";
 import { UserResponse } from "@/types";
 import { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
 import { RestrictModal } from "./restrict-acct-modal";
 type IProps = {
   user: UserResponse;
@@ -61,7 +59,7 @@ const ProfileInfo = ({ user }: IProps) => {
       },
     ];
   }, [user]);
-  const [searchParams, setsearchParams] = useSearchParams();
+  // const [searchParams, setsearchParams] = useSearchParams();
   return (
     <div className="flex gap-14 items-stretch">
       <div className="flex flex-col basis-1/2  gap-y-[1px] *:py-3 ">

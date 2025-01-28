@@ -53,19 +53,19 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     visible: true,
   },
   {
-    key: "Manage Currency",
+    key: "currency",
     label: "Manage Currency",
-    path: "/dashboard/manage-currency",
+    path: "/dashboard/currency/manage-currency",
     links:[
       {
         key: "currencies",
         label: "Currencies",
-        path: "/dashboard/manage-currency/",
+        path: "/dashboard/currency/manage-currency/",
       },
       {
         key: "configure-currencies",
         label: "Configure currency",
-        path: "/dashboard/edit-currency/",
+        path: "/dashboard/currency/edit-currency/",
       },
     ],
     icon: <LuRefreshCcw size={18} />,

@@ -1,9 +1,9 @@
 import React from "react";
 
 type Props = {
- amount:number|string;
- currency:string;
- flag:React.ReactNode
+ amount?:number|string;
+ currency?:string;
+ flag?:React.ReactNode
 
 }
 

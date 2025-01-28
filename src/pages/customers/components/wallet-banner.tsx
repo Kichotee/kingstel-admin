@@ -4,15 +4,15 @@ import USIcon from "../../../shared/icons/us";
 import { WalletCard } from "./wallet-card";
 
 interface Wallet {
-  amount: number | string;
-  currency: string;
+  amount?: number | string;
+  currency?: string;
 }
 
 type Props = {
   walletDetails: Wallet[];
 };
 export const WalletBanner = ({ walletDetails }: Props) => {
-  const ChooseFlag = (currency: string) => {
+  const ChooseFlag = (currency?: string) => {
     switch (currency) {
       case "US":
         return <USIcon />;
@@ -25,7 +25,7 @@ export const WalletBanner = ({ walletDetails }: Props) => {
         break;
     }
   };
-  const ChooseCurrencySymbol = (currency: string) => {
+  const ChooseCurrencySymbol = (currency?: string) => {
     switch (currency) {
       case "US":
         return "$";
@@ -52,9 +52,9 @@ export const WalletBanner = ({ walletDetails }: Props) => {
             {walletDetails.map((data) => {
               return (
                 <WalletCard
-                  amount={data.amount}
-                  currency={ChooseCurrencySymbol(data.currency)}
-                  flag={ChooseFlag(data.currency)}
+                  amount={data?.amount}
+                  currency={ChooseCurrencySymbol(data?.currency)}
+                  flag={ChooseFlag(data?.currency)}
                 />
               );
             })}
