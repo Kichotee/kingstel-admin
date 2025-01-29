@@ -60,12 +60,12 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
       {
         key: "currencies",
         label: "Currencies",
-        path: "/dashboard/currency/manage-currency/",
+        path: "/dashboard/currency/manage-currency",
       },
       {
         key: "configure-currencies",
         label: "Configure currency",
-        path: "/dashboard/currency/edit-currency/",
+        path: "/dashboard/currency/edit-currency",
       },
     ],
     icon: <LuRefreshCcw size={18} />,
@@ -73,7 +73,7 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     visible: true,
   },
   {
-    key: "Manage users",
+    key: "manage-users",
     label: "Manage users",
     path: "/dashboard/manage-users",
     icon: <PiUser size={18} />,
@@ -82,18 +82,30 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     links: [
       {
         key: "users",
-        label: "Currencies",
-        path: "/dashboard/create-admin-account/",
+        label: "Create Admin account",
+        path: "/dashboard/manage-users",
       },
     
      
     ],
   },
   {
-    key: "Manage transfers",
+    key: "transfers",
     label: "Manage transfers",
-    path: "/dashboard/manage-transfers",
+    path: "/dashboard/transfers/manage-transfers",
     icon: <FaCreditCard size={18} />,
+    links:[
+      {
+        key: "pending",
+        label: "Pending Transfers",
+        path: "/dashboard/transfers/manage-transfers?status=pending",
+      },
+      {
+        key: "completed",
+        label: "Completed transfers",
+        path: "/dashboard/transfers/manage-transfers?status=completed",
+      },
+    ],
     allowedRoles: true,
     visible: true,
   },

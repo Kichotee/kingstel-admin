@@ -46,7 +46,7 @@ type ILink = {
   ];
 };
 type ISidebarProps = {
-  link: ILink;
+  link?: ILink;
 };
 
 function SidebarLink({ link }: ISidebarProps) {
@@ -75,13 +75,13 @@ function SidebarLink({ link }: ISidebarProps) {
             <span className="hidden  lg:flex">{link.label}</span>
           </StyledLink>
           {open == link.path && (
-            <ul className="pl-4">
+            <ul className="">
               {link.links.map((data) => {
                 return (
-                  <li className=" list-inside text-[#A5ADC0] ">
+                  <li className=" list-inside list-disc ml-2  text-[#A5ADC0] ">
                     <Link
                       to={data.path}
-                      className={`text-[#A5ADC0] w-[148]  text-xs rounded-[10px] hover:underline ${pathname.includes(data.path) ? "text-brand-primary" : ""}`}
+                      className={`text-[#A5ADC0] w-[148px]  text-xs rounded-[10px] hover:underline ${pathname.includes(data.path) ? "text-brand-primary" : ""}`}
                     >
                       {data.label}
                     </Link>

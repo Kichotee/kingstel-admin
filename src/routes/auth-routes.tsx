@@ -25,7 +25,7 @@ const AuthRoutes = () => {
       <Route path="/currency/edit-currency/:id" element={<EditCurrency />} />
       <Route path="/manage-users" element={<ManageUsers />} />
       <Route path="/edit-user/:id" element={<EditUser />} />
-      <Route path="/manage-transfers" element={<ManageTransfers />} />
+      <Route path="/transfers/manage-transfers" element={<ManageTransfers />} />
       <Route path="/compliance" element={<Compliance />} />
       <Route path="/compliance/:id" element={<EditCompliance />} />
       <Route path="/manage-charge" element={<ManageCharges />} />

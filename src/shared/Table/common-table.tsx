@@ -36,11 +36,11 @@ interface DataTableProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   loading?: boolean;
-  pagination: PaginationState;
-  pageCount: number;
-  currentPage: number;
-  paginationLinks: IPaginationLink[];
-  setPagination: Dispatch<SetStateAction<PaginationState>>;
+  pagination?: PaginationState;
+  pageCount?: number;
+  currentPage?: number;
+  paginationLinks?: IPaginationLink[];
+  setPagination?: Dispatch<SetStateAction<PaginationState>>;
 }
 
 export const DataTable = <T,>({
@@ -138,7 +138,7 @@ export const DataTable = <T,>({
                   return (
                     <Button
                       onClick={() => {
-                        setPagination((prev) => {
+                        setPagination?.((prev) => {
                           return {
                             ...prev,
                             pageIndex: data.label as number,
@@ -155,7 +155,7 @@ export const DataTable = <T,>({
               <Button
                 variant={"outline"}
                 onClick={() =>
-                  setPagination((prev) => ({
+                  setPagination?.((prev) => ({
                     ...prev,
                     pageIndex: prev.pageIndex + 1,
                   }))

@@ -7,15 +7,19 @@ import { PageTitle } from "@/shared/UI/general-page-title";
 import { useState } from "react";
 import { useTransactions } from "@/pages/transactions/queries";
 import { IPaginationLink } from "@/lib/api/type";
+import { useSearchParams } from "react-router-dom";
 
 const ManageTransfers = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 1,
     pageSize: 10,
   });
+  const [searchParams]= useSearchParams();
+
   const { data, isLoading } = useTransactions({
     current: pagination.pageIndex,
     type: "transfers",
+    status:searchParams.get("status")
   });
   const columns: ColumnDef<ITransfers>[] = [
     {

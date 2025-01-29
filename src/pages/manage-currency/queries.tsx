@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import instance from "@/lib/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { ICreateCurrencyPayload, ICurrency } from "./types";
 import { MultiResponse, SingleResponseData } from "@/lib/api/type";
 import { toaster } from "@/components/ui/toaster";
@@ -40,6 +40,7 @@ export const useGetCurrencies = () => {
 };
 
 export const useCreateCurrency = () => {
+  const queryClient= new QueryClient()
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (body: ICreateCurrencyPayload) => {
       return createCurrency(body);
@@ -49,6 +50,9 @@ export const useCreateCurrency = () => {
         description: data?.message,
         type: "success",
       });
+      queryClient.invalidateQueries({
+        queryKey:["currencies"]
+      })
     },
     onError(error) {
       toaster.create({

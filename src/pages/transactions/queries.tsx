@@ -10,6 +10,7 @@ type TransactionResponse = MultiResponse<ITransaction>;
 
 type IPage = {
   current?: number;
+  status?:string;
   page?: number;
   size?: number;
   type?: string;
@@ -21,7 +22,7 @@ const getTransactions = async (params: IPage) => {
     const response = await instance.get<TransactionResponse>(
       `/admin/transaction?page=${params?.current}&type=${params?.type}&email=${
         params?.email || ""
-      } `
+      }&${params?.status ||""} `
     );
     return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,18 +49,19 @@ export const usePlatformOverview = () => {
   });
   return { data, isLoading };
 };
-export const useTransactions = ({ current, type,email }: IPage) => {
+export const useTransactions = ({ current, type,email,status }: IPage) => {
   console.log(email)
   
   const { data, isLoading } = useQuery({
-    queryKey: ["transactions", current,type,email],
+    queryKey: ["transactions", current,type,email, status],
     queryFn: () => {
       return getRequestWithParams<any, any>({
         url: "/admin/transaction",
         params: parseQueryParams({
           page: current,
           type,
-          email:email?.replace('%','@')
+          email:email?.replace('%','@'),
+          status
         } as unknown as ParseQueryParams),
       });
     },

@@ -3,7 +3,7 @@ import { toaster } from "@/components/ui/toaster";
 import instance from "@/lib/api";
 import { SingleResponseData } from "@/lib/api/type";
 import { ICreateUser, ICustomers } from "@/types";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 const createUser = async (body: ICreateUser) => {
   try {
@@ -29,6 +29,7 @@ const getUsers = async () => {
 };
 
 export const useCreateAdmin = () => {
+  const queryClient= new QueryClient
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (body: ICreateUser) => {
       return createUser(body);
@@ -38,6 +39,9 @@ export const useCreateAdmin = () => {
         description: data.message,
         type: "success",
       });
+      queryClient.invalidateQueries({
+        queryKey:["admins"]
+      })
     },
     onError(error, variables, context) {
         toaster.create({

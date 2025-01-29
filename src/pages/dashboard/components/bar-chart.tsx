@@ -90,7 +90,7 @@ export const BarChart = ({ data }: Props) => {
     <div>
       <div id="chart">
         <ReactApexChart
-          options={state.options}
+          options={state.options as unknown as ApexCharts.ApexOptions}
           series={state.series}
           type="bar"
           height={350}
