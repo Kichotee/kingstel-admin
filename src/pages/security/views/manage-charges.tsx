@@ -51,7 +51,7 @@ const ManageCharges = () => {
       <div className="flex gap-[18px]">
         <div className="basis-2/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
-            <p className="font-semibold text-center">Add ew charge</p>
+            <p className="font-semibold text-center">Add new charge</p>
             <div className="flex flex-col gap-20">
               <div className="flex flex-col gap-5">
                 <ControlledInput
@@ -109,7 +109,7 @@ const ManageCharges = () => {
         </div>
         <div className="basis-3/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
-          <PageTitle title="Available Admin users"/>
+          <PageTitle title="Charges"/>
             <DataTable<ICharge> columns={columns} data={chargeData} />
           </div>
         </div>

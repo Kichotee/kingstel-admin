@@ -45,7 +45,7 @@ const UserPopover = () => {
                   <p className="italic">{}</p>
                 </div>
               </div>
-              <Link to={"/dashboard/settings"} className="bg-[#D1DFFE40] p-[10px_5px] w-full flex gap-2 items-center">
+              <Link to={"/dashboard/settings/profile"} className="bg-[#D1DFFE40] p-[10px_5px] w-full flex gap-2 items-center">
                 <img src="/user.png" alt="" />
                 <div className="flex flex-col text-xs gap-[5px]">
                   <p className="font-medium">My Profile</p>

@@ -13,6 +13,26 @@ interface MultiResponseData<T> {
   to: number;
   total: number;
 }
+export type CardRequest = {
+  id: number;
+  email: string;
+  resource: string;
+  reference: string;
+  card_reference: string;
+  currency: string;
+  brand: string | null;
+  type: string;
+  pan: string;
+  name_on_card: string;
+  first_six_number: string | null;
+  last_four_number: string | null;
+  expiry_month: string;
+  expiry_year: string;
+  card_balance: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
 export interface SingleResponseData<T> {
   data: T;
   status: boolean;
@@ -29,3 +49,4 @@ export interface MultiResponse<T> {
   data: MultiResponseData<T>;
  
 }
+

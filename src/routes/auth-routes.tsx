@@ -12,6 +12,7 @@ import Compliance from "@/pages/compliance/views/compliance";
 import CustomerDetails from "@/pages/customers/views/customer-details";
 import EditCompliance from "@/pages/compliance/views/editCompliance";
 import ManageCharges from "@/pages/security/views/manage-charges";
+import ManageProfile from "@/pages/profile/views/manage-profile";
 
 const AuthRoutes = () => {
   return (
@@ -30,6 +31,8 @@ const AuthRoutes = () => {
       <Route path="/compliance/:id" element={<EditCompliance />} />
       <Route path="/manage-charge" element={<ManageCharges />} />
       <Route path="/charge/:id" element={<EditCompliance />} />
+      <Route path="/settings/profile" element={<ManageProfile />} />
+
     </Routes>
   );
 };

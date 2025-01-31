@@ -11,21 +11,26 @@ import {
   PopoverContent,
   PopoverArrow,
   PopoverBody,
-  Dialog,
 } from "@chakra-ui/react";
 import { VscEllipsis } from "react-icons/vsc";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { AcceptModal } from "../components/accept-modal";
+import { useApprovecard, useGetCards } from "../queries";
+import { CardRequest } from "@/lib/api/type";
+import { format } from "date-fns";
 
 export const CardRequests = () => {
-  const columns: ColumnDef<ICardRequests>[] = [
+  const { requestData } = useGetCards();
+
+  const {approveCardFn, isPending}= useApprovecard()
+  const columns: ColumnDef<CardRequest>[] = [
     {
       header: "S/N",
-      accessorKey: "SN",
+      accessorKey: "id",
     },
     {
       header: "name",
-      accessorKey: "name",
+      accessorKey: "name_on_card",
     },
     {
       header: "email",
@@ -33,16 +38,22 @@ export const CardRequests = () => {
     },
     {
       header: "Card type",
-      accessorKey: "card_type",
+      accessorKey: "type",
     },
     {
       header: "Request Date",
-      accessorKey: "request_date",
+      accessorKey: "created_at",
+      accessorFn: (row) => {
+        return format(new Date(row?.created_at), "dd/MM/yyyy");
+      },
     },
-    {
-      header: "Date Issued",
-      accessorKey: "date_issued",
-    },
+    // {
+    //   header: "Date Issued",
+    //   accessorKey: "date_issued",
+    //   accessorFn: (row) => {
+    //     return format(new Date(row?.date_issued), "dd/MM/yyyy");
+    //   },
+    // },
     {
       header: "Status",
       accessorKey: "status",
@@ -55,8 +66,8 @@ export const CardRequests = () => {
 
     {
       header: "Action",
-      accessorKey: "date_issued",
-      cell: () => {
+      accessorKey: "reference",
+      cell: (row) => {
         return (
           <div className="relative ">
             <PopoverRoot lazyMount unmountOnExit>
@@ -69,7 +80,7 @@ export const CardRequests = () => {
                 <PopoverArrow />
                 <PopoverBody className="p-0">
                   <div className="flex flex-col gap-4 *:border-b  text-sm">
-                   <AcceptModal/>
+                    <AcceptModal isPending={isPending} acceptFn={approveCardFn} reference={row.getValue() as string}/>
                     <Button className="p-[10px_20px] border-b">Decline</Button>
                     <Button className="p-[10px_20px] border-b">Profile</Button>
                   </div>
@@ -84,11 +95,15 @@ export const CardRequests = () => {
   const card = [
     {
       type: "approved",
-      value: 40,
+      value: requestData?.data.filter((req) => {
+        return req.status == "success";
+      }).length,
     },
     {
       type: "pending",
-      value: 5,
+      value: requestData?.data.filter((req) => {
+        return req.status == "pending";
+      }).length,
     },
   ];
   return (
@@ -106,15 +121,17 @@ export const CardRequests = () => {
               return (
                 <CardRequestsCard
                   type={data.type as "approved" | "pending" | "declined"}
-                  value={data.value}
+                  value={data.value as number}
                 />
               );
             })}
           </div>
         </div>
-        <DataTable<ICardRequests> columns={columns} data={cardRequests} />
+        <DataTable<CardRequest>
+          columns={columns}
+          data={requestData?.data || []}
+        />
       </div>
-     
     </div>
   );
 };
