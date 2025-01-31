@@ -1,3 +1,4 @@
+import { toaster } from "@/components/ui/toaster";
 import instance from "@/lib/api";
 import Auth from "@/lib/api/auth";
 import { useMutation } from "@tanstack/react-query";
@@ -9,7 +10,7 @@ const loginUser = async (body: { email: string; password: string }) => {
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(error.response.data.message || error.response.data.error);
   }
 };
 
@@ -22,6 +23,12 @@ export const useLogin = () => {
     onSuccess(data) {
       navigate("/dashboard/home");
       Auth.setToken(data.data.token);
+    },
+    onError(error, variables, context) {
+      toaster.create({
+        description: error.message,
+        type: "error",
+      });
     },
   });
   return { login: mutateAsync, isPending };

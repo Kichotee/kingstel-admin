@@ -9,8 +9,15 @@ import { useTransactions } from "@/pages/transactions/queries";
 import { useState } from "react";
 import { IPaginationLink } from "@/lib/api/type";
 import { useSearchParams } from "react-router-dom";
+import { useGetCardTransactions } from "../queries";
+
+
+// type IProps={
+//   transactions?:[]
+// }
 
 const CustomerTransactions = () => {
+  
     const [pagination, setPagination] = useState<PaginationState>({
       pageIndex: 1,
       pageSize: 10,

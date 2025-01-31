@@ -9,6 +9,8 @@ import { useTransactions } from "@/pages/transactions/queries";
 import { useState } from "react";
 import { IPaginationLink } from "@/lib/api/type";
 
+
+
 const AllTransactions = () => {
     const [pagination, setPagination] = useState<PaginationState>({
       pageIndex: 1,

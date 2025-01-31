@@ -1,13 +1,92 @@
 import { PageTitle } from "@/shared/UI/general-page-title";
 import AllTransactions from "./all-transactions";
 import { CardBox } from "./card-box";
-import { UserResponse } from "@/types";
+import { ITransaction, UserResponse } from "@/types";
+import { useGetCardTransactions } from "../queries";
+import { useState } from "react";
+import { PaginationState, ColumnDef } from "@tanstack/react-table";
+import { format } from "date-fns";
+import { DataTable } from "@/shared/Table/common-table";
+
 
 type IProp = {
   card?: UserResponse["cards"];
 };
 
-const CardDetails = ({ card }: IProp) => {
+const CardDetails = ({ card }: IProp) => {  
+
+     const [pagination, setPagination] = useState<PaginationState>({
+        pageIndex: 1,
+        pageSize: 10,
+      });
+  const {cardTranscts}= useGetCardTransactions(card?.email)
+  const columns: ColumnDef<ITransaction>[] = [
+    {
+      header: "S/N",
+      accessorKey: "id",
+    },
+    {
+      header: "Customer",
+      accessorKey: "name",
+    },
+    {
+      header: "email",
+      accessorKey: "email",
+    },
+    {
+      header: "description",
+      accessorKey: "type",
+    },
+    {
+      header: "Type",
+      accessorKey: "transaction_type",
+      cell: (row) => {
+        return (
+          <p className="capitalize">{row.getValue() as React.ReactNode}</p>
+        );
+      },
+    },
+    {
+      header: "Wallet",
+      accessorKey: "currency_type",
+    },
+    {
+      header: "Amount",
+      //   accessorKey: "amount",
+      accessorFn: (row) => {
+        return row?.amount;
+      },
+    },
+    {
+      header: "Status",
+      accessorKey: "status",
+      cell: (row) => {
+        //  @ts-expect-error type error
+
+        return <StatusBadge value={row?.getValue()} />;
+      },
+    },
+    {
+      header: "Timestamp",
+      accessorKey: "created_at",
+      accessorFn: (row) => {
+        return format(new Date(row?.created_at), "dd/MM/yyyy");
+      },
+    },
+    // {
+    //   header: "Action",
+    //   accessorKey: "action",
+    //   cell: () => {
+    //     return (
+    //       <button className="mx-auto">
+    //         <BsChevronRight />
+    //       </button>
+    //     );
+    //   },
+    // },
+
+    //...
+  ];
   return (
     <div className="">
       <div className="flex justify-center gap-7">
@@ -47,7 +126,16 @@ const CardDetails = ({ card }: IProp) => {
       <div className="py-8 space-y-6">
         <PageTitle title="Recent transactions" />
 
-        <AllTransactions />
+         <DataTable<ITransaction>
+               pagination={pagination}
+               setPagination={setPagination}
+              //  pageCount={data?.data?.data.total as number}
+              //  currentPage={data?.current_page as number}
+               columns={columns}
+              //  paginationLinks={data?.data?.links as IPaginationLink[]}
+              //  loading={isLoading}
+               data={(cardTranscts?.data?.transactions as ITransaction[]) || []}
+             />
       </div>
     </div>
   );

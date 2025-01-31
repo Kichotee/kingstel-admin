@@ -16,7 +16,7 @@ const getCardDetails = async (id: string, email: string) => {
 };
 const getCardTransacts = async (email: string) => {
   try {
-    const res = await instance.get(`/admin/card?email=${email}`);
+    const res = await instance.get(`/admin/card_details?email=${email}`);
     return res.data;
   } catch (error: any) {
     throw new Error(error?.data?.message || error?.message);
