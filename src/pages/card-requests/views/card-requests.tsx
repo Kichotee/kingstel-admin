@@ -1,7 +1,6 @@
-import { cardRequests } from "@/mockdata";
+
 import { DataTable } from "@/shared/Table/common-table";
 import StatusBadge from "@/shared/Table/status-badge";
-import { ICardRequests } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { CardRequestsCard } from "../components/card-requests-card";
 import {

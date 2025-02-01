@@ -1,12 +1,12 @@
 // import {} from "@chakra-ui/react";
-import { IconButton, Input, Text } from "@chakra-ui/react";
+import { IconButton, } from "@chakra-ui/react";
 import { Button } from "./ui/button";
 import {
   PopoverArrow,
   PopoverBody,
   PopoverContent,
   PopoverRoot,
-  PopoverTitle,
+  
   PopoverTrigger,
 } from "./ui/popover";
 import { LuLogOut } from "react-icons/lu";
@@ -45,7 +45,10 @@ const UserPopover = () => {
                   <p className="italic">{}</p>
                 </div>
               </div>
-              <Link to={"/dashboard/settings/profile"} className="bg-[#D1DFFE40] p-[10px_5px] w-full flex gap-2 items-center">
+              <Link
+                to={"/dashboard/settings/profile"}
+                className="bg-[#D1DFFE40] p-[10px_5px] w-full flex gap-2 items-center"
+              >
                 <img src="/user.png" alt="" />
                 <div className="flex flex-col text-xs gap-[5px]">
                   <p className="font-medium">My Profile</p>
@@ -54,19 +57,24 @@ const UserPopover = () => {
               </Link>
             </div>
             <div className="mx-auto flex justify-center">
-              <IconButton
-                display={"flex"}
-                gap={"2"}
-                mx={"auto"}
-                w={"max"}
-                bg={"#EC1C24"}
-                px={"58.34px"}
-                py={"8.34px"}
-                color={"white"}
-                rounded={"16px"}
+              <Link
+                to={"/login"}
+                className="bg-[#D1DFFE40] p-[10px_5px] w-full flex gap-2 items-center"
               >
-                <LuLogOut /> <p>Logout</p>
-              </IconButton>
+                <IconButton
+                  display={"flex"}
+                  gap={"2"}
+                  mx={"auto"}
+                  w={"max"}
+                  bg={"#EC1C24"}
+                  px={"58.34px"}
+                  py={"8.34px"}
+                  color={"white"}
+                  rounded={"16px"}
+                >
+                  <LuLogOut /> <p>Logout</p>
+                </IconButton>
+              </Link>
             </div>
 
             {/* <Text my="4">

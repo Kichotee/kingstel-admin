@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { toaster } from "@/components/ui/toaster";
 import instance from "@/lib/api";
 import { SingleResponseData } from "@/lib/api/type";
 import { UserResponse } from "@/types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const getCardDetails = async (id: string, email: string) => {
   try {
@@ -42,6 +44,16 @@ const getSingleCustomer = async (id: string) => {
     throw new Error(error);
   }
 };
+const restrictUser = async (email: string, status: boolean) => {
+  try {
+    const res = await instance.put(`/admin/restrict_user?email=${email}`, {
+      status,
+    });
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error?.data?.message || error?.message);
+  }
+};
 
 export const useGetCardDetails = (id: string, email: string) => {
   const { data, isLoading } = useQuery({
@@ -79,3 +91,23 @@ export const useGetCardTransactions = (email: string) => {
 
   return { cardTranscts: data, transactionsLoading: isLoading };
 };
+
+export const useRestrictUser = () => {
+  const queryClient = useQueryClient();
+
+  
+  const { mutateAsync, isPending, isSuccess } = useMutation({
+    mutationKey: ["approveCard"],
+    mutationFn: ({ ref, status }: { ref: string; status: boolean }) => {
+      return restrictUser(ref, status);
+    },
+    onSuccess() {
+      toaster.success({
+        description: "User status changed",
+      });
+      queryClient.invalidateQueries({ queryKey: ["single-customer"] });
+    },
+  });
+  return { restrictFn: mutateAsync, isPending, isSuccess };
+};
+
