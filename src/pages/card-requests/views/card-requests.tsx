@@ -1,4 +1,3 @@
-
 import { DataTable } from "@/shared/Table/common-table";
 import StatusBadge from "@/shared/Table/status-badge";
 import { ColumnDef } from "@tanstack/react-table";
@@ -17,11 +16,13 @@ import { AcceptModal } from "../components/accept-modal";
 import { useApprovecard, useGetCards } from "../queries";
 import { CardRequest } from "@/lib/api/type";
 import { format } from "date-fns";
+import { DeclineModal } from "../components/decline-modal";
+import { Link } from "react-router-dom";
 
 export const CardRequests = () => {
   const { requestData } = useGetCards();
 
-  const {approveCardFn, isPending}= useApprovecard()
+  const { approveCardFn, isPending } = useApprovecard();
   const columns: ColumnDef<CardRequest>[] = [
     {
       header: "S/N",
@@ -65,7 +66,7 @@ export const CardRequests = () => {
 
     {
       header: "Action",
-      accessorKey: "reference",
+      accessorKey: "user_details.id",
       cell: (row) => {
         return (
           <div className="relative ">
@@ -79,9 +80,22 @@ export const CardRequests = () => {
                 <PopoverArrow />
                 <PopoverBody className="p-0">
                   <div className="flex flex-col gap-4 *:border-b  text-sm">
-                    <AcceptModal isPending={isPending} acceptFn={approveCardFn} reference={row.getValue() as string}/>
-                    <Button className="p-[10px_20px] border-b">Decline</Button>
-                    <Button className="p-[10px_20px] border-b">Profile</Button>
+                    <AcceptModal
+                      isPending={isPending}
+                      acceptFn={approveCardFn}
+                      reference={row.getValue() as string}
+                    />
+                    <DeclineModal
+                      isPending={isPending}
+                      acceptFn={approveCardFn}
+                      reference={row.getValue() as string}
+                    />
+
+                    <Link to={`/dashboard/customers/${row.getValue() as string}`}>
+                      <Button className="p-[10px_20px] border-b">
+                        Profile
+                      </Button>
+                    </Link>
                   </div>
                 </PopoverBody>
               </PopoverContent>

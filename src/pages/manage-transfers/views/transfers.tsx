@@ -1,7 +1,6 @@
 import StatusBadge from "@/shared/Table/status-badge";
 import { ITransfers } from "@/types";
 import { ColumnDef, PaginationState } from "@tanstack/react-table";
-import { transfers } from "../../../mockdata";
 import { DataTable } from "@/shared/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { useState } from "react";
@@ -19,7 +18,7 @@ const ManageTransfers = () => {
   const { data, isLoading } = useTransactions({
     current: pagination.pageIndex,
     type: "transfers",
-    status:searchParams.get("status")
+    status:searchParams.get("status") as string
   });
   const columns: ColumnDef<ITransfers>[] = [
     {

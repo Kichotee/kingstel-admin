@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { toaster } from "@/components/ui/toaster";
 import instance from "@/lib/api";
-import { SingleResponseData } from "@/lib/api/type";
-import { UserResponse } from "@/types";
+import { MultiResponse, SingleResponseData } from "@/lib/api/type";
+import { UserCardTransactions, UserResponse } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const getCardDetails = async (id: string, email: string) => {
@@ -16,9 +16,9 @@ const getCardDetails = async (id: string, email: string) => {
     throw new Error(error);
   }
 };
-const getCardTransacts = async (email: string) => {
+const getCardTransacts = async (id: string) => {
   try {
-    const res = await instance.get(`/admin/card_details?email=${email}`);
+    const res = await instance.get<MultiResponse<UserCardTransactions>>(`/admin/transaction/card/${id}`);
     return res.data;
   } catch (error: any) {
     throw new Error(error?.data?.message || error?.message);

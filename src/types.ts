@@ -60,13 +60,12 @@ export interface ICharge {
 }
 export interface ICustomers {
   SN: number;
-  id?:number;
+  id?: number;
   name: string;
   email: string;
   phone: string;
   BVN: string;
   created_at: string;
-
 }
 
 export interface ITransaction {
@@ -80,8 +79,8 @@ export interface ITransaction {
 
 export interface ICreateUser {
   name?: string;
-  first_name?:string;
-  last_name?:string;
+  first_name?: string;
+  last_name?: string;
   email: string;
   phone_number: string;
   password: string;
@@ -144,7 +143,28 @@ export type UserResponse = {
   dva_accounts: DvaAccount[];
 };
 
-export interface IOptionType{
-  value:string;
-  label:string;
+export interface IOptionType {
+  value: string;
+  label: string;
+}
+export interface UserCardTransactions {
+  id: number;
+  email: string;
+  transaction_type: string;
+  currency_type: string;
+  amount: number;
+  type: string;
+  network: string;
+  meta_data: {
+    from_currency: string;
+    to_currency: string;
+    amount: number;
+    date: string;
+    time: string;
+    card_reference: string;
+  };
+  reference: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
 }

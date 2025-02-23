@@ -1,12 +1,12 @@
 import { PageTitle } from "@/shared/UI/general-page-title";
-import AllTransactions from "./all-transactions";
 import { CardBox } from "./card-box";
-import { ITransaction, UserResponse } from "@/types";
+import { UserCardTransactions, UserResponse } from "@/types";
 import { useGetCardTransactions } from "../queries";
 import { useState } from "react";
 import { PaginationState, ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { DataTable } from "@/shared/Table/common-table";
+import { useParams } from "react-router-dom";
 
 
 type IProp = {
@@ -19,8 +19,9 @@ const CardDetails = ({ card }: IProp) => {
         pageIndex: 1,
         pageSize: 10,
       });
-  const {cardTranscts}= useGetCardTransactions(card?.email)
-  const columns: ColumnDef<ITransaction>[] = [
+      const {id}=useParams()
+  const {cardTranscts}= useGetCardTransactions(id as string)
+  const columns: ColumnDef<UserCardTransactions>[] = [
     {
       header: "S/N",
       accessorKey: "id",
@@ -126,7 +127,7 @@ const CardDetails = ({ card }: IProp) => {
       <div className="py-8 space-y-6">
         <PageTitle title="Recent transactions" />
 
-         <DataTable<ITransaction>
+         <DataTable<UserCardTransactions>
                pagination={pagination}
                setPagination={setPagination}
               //  pageCount={data?.data?.data.total as number}
@@ -134,7 +135,7 @@ const CardDetails = ({ card }: IProp) => {
                columns={columns}
               //  paginationLinks={data?.data?.links as IPaginationLink[]}
               //  loading={isLoading}
-               data={(cardTranscts?.data?.transactions as ITransaction[]) || []}
+               data={(cardTranscts?.data?.data as UserCardTransactions[]) || []}
              />
       </div>
     </div>
