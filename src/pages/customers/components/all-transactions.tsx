@@ -1,10 +1,10 @@
-import StatusBadge from "@/shared/Table/status-badge";
+import StatusBadge from "@/shared/UI/Table/status-badge";
 import { ITransaction } from "@/types";
 import { ColumnDef, PaginationState } from "@tanstack/react-table";
 
 import { format } from "date-fns";
 // import { transactionsData } from "../../../mockdata";
-import { DataTable } from "@/shared/Table/common-table";
+import { DataTable } from "@/shared/UI/Table/common-table";
 import { useTransactions } from "@/pages/transactions/queries";
 import { useState } from "react";
 import { IPaginationLink } from "@/lib/api/type";

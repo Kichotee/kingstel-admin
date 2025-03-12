@@ -1,6 +1,6 @@
 import { compliance } from "@/mockdata";
-import { DataTable } from "@/shared/Table/common-table";
-import StatusBadge from "@/shared/Table/status-badge";
+import { DataTable } from "@/shared/UI/Table/common-table";
+import StatusBadge from "@/shared/UI/Table/status-badge";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { ICompliance } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";

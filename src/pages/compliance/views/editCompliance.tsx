@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ControlledInput } from "@/shared/input/Controllednput";
+import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { useForm } from "react-hook-form";
 
 const EditCompliance = () => {

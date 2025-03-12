@@ -18,7 +18,7 @@ import {
 //   TableHeader,
 //   TableRow,
 // } ;
-import CircularProgress from "../CircularProgress";
+import CircularProgress from "../../CircularProgress";
 import {
   Table,
   TableBody,
@@ -27,7 +27,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../UI/table/table";
+} from "../table-blocks/table";
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
 import { IPaginationLink } from "@/lib/api/type";
@@ -92,8 +92,8 @@ export const DataTable = <T,>({
         </TableHeader>
 
         <TableBody>
-          {table?.getRowModel().rows?.length ? (
-            table?.getRowModel().rows.map((row) => {
+          {table?.getRowModel()?.rows?.length ? (
+            table?.getRowModel()?.rows.map((row) => {
               return (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => {

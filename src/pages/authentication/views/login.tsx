@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import CircularProgress from "@/shared/CircularProgress";
-import Logo from "@/shared/icons/logo";
-import { ControlledInput } from "@/shared/input/Controllednput";
+import Logo from "@/shared/UI/icons/logo";
+import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useLogin } from "../queries";

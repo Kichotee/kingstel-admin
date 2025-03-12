@@ -5,7 +5,7 @@ import { useGetCardTransactions } from "../queries";
 import { useState } from "react";
 import { PaginationState, ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { DataTable } from "@/shared/Table/common-table";
+import { DataTable } from "@/shared/UI/Table/common-table";
 import { useParams } from "react-router-dom";
 
 

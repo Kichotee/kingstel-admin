@@ -1,6 +1,6 @@
 import React from "react";
 import { LuEye, LuEyeOff } from "react-icons/lu";
-import LogoIcon from "@/shared/icons/logo copy";
+import LogoIcon from "@/shared/UI/icons/logo copy";
 import { UserResponse } from "@/types";
 
 type Props = {

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 // import { currencies } from "@/mockdata";
-import { ControlledInput } from "@/shared/input/Controllednput";
-import { DataTable } from "@/shared/Table/common-table";
+import { ControlledInput } from "@/shared/UI/input/Controllednput";
+import { DataTable } from "@/shared/UI/Table/common-table";
 import { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";

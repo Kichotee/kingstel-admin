@@ -1,0 +1,52 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { toaster } from "@/components/ui/toaster";
+import instance from "@/lib/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+const getCharges = async () => {
+  try {
+    const result = await instance.get("/exchange/get_exchange_rate");
+    return result.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+const postExchangeRate = async (data) => {
+  try {
+    const res = await instance.post("/admin/create-exchange", data);
+
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const useGetRates = () => {
+  const { data, isLoading } = useQuery({
+    queryFn: () => {
+      return getCharges();
+    },
+    queryKey: ["charges"],
+  });
+  return { ratesData: data, isLoading };
+};
+
+export const usePostExchangeRate = () => {
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: postExchangeRate,
+    onSuccess: (data) => {
+      toaster.create({
+        description: data.message,
+        type: "success",
+      });
+    },
+    onError: (error) => {
+      toaster.create({
+        description: error.message,
+        type: "error",
+      });
+    },
+  });
+  return { addRates: mutateAsync, isPending };
+};

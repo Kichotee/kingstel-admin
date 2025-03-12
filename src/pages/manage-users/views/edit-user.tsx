@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useGetSingleCustomer } from "@/pages/customers/queries";
-import { ControlledInput } from "@/shared/input/Controllednput";
+import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { useForm } from "react-hook-form";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useUpdateateAdmin } from "../queries";

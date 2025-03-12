@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 
-import { ControlledInput } from "@/shared/input/Controllednput";
-import { DataTable } from "@/shared/Table/common-table";
+import { ControlledInput } from "@/shared/UI/input/Controllednput";
+import { DataTable } from "@/shared/UI/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { ICreateUser, IUsers } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 // import {  useGetUsers } 
-import { ControlledSelect } from "@/shared/select/select";
+import { ControlledSelect } from "@/shared/UI/select/select";
 import { createListCollection } from "@chakra-ui/react";
 import { useGetUsers } from "@/pages/manage-users/queries";
 

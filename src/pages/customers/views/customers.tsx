@@ -1,6 +1,6 @@
 import { ICustomers } from "@/types";
 import { ColumnDef, PaginationState } from "@tanstack/react-table";
-import { DataTable } from "@/shared/Table/common-table";
+import { DataTable } from "@/shared/UI/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { Link } from "react-router-dom";
 import { useGetAllCustomers } from "../queries";

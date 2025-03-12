@@ -1,7 +1,7 @@
-import StatusBadge from "@/shared/Table/status-badge";
+import StatusBadge from "@/shared/UI/Table/status-badge";
 import { ITransfers } from "@/types";
 import { ColumnDef, PaginationState } from "@tanstack/react-table";
-import { DataTable } from "@/shared/Table/common-table";
+import { DataTable } from "@/shared/UI/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { useState } from "react";
 import { useTransactions } from "@/pages/transactions/queries";
