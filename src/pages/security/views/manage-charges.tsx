@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { chargeData } from "@/mockdata";
 import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { DataTable } from "@/shared/UI/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";

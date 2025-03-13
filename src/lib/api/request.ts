@@ -8,6 +8,7 @@ type FuncProp<T> = {
   payload: T;
   config?: AxiosRequestConfig;
 };
+
 type GetFuncProp<T extends ApiObjType> = {
   url: string;
   params?: T | undefined;

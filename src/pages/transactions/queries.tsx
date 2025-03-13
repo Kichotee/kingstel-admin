@@ -6,7 +6,7 @@ import { parseQueryParams, ParseQueryParams } from "@/lib/parseParams";
 import { ITransaction } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
-type TransactionResponse = MultiResponse<ITransaction>;
+// type TransactionResponse = MultiResponse<ITransaction>;
 
 type IPage = {
   current?: number;
@@ -17,19 +17,19 @@ type IPage = {
   email?: string;
 };
 
-const getTransactions = async (params: IPage) => {
-  try {
-    const response = await instance.get<TransactionResponse>(
-      `/admin/transaction?page=${params?.current}&type=${params?.type}&email=${
-        params?.email || ""
-      }&${params?.status ||""} `
-    );
-    return response.data.data;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw new Error(error);
-  }
-};
+// const getTransactions = async (params: IPage) => {
+//   try {
+//     const response = await instance.get<TransactionResponse>(
+//       `/admin/transaction?page=${params?.current}&type=${params?.type}&email=${
+//         params?.email || ""
+//       }&${params?.status ||""} `
+//     );
+//     return response.data.data;
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   } catch (error: any) {
+//     throw new Error(error);
+//   }
+// };
 const platformOverview = async () => {
   try {
     const response = await instance.get("/admin/details");
@@ -55,6 +55,7 @@ export const useTransactions = ({ current, type,email,status }: IPage) => {
   const { data, isLoading } = useQuery({
     queryKey: ["transactions", current,type,email, status],
     queryFn: () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return getRequestWithParams<any, any>({
         url: "/admin/transaction",
         params: parseQueryParams({

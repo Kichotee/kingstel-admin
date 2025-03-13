@@ -70,7 +70,7 @@ export const useCreateAdmin = () => {
         queryKey: ["admins"],
       });
     },
-    onError(error, variables, context) {
+    onError(error, ) {
       toaster.create({
         description: error.message,
         type: "error",
@@ -109,6 +109,15 @@ export const useUpdateateAdmin = () => {
 export const useGetUsers = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admins"],
+    queryFn: () => {
+      return getUsers();
+    },
+  });
+  return { data, isLoading };
+};
+export const useGetSingleUser = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["admin-user"],
     queryFn: () => {
       return getUsers();
     },

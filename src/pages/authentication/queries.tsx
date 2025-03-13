@@ -24,7 +24,7 @@ export const useLogin = () => {
       navigate("/dashboard/home");
       Auth.setToken(data.data.token);
     },
-    onError(error, variables, context) {
+    onError(error, ) {
       toaster.create({
         description: error.message,
         type: "error",

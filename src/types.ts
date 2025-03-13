@@ -84,8 +84,14 @@ export interface ICreateUser {
   email: string;
   phone_number: string;
   password: string;
+  confirm_password?: string;
   role: string;
   status: string;
+}
+export interface IChangeUserPassword{
+  current_passsword:string;
+  new_password:string;
+  confirm_password:string;
 }
 type User = {
   id: number;

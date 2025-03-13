@@ -204,52 +204,7 @@ export const users = [
     status: "Active",
   },
 ];
-export const customersData: ICustomers[] = [
-  {
-    SN: 1,
-    name: "Kingstel",
-    email: "Johndoe@gmail.com",
-    phone: "097654346787",
-    BVN: "2345678908",
-    entry_date: "Jan 01,2024",
-  },
 
-  {
-    SN: 1,
-    name: "Kingstel",
-    email: "Johndoe@gmail.com",
-    phone: "097654346787",
-    BVN: "2345678908",
-    entry_date: "Jan 01,2024",
-  },
-
-  {
-    SN: 1,
-    name: "Kingstel",
-    email: "Johndoe@gmail.com",
-    phone: "097654346787",
-    BVN: "2345678908",
-    entry_date: "Jan 01,2024",
-  },
-
-  {
-    SN: 1,
-    name: "Kingstel",
-    email: "Johndoe@gmail.com",
-    phone: "097654346787",
-    BVN: "2345678908",
-    entry_date: "Jan 01,2024",
-  },
-
-  {
-    SN: 1,
-    name: "Kingstel",
-    email: "Johndoe@gmail.com",
-    phone: "097654346787",
-    BVN: "2345678908",
-    entry_date: "Jan 01,2024",
-  },
-];
 export const chargeData: ICharge[] = [
   {
     SN: 1,

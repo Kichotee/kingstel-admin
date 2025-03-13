@@ -3,6 +3,7 @@ import { PageTitle } from "@/shared/UI/general-page-title";
 import { usePlatformOverview } from "@/pages/transactions/queries";
 import { useEffect, useState } from "react";
 import AllTransactions from "@/pages/customers/components/all-transactions";
+import { useGetAnalytics } from "../queries";
 
 const Dashboard = () => {
  
@@ -43,6 +44,8 @@ const Dashboard = () => {
     });
   }, [data]);
 
+  const {analytics}= useGetAnalytics()
+
   return (
     <div className="flex flex-col gap-[30px] text-black font-poppins">
       <input
@@ -68,7 +71,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="bg-white w-full p-5 rounded-[20px]">
-          <BarChart data={""} />
+          <BarChart data={analytics} />
         </div>
         <div className="bg-white w-full p-5 rounded-2xl">
         <AllTransactions/>

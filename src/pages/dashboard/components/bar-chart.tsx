@@ -1,22 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
+import { AnalyticsResponse } from "../queries";
 
 type Props = {
-  data: any;
+  data: AnalyticsResponse;
 };
 
 export const BarChart = ({ data }: Props) => {
+  console.log(data);
   const [state, setState] = useState({
     series: [
       {
-        name: "January",
-        data: [44, 55, 41, 67, 22, 43, 67, 22, 43, 67, 22, 43],
+        name: "Inactive",
+        data: [],
       },
       {
-        name: "february",
-        data: [13, 23, 20, 8, 13, 27, 13, 78, 13, 28, 13],
+        name: "active",
+        data: [],
       },
     ],
     options: {
@@ -50,7 +52,7 @@ export const BarChart = ({ data }: Props) => {
       dataLabels: {
         enabled: false,
       },
-    
+
       plotOptions: {
         bar: {
           horizontal: false,
@@ -65,6 +67,7 @@ export const BarChart = ({ data }: Props) => {
         },
       },
       xaxis: {
+        categories: data?.map((d) => d.month) || [],
         type: "month",
         lines: {
           show: false,
@@ -76,7 +79,7 @@ export const BarChart = ({ data }: Props) => {
         },
       },
       legend: {
-        enabled:false,
+        enabled: false,
         // position: "right",
         // offsetY: 40,
       },
@@ -86,6 +89,37 @@ export const BarChart = ({ data }: Props) => {
       },
     },
   });
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
+    setState((prev) => {
+      return {
+        ...prev,
+        series: [
+          {
+            name: "Inactive",
+            data: data?.map((d) => {
+              return d?.active_customers ?? "0";
+            }),
+          },
+          {
+            name: "Active",
+            data: data?.map((d) => {
+              return d?.inactive_customers ?? "0";
+            }),
+          },
+        ],
+        options: {
+          xaxis: {
+            ...prev.options.xaxis,
+            categories: data?.map((d) => d.month) || [],
+          },
+        },
+        ...prev.options
+      };
+    });
+  }, [data]);
   return (
     <div>
       <div id="chart">

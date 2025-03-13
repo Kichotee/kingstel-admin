@@ -49,7 +49,6 @@ export const DataTable = <T,>({
   loading,
   pagination,
   pageCount,
-  currentPage,
   paginationLinks,
   setPagination,
 }: DataTableProps<T>) => {

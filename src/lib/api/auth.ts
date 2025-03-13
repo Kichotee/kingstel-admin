@@ -1,12 +1,11 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable import/no-extraneous-dependencies */
+
 /* eslint-disable camelcase */
 
+import { UserData } from "@/pages/authentication/types";
 import cryptoJs from "crypto-js";
-import { UserData } from "@/features/auth/types/Responses";
 
 const encryptValue = (value: string) => {
-  
   return cryptoJs.AES.encrypt(value, import.meta.env.VITE_SECRET_KEY, {
     mode: cryptoJs.mode.CBC,
   }).toString();
@@ -18,14 +17,8 @@ const decrypt = (encryptedValue: string) => {
 };
 
 const setToken = (token: string) => {
-  const currentTime = new Date().getTime();
-
-  // Add 10 minutes (600000 milliseconds) to the current time
-  const futureTime = currentTime + 600000;
-  const expirationDate = new Date(futureTime);
-
   // Set the cookie with the expiration date
-  document.cookie = `access_token=${token}; expires=${expirationDate.toUTCString()}; SameSite=None; Secure;`;
+  document.cookie = `access_token=${token};  SameSite=None; Secure;`;
 };
 
 const getToken = () => {
@@ -62,7 +55,8 @@ const removeDomainObj = () => {
 
 const removeToken = () => {
   localStorage.removeItem("token");
-  document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie =
+    "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   localStorage.removeItem("refreshToken");
   localStorage.clear();
   sessionStorage.clear();
@@ -74,8 +68,8 @@ const getUserObj = (): UserData["user"] => {
 
   if (userCookie) {
     const userValue = userCookie.split("=")[1];
-    
-    const decodedUser: UserData["user"] = (JSON.parse(decrypt(userValue)));
+
+    const decodedUser: UserData["user"] = JSON.parse(decrypt(userValue));
     return decodedUser;
   }
   return {} as UserData["user"];
@@ -96,8 +90,10 @@ const getFullProfile = (): UserData => {
 
 const logOut = () => {
   removeToken();
-  document.cookie = "logged_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  document.cookie = "user_profile=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie =
+    "logged_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie =
+    "user_profile=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   window.location.pathname = "/login";
 };
 

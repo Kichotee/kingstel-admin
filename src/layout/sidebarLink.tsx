@@ -93,15 +93,15 @@ function SidebarLink({ link }: ISidebarProps) {
         </div>
       ) : (
         <StyledLink
-          to={link.path}
+          to={link?.path || ""}
           className={` ${
-            pathname === link.path
+            pathname === link?.path
               ? " rounded-[10px] bg-[#D1DFFE] text-brand-primary"
               : `text-[#A5ADC0] hover:text-white rounded-[10px]  hover:bg-brand-primary/80`
           }    flex items-center gap-2.5  text-xs duration-200   text-[14px] leading-[150%] font-[500]`}
         >
-          <span className="">{link.icon}</span>
-          <span className="hidden  lg:flex">{link.label}</span>
+          <span className="">{link?.icon}</span>
+          <span className="hidden  lg:flex">{link?.label}</span>
         </StyledLink>
       )}
     </>

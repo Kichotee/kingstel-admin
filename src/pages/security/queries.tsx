@@ -3,6 +3,12 @@ import { toaster } from "@/components/ui/toaster";
 import instance from "@/lib/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+type ExchangeRate = {
+  to_currency: string;
+  from_currency: string;
+  charge: string;
+};
+
 const getCharges = async () => {
   try {
     const result = await instance.get("/exchange/get_exchange_rate");
@@ -12,7 +18,7 @@ const getCharges = async () => {
   }
 };
 
-const postExchangeRate = async (data) => {
+const postExchangeRate = async (data: ExchangeRate) => {
   try {
     const res = await instance.post("/admin/create-exchange", data);
 
