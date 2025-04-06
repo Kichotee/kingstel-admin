@@ -1,9 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { useForm } from "react-hook-form";
+import { usePasswordChange } from "../queries";
+import { IChangeUserPassword } from "@/types";
 
 const ChangePassword = () => {
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm<IChangeUserPassword>();
+
+  const { changePassFn, isPending } = usePasswordChange();
+
+  const onSubmit = async (body: IChangeUserPassword) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { confirm_password, ...rest } = body;
+    await changePassFn(rest);
+  };
 
   return (
     <div className="p-[43px_37px] flex flex-col gap-[52px]">
@@ -36,8 +46,9 @@ const ChangePassword = () => {
           />
         </div>
         <Button
+          loading={isPending}
           className="bg-brand-primary text-white rounded-xl"
-          // onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmit)}
         >
           Save
         </Button>

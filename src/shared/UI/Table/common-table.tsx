@@ -92,7 +92,7 @@ export const DataTable = <T,>({
 
         <TableBody>
           {table?.getRowModel()?.rows?.length ? (
-            table?.getRowModel()?.rows.map((row) => {
+            table?.getRowModel()?.rows?.map((row) => {
               return (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => {
@@ -140,13 +140,13 @@ export const DataTable = <T,>({
                         setPagination?.((prev) => {
                           return {
                             ...prev,
-                            pageIndex: data.label as number,
+                            pageIndex: data?.label as number,
                           };
                         });
                       }}
-                      variant={data.active ? "outline" : "plain"}
+                      variant={data?.active ? "outline" : "plain"}
                     >
-                      {data.label}
+                      {data?.label}
                     </Button>
                   );
                 })}

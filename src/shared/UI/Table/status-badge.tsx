@@ -1,6 +1,7 @@
+import { Status } from "@/shared/constants";
 import React from "react";
 
-const StatusBadge = ({ value }: { value: "successful" | "pending" | "failed"|"approved" }) => {
+const StatusBadge = ({ value }: { value: Status }) => {
     const getColor =React.useCallback( () => {
       // eslint-disable-next-line default-case
       switch (value) {

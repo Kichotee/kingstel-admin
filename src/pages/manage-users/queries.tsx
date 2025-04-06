@@ -2,8 +2,13 @@
 import { toaster } from "@/components/ui/toaster";
 import instance from "@/lib/api";
 import { SingleResponseData } from "@/lib/api/type";
-import { ICreateUser, ICustomers } from "@/types";
-import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { IChangeUserPassword, ICreateUser, ICustomers } from "@/types";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 const createUser = async (body: ICreateUser) => {
   try {
@@ -36,9 +41,20 @@ const getSingleAdmin = async (id: string) => {
   }
 };
 
+const updatePassword = async (
+  data: Omit<IChangeUserPassword, "confirm_password">
+) => {
+  try {
+    const response = await instance.put("/users/change-password", data);
+    return response.data.data;
+  } catch (error: any) {
+    throw new Error(error.data);
+  }
+};
+
 const updateUser = async (body: ICreateUser, id: string) => {
   console.log(body);
-  
+
   try {
     const response = await instance.put<SingleResponseData<ICustomers>>(
       "/admin/update",
@@ -51,7 +67,7 @@ const updateUser = async (body: ICreateUser, id: string) => {
   } catch (error: any) {
     console.log(error);
 
-    throw new Error(error.response.data.message || error.response.data.error) ;
+    throw new Error(error.response.data.message || error.response.data.error);
   }
 };
 
@@ -70,7 +86,7 @@ export const useCreateAdmin = () => {
         queryKey: ["admins"],
       });
     },
-    onError(error, ) {
+    onError(error) {
       toaster.create({
         description: error.message,
         type: "error",
@@ -83,8 +99,7 @@ export const useUpdateateAdmin = () => {
   const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useMutation({
     mutationFn: ({ body, id }: { body: ICreateUser; id: string }) => {
-
-      console.log(body)
+      console.log(body);
       return updateUser(body, id);
     },
     onSuccess(data) {
@@ -96,7 +111,7 @@ export const useUpdateateAdmin = () => {
         queryKey: ["admins"],
       });
     },
-    onError(error, variables, context) {
+    onError(error) {
       toaster.create({
         description: error.message,
         type: "error",
@@ -115,12 +130,33 @@ export const useGetUsers = () => {
   });
   return { data, isLoading };
 };
-export const useGetSingleUser = () => {
+export const useGetSingleUser = (id: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-user"],
     queryFn: () => {
-      return getUsers();
+      return getSingleAdmin(id);
     },
   });
   return { data, isLoading };
+};
+
+export const usePasswordChange = () => {
+  const {mutateAsync, isPending} = useMutation({
+    mutationFn: (data: Omit<IChangeUserPassword, "confirm_password">) => {
+      return updatePassword(data);
+    },
+    onSuccess(data) {
+      toaster.create({
+        description: data.message,
+        type: "success",
+      });
+    },
+    onError(error) {
+      toaster.create({
+        description: error.message,
+        type: "error",
+      });
+    },
+  });
+  return {changePassFn:mutateAsync, isPending}
 };

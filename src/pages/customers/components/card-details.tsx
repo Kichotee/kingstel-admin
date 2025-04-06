@@ -115,7 +115,7 @@ const CardDetails = ({ card }: IProp) => {
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">cvv</p>
-            <p className="basis-3/5 p-[12px_24px]">{card?.cvv ?? "-"}</p>
+            {/* <p className="basis-3/5 p-[12px_24px]">{card?.cvv ?? "-"}</p> */}
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Status</p>

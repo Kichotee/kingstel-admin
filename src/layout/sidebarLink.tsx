@@ -31,7 +31,7 @@ const StyledLink = styled(Link)<ModifiedLinkProps>`
   }
 `;
 
-type ILink = {
+export type ILink = {
   key: string;
   label: string;
   path: string;

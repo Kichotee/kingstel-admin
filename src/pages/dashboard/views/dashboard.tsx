@@ -3,11 +3,9 @@ import { PageTitle } from "@/shared/UI/general-page-title";
 import { usePlatformOverview } from "@/pages/transactions/queries";
 import { useEffect, useState } from "react";
 import AllTransactions from "@/pages/customers/components/all-transactions";
-import { useGetAnalytics } from "../queries";
+import { AnalyticsResponse, useGetAnalytics } from "../queries";
 
 const Dashboard = () => {
- 
-
   const { data } = usePlatformOverview();
 
   const [overview, setOverview] = useState([
@@ -31,7 +29,7 @@ const Dashboard = () => {
   useEffect(() => {
     setOverview((prev) => {
       return prev.map((item, index) => {
-        console.log(item,data?.data?.data?.users)
+        console.log(item, data?.data?.data?.users);
         if (index === 0) {
           return { ...item, number: data?.data?.transaction?.successful };
         }
@@ -44,7 +42,7 @@ const Dashboard = () => {
     });
   }, [data]);
 
-  const {analytics}= useGetAnalytics()
+  const { analytics } = useGetAnalytics();
 
   return (
     <div className="flex flex-col gap-[30px] text-black font-poppins">
@@ -71,10 +69,10 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="bg-white w-full p-5 rounded-[20px]">
-          <BarChart data={analytics} />
+          <BarChart data={analytics as AnalyticsResponse} />
         </div>
         <div className="bg-white w-full p-5 rounded-2xl">
-        <AllTransactions/>
+          <AllTransactions />
         </div>
       </div>
     </div>

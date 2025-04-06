@@ -6,15 +6,24 @@ import { ICharge } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useGetRates } from "../queries";
+import { ExchangeRate, useGetRates, usePostExchangeRate } from "../queries";
 import { ControlledSelect } from "@/shared/UI/select/select";
 import { validCountriesOptions } from "@/shared/constants";
 import { createListCollection } from "@chakra-ui/react";
 
 const ManageCharges = () => {
-  const { control, watch } = useForm();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { control,  handleSubmit } = useForm<any>();
   const { ratesData, isLoading } = useGetRates();
   console.log(ratesData);
+
+
+  const {addRates}= usePostExchangeRate()
+
+  const onSubmit = async (data: ExchangeRate) => {
+    await addRates(data);
+  };
+
   const columns: ColumnDef<ICharge>[] = [
     {
       header: "S/N",
@@ -31,21 +40,20 @@ const ManageCharges = () => {
     {
       header: "Charge",
       accessorKey: "rate",
-      cell:(info)=>{
-        return Number(info.getValue()).toFixed(2)
-      }
+      cell: (info) => {
+        return Number(info.getValue());
+      },
     },
-    // {
-    //   header: "Percaentage",
-    //   accessorKey: "percentage",
-    // },
-
     {
       header: "Action",
-      accessorKey: "SN",
+      accessorKey: "from",
       cell: (row) => {
+        console.log(row.row.original);
         return (
-          <Link to={`/dashboard/edit-user/${row.getValue()}`}>
+          <Link
+            to={{ pathname: `/dashboard/manage-charge/edit-rates/${row.getValue()+"-"+row.row.original.to}` }}
+            state={row.row.original}
+          >
             {" "}
             <button className="text-brand-primary">Edit</button>
           </Link>
@@ -65,24 +73,23 @@ const ManageCharges = () => {
             <p className="font-semibold text-center">Add new charge</p>
             <div className="flex flex-col gap-20">
               <div className="flex flex-col gap-5">
-                
                 <ControlledSelect
                   collection={countryCollection}
                   options={validCountriesOptions}
                   variant={"outline"}
                   control={control}
-                  name="currency"
+                  name="from"
                   size="lg"
                   label="Transfer from"
                   placeholder="Select country"
                 />
-              
+
                 <ControlledSelect
                   collection={countryCollection}
                   options={validCountriesOptions}
                   variant={"outline"}
                   control={control}
-                  name="to_currency"
+                  name="to"
                   size="lg"
                   label="Transfer to"
                   placeholder="Select currency"
@@ -90,7 +97,7 @@ const ManageCharges = () => {
                 <ControlledInput
                   variant={"outline"}
                   control={control}
-                  name="charge"
+                  name="rate"
                   size="lg"
                   label="Rate"
                   placeholder="Transfer charge"
@@ -106,9 +113,7 @@ const ManageCharges = () => {
               </div>
               <Button
                 className="bg-brand-primary text-white rounded-xl"
-                onClick={() => {
-                  console.log(watch());
-                }}
+                onClick={handleSubmit(onSubmit)}
               >
                 Save
               </Button>
@@ -118,7 +123,11 @@ const ManageCharges = () => {
         <div className="basis-3/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
             <PageTitle title="Charges" />
-            <DataTable<ICharge> columns={columns} loading={isLoading} data={ratesData} />
+            <DataTable<ICharge>
+              columns={columns}
+              loading={isLoading}
+              data={ratesData || []}
+            />
           </div>
         </div>
       </div>

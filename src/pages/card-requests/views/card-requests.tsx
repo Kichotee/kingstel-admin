@@ -66,7 +66,7 @@ export const CardRequests = () => {
 
     {
       header: "Action",
-      accessorKey: "user_details.id",
+      accessorKey: "reference",
       cell: (row) => {
         return (
           <div className="relative ">

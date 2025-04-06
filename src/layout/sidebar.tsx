@@ -1,5 +1,5 @@
 
-import SidebarLink from "./sidebarLink";
+import SidebarLink, { ILink } from "./sidebarLink";
 import { DASHBOARD_SIDEBAR_LINKS } from "./sidebarData";
 
 
@@ -14,7 +14,7 @@ const Sidebar = () => {
         {DASHBOARD_SIDEBAR_LINKS.map((link) => {
           if (link.visible ) {
             console.log(link)
-            return <SidebarLink key={link.key} link={link} />;
+            return <SidebarLink key={link.key} link={link as ILink} />;
           }
           
           return <></>;

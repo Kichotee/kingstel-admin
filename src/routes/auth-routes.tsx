@@ -13,13 +13,14 @@ import CustomerDetails from "@/pages/customers/views/customer-details";
 import EditCompliance from "@/pages/compliance/views/editCompliance";
 import ManageCharges from "@/pages/security/views/manage-charges";
 import ManageProfile from "@/pages/profile/views/manage-profile";
+import EditRates from "@/pages/security/views/edit-charge";
 
 const AuthRoutes = () => {
   return (
     <Routes>
       <Route path="/home" element={<Dashboard />} />
       <Route path="/customers" element={<Customers />} />
-      <Route path="/customers/:id" element={<CustomerDetails/>} />
+      <Route path="/customers/:id" element={<CustomerDetails />} />
       <Route path="/transactions" element={<Transactions />} />
       <Route path="/card-requests" element={<CardRequests />} />
       <Route path="/currency/manage-currency" element={<ManageCurrencies />} />
@@ -29,10 +30,15 @@ const AuthRoutes = () => {
       <Route path="/transfers/manage-transfers" element={<ManageTransfers />} />
       <Route path="/compliance" element={<Compliance />} />
       <Route path="/compliance/:id" element={<EditCompliance />} />
-      <Route path="/manage-charge" element={<ManageCharges />} />
+      <Route
+        path="/manage-charge"
+        // element={{ path: "/", element: <ManageCharges /> }}
+      >
+        <Route path="" element={<ManageCharges />} />
+        <Route path="edit-rates/:id" element={<EditRates />} />
+      </Route>
       <Route path="/charge/:id" element={<EditCompliance />} />
       <Route path="/settings/profile" element={<ManageProfile />} />
-
     </Routes>
   );
 };

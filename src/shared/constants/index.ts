@@ -10,3 +10,4 @@ export const validCountriesOptions = [
   { value: countries.US, label: "US" },
 ];
 
+export type Status="successful" | "pending" | "failed"|"approved" 

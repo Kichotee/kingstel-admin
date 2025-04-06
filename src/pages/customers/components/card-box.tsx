@@ -61,7 +61,7 @@ console.log(card);
         </div>
         <div className="flex text-sm items-center gap-[50px] font-medium">
           <p className="whitespace-nowrap">{card?.name_on_card}</p>
-          <p>{card?.cvv ?? "-"}</p>
+          {/* <p>{card?.cvv ?? "-"}</p> */}
           <p className="flex flex-col items-center">
             <span className="text-[8px] font-semibold uppercase">Valid thru</span>
             <p>{card?.expiry_year}</p>

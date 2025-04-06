@@ -1,4 +1,4 @@
-import { ICharge, ICompliance, ICustomers, ITransfers } from "./types";
+import { ICharge, ICompliance, ITransfers } from "./types";
 
 export const transactionsData = [
   {
@@ -212,6 +212,7 @@ export const chargeData: ICharge[] = [
     currency: "Cedi",
     charge: "GHS10.00",
     percentage: "0",
+    to: "",
   },
 
   {
@@ -220,6 +221,7 @@ export const chargeData: ICharge[] = [
     currency: "Naira",
     charge: "NGN100.00",
     percentage: "0",
+    to: "",
   },
 
   {
@@ -228,5 +230,6 @@ export const chargeData: ICharge[] = [
     currency: "Dollar",
     charge: "USD10.00",
     percentage: "2",
+    to: "",
   },
 ];

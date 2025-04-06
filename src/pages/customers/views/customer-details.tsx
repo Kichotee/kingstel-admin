@@ -3,7 +3,7 @@ import ProfileInfo from "../components/profile-info";
 import { WalletBanner } from "../components/wallet-banner";
 // import AllTransactions from "../components/all-transactions";
 import CardDetails from "../components/card-details";
-import { useGetCardTransactions, useGetSingleCustomer } from "../queries";
+import {  useGetSingleCustomer } from "../queries";
 import { useParams } from "react-router-dom";
 import { UserResponse } from "@/types";
 import CustomerTransactions from "../components/customer-transactions";
@@ -28,7 +28,7 @@ const CustomerDetails = () => {
       },
     ];
   }, [data]);
-  const {cardTranscts}= useGetCardTransactions(data?.user?.email as string)
+  // const {cardTranscts}= useGetCardTransactions(data?.user?.email as string)
   const tabs = [
     {
       tab: "Profile information",

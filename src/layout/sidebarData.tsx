@@ -3,6 +3,21 @@ import { FaCreditCard, FaHouse } from "react-icons/fa6";
 import { LuReceipt, LuRefreshCcw, LuSend, LuWallet } from "react-icons/lu";
 import { PiUser } from "react-icons/pi";
 
+
+
+export type Link={
+  key: string;
+  label: string;
+  path: string;
+  icon: React.ReactNode;
+  allowedRoles: boolean;
+  visible?: boolean;
+  links?: {
+    key: string;
+    label: string;
+    path: string;
+  }
+}
 type SidebarLink = Array<{
   key: string;
   label: string;

@@ -23,7 +23,7 @@ export interface ICompliance {
   name: string;
   date_submitted: string;
   date_approved: string;
-  status: string;
+  status: "successful" | "pending" | "failed"|"approved" ;
 }
 export interface ICardRequests {
   SN: number;
@@ -52,6 +52,7 @@ export interface IUsers {
   status: string;
 }
 export interface ICharge {
+  to: string;
   SN: number;
   country: string;
   charge: string;
@@ -89,10 +90,12 @@ export interface ICreateUser {
   status: string;
 }
 export interface IChangeUserPassword{
-  current_passsword:string;
+  current_password:string;
   new_password:string;
   confirm_password:string;
 }
+
+
 type User = {
   id: number;
   first_name: string;

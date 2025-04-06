@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import instance from "@/lib/api";
 import { getRequestWithParams } from "@/lib/api/request";
-import { MultiResponse } from "@/lib/api/type";
 import { parseQueryParams, ParseQueryParams } from "@/lib/parseParams";
-import { ITransaction } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
 // type TransactionResponse = MultiResponse<ITransaction>;

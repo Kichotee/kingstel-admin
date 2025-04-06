@@ -2,6 +2,7 @@ import { compliance } from "@/mockdata";
 import { DataTable } from "@/shared/UI/Table/common-table";
 import StatusBadge from "@/shared/UI/Table/status-badge";
 import { PageTitle } from "@/shared/UI/general-page-title";
+import { Status } from "@/shared/constants";
 import { ICompliance } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ReactNode } from "react";
@@ -29,7 +30,7 @@ const Compliance = () => {
       header: "Status",
       accessorKey: "status",
       cell(row) {
-        return <StatusBadge value={row.getValue()! as ReactNode} />;
+        return <StatusBadge value={row.getValue()! as ReactNode as Status} />;
       },
     },
     {
@@ -49,7 +50,7 @@ const Compliance = () => {
     <div className="">
       <div className="space-y-10">
         <PageTitle title="KYCS" />
-        <DataTable columns={columns} data={compliance} />
+        <DataTable columns={columns} data={compliance|| []} />
       </div>
     </div>
   );

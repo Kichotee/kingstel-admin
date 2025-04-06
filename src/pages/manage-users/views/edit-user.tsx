@@ -1,20 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { useGetSingleCustomer } from "@/pages/customers/queries";
 import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { useForm } from "react-hook-form";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUpdateateAdmin } from "../queries";
 
 const EditUser = () => {
   const { control, handleSubmit } = useForm();
   const { id } = useParams();
   const { data } = useGetSingleCustomer(id as string);
+  console.log(data);
+  
 
   const { updateAdminFn,isPending } = useUpdateateAdmin();
 
   const onSubmit = async (data: any) => {
     data.name = data.first_name + " " + data.last_name;
-    await updateAdminFn({ body: data, id: id });
+    await updateAdminFn({ body: data, id: id as string });
   };
   return (
     <div className="space-y-[52px] w-full ">

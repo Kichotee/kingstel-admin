@@ -9,7 +9,7 @@ import { useTransactions } from "@/pages/transactions/queries";
 import { useState } from "react";
 import { IPaginationLink } from "@/lib/api/type";
 import { useSearchParams } from "react-router-dom";
-import { useGetCardTransactions } from "../queries";
+// import { useGetCardTransactions } from "../queries";
 
 
 // type IProps={
