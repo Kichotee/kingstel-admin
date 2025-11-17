@@ -1,4 +1,3 @@
-import { UserData } from "@/pages/authentication/types";
 import GHIcon from "../../../shared/UI/icons/gh";
 import NGIcon from "../../../shared/UI/icons/ng";
 import USIcon from "../../../shared/UI/icons/us";

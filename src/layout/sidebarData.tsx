@@ -1,5 +1,5 @@
 import React from "react";
-import { FaCreditCard, FaHouse } from "react-icons/fa6";
+import {  FaHouse } from "react-icons/fa6";
 import { LuReceipt, LuRefreshCcw, LuSend, LuWallet } from "react-icons/lu";
 import { PiUser } from "react-icons/pi";
 

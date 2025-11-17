@@ -29,9 +29,8 @@ console.log(data);
       // },
     {
       header: "Customer",
-      // eslint-disable-next-line no-constant-binary-expression, @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      accessorKey: "meta_data.reciever_name"||"meta_data.sender_name",
+     
+      accessorKey: "meta_data.reciever_name",
       cell: (row) => {
         return (
           <p className=" capitalize ">{row.getValue()?.toString()?.toLocaleLowerCase() || "-" as React.ReactNode}</p>
