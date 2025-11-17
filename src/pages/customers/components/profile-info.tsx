@@ -81,7 +81,11 @@ const ProfileInfo = ({ user }: IProps) => {
         </div>
       </div>
       <div className="">
-        <img src="/usermock.png" className="w-[480px]" alt="" />
+        <img
+          src={user?.user?.user_image?.replace(/\\/g, "/") || "/usermock.png"}
+          className="w-[480px]"
+          alt=""
+        />
       </div>
     </div>
   );

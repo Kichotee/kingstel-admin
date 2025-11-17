@@ -30,13 +30,17 @@ console.log(data);
   // console.log(format("2024-10-30T12:45:30.000000Z","dd/MM/yyyy"))
 
   const columns: ColumnDef<ITransaction>[] = [
-    {
-      header: "S/N",
-      accessorKey: "id",
-    },
-    {
+    
+     {
       header: "Customer",
-      accessorKey: "name",
+      // eslint-disable-next-line no-constant-binary-expression, @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      accessorKey: "meta_data.reciever_name"||"meta_data.sender_name",
+      cell: (row) => {
+        return (
+          <p className=" capitalize ">{row.getValue()?.toString()?.toLocaleLowerCase() || "-" as React.ReactNode}</p>
+        );
+      },
     },
     {
       header: "email",
@@ -106,7 +110,7 @@ console.log(data);
         columns={columns}
         paginationLinks={data?.data?.links as IPaginationLink[]}
         loading={isLoading}
-        data={(data?.data?.data as ITransaction[]) || []}
+        data={(data?.data?.data?.data as ITransaction[]) || []}
       />
     </div>
   );

@@ -8,19 +8,17 @@ import { format } from "date-fns";
 import { DataTable } from "@/shared/UI/Table/common-table";
 import { useParams } from "react-router-dom";
 
-
 type IProp = {
   card?: UserResponse["cards"];
 };
 
-const CardDetails = ({ card }: IProp) => {  
-
-     const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 1,
-        pageSize: 10,
-      });
-      const {id}=useParams()
-  const {cardTranscts}= useGetCardTransactions(id as string)
+const CardDetails = ({ card }: IProp) => {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 1,
+    pageSize: 10,
+  });
+  const { id } = useParams();
+  const { cardTranscts } = useGetCardTransactions(id as string);
   const columns: ColumnDef<UserCardTransactions>[] = [
     {
       header: "S/N",
@@ -95,23 +93,34 @@ const CardDetails = ({ card }: IProp) => {
         <div className="bg-white   text-xs w-[342px]">
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Card Name</p>
-            <p className="basis-3/5 p-[12px_24px] capitalize">{card?.name_on_card}</p>
-          </div>
-          <div className=" flex border-b font-medium border-[#D1DFFE]">
-            <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Card Number</p>
-            <p className="basis-3/5 p-[12px_24px]">
-              {card?.pan.slice(0, 4) +
-                "   " +
-                card?.pan.slice(4, 8) +
-                "   " + "  "+
-                card?.pan.slice(8, 12) +
-                "   " +
-                card?.pan.slice(12, 16)}
+            <p className="basis-3/5 p-[12px_24px] capitalize">
+              {card?.name_on_card ?? ""}
             </p>
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
-            <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Expiry date</p>
-            <p className="basis-3/5 p-[12px_24px]">{card?.expiry_year}</p>
+            <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">
+              Card Number
+            </p>
+            {card?.pan ? (
+              <p className="basis-3/5 p-[12px_24px]">
+                {card?.pan.slice(0, 4) +
+                  "   " +
+                  card?.pan.slice(4, 8) +
+                  "   " +
+                  "  " +
+                  card?.pan.slice(8, 12) +
+                  "   " +
+                  card?.pan.slice(12, 16)}
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className=" flex border-b font-medium border-[#D1DFFE]">
+            <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">
+              Expiry date
+            </p>
+            <p className="basis-3/5 p-[12px_24px]">{card?.expiry_year ?? ""}</p>
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">cvv</p>
@@ -119,7 +128,7 @@ const CardDetails = ({ card }: IProp) => {
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Status</p>
-            <p className="basis-3/5 p-[12px_24px]">Restricted</p>
+            <p className="basis-3/5 p-[12px_24px]">{""}</p>
           </div>
         </div>
       </div>
@@ -127,16 +136,16 @@ const CardDetails = ({ card }: IProp) => {
       <div className="py-8 space-y-6">
         <PageTitle title="Recent transactions" />
 
-         <DataTable<UserCardTransactions>
-               pagination={pagination}
-               setPagination={setPagination}
-              //  pageCount={data?.data?.data.total as number}
-              //  currentPage={data?.current_page as number}
-               columns={columns}
-              //  paginationLinks={data?.data?.links as IPaginationLink[]}
-              //  loading={isLoading}
-               data={(cardTranscts?.data?.data as UserCardTransactions[]) || []}
-             />
+        <DataTable<UserCardTransactions>
+          pagination={pagination}
+          setPagination={setPagination}
+          //  pageCount={data?.data?.data.total as number}
+          //  currentPage={data?.current_page as number}
+          columns={columns}
+          //  paginationLinks={data?.data?.links as IPaginationLink[]}
+          //  loading={isLoading}
+          data={(cardTranscts?.data?.data as UserCardTransactions[]) || []}
+        />
       </div>
     </div>
   );

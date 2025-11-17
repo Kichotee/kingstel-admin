@@ -21,10 +21,10 @@ const ManageTransfers = () => {
     status:searchParams.get("status") as string
   });
   const columns: ColumnDef<ITransfers>[] = [
-    {
-      header: "S/N",
-      accessorKey: "id",
-    },
+    // {
+    //   header: "S/N",
+    //   accessorKey: "id",
+    // },
     {
       header: "Account Name",
       accessorKey: "meta_data.sender_name",

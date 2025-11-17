@@ -51,7 +51,7 @@ const CustomerDetails = () => {
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
       />
       <div className="space-y-8 w-full">
-        <WalletBanner walletDetails={walletDetails} />
+        <WalletBanner walletDetails={walletDetails} userDetails={data?.user} />
         <div className="">
           <Tabs.Root defaultValue={"Profile information"}>
             <Tabs.List>

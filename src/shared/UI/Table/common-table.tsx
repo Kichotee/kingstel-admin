@@ -131,7 +131,15 @@ export const DataTable = <T,>({
         <TableFooter>
           <TableCell colSpan={columns?.length}>
             <div className="flex justify-between pr-4">
-              <Button variant={"outline"}>Prev</Button>
+              <Button
+               onClick={() =>
+                  setPagination?.((prev) => ({
+                    ...prev,
+                    pageIndex: prev.pageIndex - 1,
+                  }))
+                }
+              className="bg-brand-primary text-white px-2"
+               variant={"outline"}>Prev</Button>
               <div className="flex gap-4 max-w-1/2">
                 {paginationLinks?.slice(1, -2).map((data) => {
                   return (
@@ -152,7 +160,8 @@ export const DataTable = <T,>({
                 })}
               </div>
               <Button
-                variant={"outline"}
+              className="bg-brand-primary text-white px-2"
+                variant={"solid"}
                 onClick={() =>
                   setPagination?.((prev) => ({
                     ...prev,

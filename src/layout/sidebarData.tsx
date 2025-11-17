@@ -67,26 +67,26 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     allowedRoles: true,
     visible: true,
   },
-  {
-    key: "currency",
-    label: "Manage Currency",
-    path: "/dashboard/currency/manage-currency",
-    links:[
-      {
-        key: "currencies",
-        label: "Currencies",
-        path: "/dashboard/currency/manage-currency",
-      },
-      {
-        key: "configure-currencies",
-        label: "Configure currency",
-        path: "/dashboard/currency/edit-currency",
-      },
-    ],
-    icon: <LuRefreshCcw size={18} />,
-    allowedRoles: true,
-    visible: true,
-  },
+  // {
+  //   key: "currency",
+  //   label: "Manage Currency",
+  //   path: "/dashboard/currency/manage-currency",
+  //   links:[
+  //     {
+  //       key: "currencies",
+  //       label: "Currencies",
+  //       path: "/dashboard/currency/manage-currency",
+  //     },
+  //     {
+  //       key: "configure-currencies",
+  //       label: "Configure currency",
+  //       path: "/dashboard/currency/edit-currency",
+  //     },
+  //   ],
+  //   icon: <LuRefreshCcw size={18} />,
+  //   allowedRoles: true,
+  //   visible: true,
+  // },
   {
     key: "manage-users",
     label: "Manage users",
@@ -104,26 +104,26 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
      
     ],
   },
-  {
-    key: "transfers",
-    label: "Manage transfers",
-    path: "/dashboard/transfers/manage-transfers",
-    icon: <FaCreditCard size={18} />,
-    links:[
-      {
-        key: "pending",
-        label: "Pending Transfers",
-        path: "/dashboard/transfers/manage-transfers?status=pending",
-      },
-      {
-        key: "completed",
-        label: "Completed transfers",
-        path: "/dashboard/transfers/manage-transfers?status=completed",
-      },
-    ],
-    allowedRoles: true,
-    visible: true,
-  },
+  // {
+  //   key: "transfers",
+  //   label: "Manage transfers",
+  //   path: "/dashboard/transfers/manage-transfers",
+  //   icon: <FaCreditCard size={18} />,
+  //   links:[
+  //     {
+  //       key: "pending",
+  //       label: "Pending Transfers",
+  //       path: "/dashboard/transfers/manage-transfers?status=pending",
+  //     },
+  //     {
+  //       key: "completed",
+  //       label: "Completed transfers",
+  //       path: "/dashboard/transfers/manage-transfers?status=completed",
+  //     },
+  //   ],
+  //   allowedRoles: true,
+  //   visible: true,
+  // },
   {
     key: "compliance",
     label: "Compliance",

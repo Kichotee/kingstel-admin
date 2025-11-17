@@ -115,6 +115,7 @@ type User = {
   card_reference: string | null;
   created_at: string;
   updated_at: string;
+  user_image: string | null;
   dob: string | null;
 };
 

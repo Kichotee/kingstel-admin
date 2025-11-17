@@ -9,10 +9,10 @@ type Props = {
 };
 export const AppProvider = ({ children }: Props) => {
   const queryClient = new QueryClient();
-  
+
   return (
     <Provider>
-      <Toaster/>
+      <Toaster />
       <QueryClientProvider client={queryClient}>
         <Router>{children}</Router>
       </QueryClientProvider>
