@@ -136,7 +136,7 @@ const ManageUsers = () => {
               </div>
               <Button
                 loading={isPending}
-                className="bg-brand-primary text-white rounded-xl"
+                variant="primary"
                 onClick={handleSubmit(onSubmit)}
               >
                 Save

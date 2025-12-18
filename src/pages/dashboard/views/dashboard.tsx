@@ -57,7 +57,7 @@ const Dashboard = () => {
           <div className="rounded-[20px] bg-white p-[61px_58px] flex gap-4 justify-between">
             {overview.map((data) => {
               return (
-                <div className="flex max-h-[216px] min-w-[220px] flex-col gap-4 items-center rounded-[30px] border border-[#D1DFFE80] py-[22px] shadow-[4px_4px_10px_1.4px_#D1DFFE80] px-2.5">
+                <div className="flex max-h-[216px] min-w-[220px] flex-col gap-4 items-center rounded-[30px] border-brand-primary/40 border  py-[22px]  px-2.5">
                   <img src={data.icon} className="max-w-[74px]" alt="" />
                   <p className="text-brand-primary text-sm font-semibold">
                     {data.title}

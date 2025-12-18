@@ -11,7 +11,7 @@ export type ExchangeRate = {
 
 const getCharges = async () => {
   try {
-    const result = await instance.get("/exchange/get_exchange_rate");
+    const result = await instance.get("/admin/exchange-rates");
     return result?.data?.data;
   } catch (error: any) {
     throw new Error(error.response.data.message);

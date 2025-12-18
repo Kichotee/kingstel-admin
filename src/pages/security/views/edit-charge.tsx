@@ -75,7 +75,7 @@ const EditRates = () => {
           <Button
             onClick={handleSubmit(onSubmit)}
             loading={isPending}
-            className="bg-brand-primary text-white rounded-xl"
+            variant="primary"
           >
             Save
           </Button>

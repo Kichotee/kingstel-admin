@@ -34,7 +34,7 @@ const EditCurrency = () => {
               label="Rate"
             />
           </div>
-          <Button className="bg-brand-primary text-white rounded-xl">
+          <Button variant="primary">
             Save
           </Button>
         </div>

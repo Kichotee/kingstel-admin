@@ -55,6 +55,7 @@ const ManageCurrencies = () => {
         );
       },
     },
+    
   ];
   const { createCurrency, isPending } = useCreateCurrency();
   const onSubmit = async (body: any) => {
@@ -112,7 +113,7 @@ const ManageCurrencies = () => {
               </div>
               <Button
                 loading={isPending}
-                className="bg-brand-primary text-white rounded-xl"
+                variant="primary"
                 onClick={handleSubmit(onSubmit)}
               >
                 Save

@@ -9,19 +9,41 @@ import { Link } from "react-router-dom";
 import { ExchangeRate, useGetRates, usePostExchangeRate } from "../queries";
 import { ControlledSelect } from "@/shared/UI/select/select";
 import { validCountriesOptions } from "@/shared/constants";
-import { createListCollection } from "@chakra-ui/react";
+import { Center, createListCollection, Menu, Portal, useDisclosure } from "@chakra-ui/react";
+import { LuEllipsis, LuMenu } from "react-icons/lu";
+import { FaV } from "react-icons/fa6";
+import { MarkupModal } from "../components/markup-modal";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useUpdateMarkup } from "@/pages/manage-currency/queries";
 
 const ManageCharges = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { control,  handleSubmit } = useForm<any>();
+  const { control, handleSubmit } = useForm<any>();
   const { ratesData, isLoading } = useGetRates();
+  const {  onOpen, onClose } = useDisclosure();
+  const [selectedRow, setSelectedRow] = useState<ICharge | null>(null);
+
   console.log(ratesData);
 
-
-  const {addRates}= usePostExchangeRate()
+  const { addRates } = usePostExchangeRate();
 
   const onSubmit = async (data: ExchangeRate) => {
     await addRates(data);
+  };
+
+  const {mutateAsync,isPending}= useUpdateMarkup()
+
+
+  const handleUpdateMarkup = async (percentage: string, id: string) => {
+   await mutateAsync({id, value: percentage});
+    console.log("Update markup with percentage:", percentage, selectedRow);
+    // Add your update logic here
+  };
+
+  const handleEditMarkup = (percentage: string) => {
+    console.log("Edit markup with percentage:", percentage, selectedRow);
+    // Add your edit logic here
   };
 
   const columns: ColumnDef<ICharge>[] = [
@@ -48,15 +70,48 @@ const ManageCharges = () => {
       header: "Action",
       accessorKey: "from",
       cell: (row) => {
-        console.log(row.row.original);
         return (
-          <Link
-            to={{ pathname: `/dashboard/manage-charge/edit-rates/${row.getValue()+"-"+row.row.original.to}` }}
-            state={row.row.original}
-          >
-            {" "}
-            <button className="text-brand-primary">Edit</button>
-          </Link>
+          <>
+            <Menu.Root>
+              <Menu.Trigger asChild>
+                <Button variant="outline" size="sm">
+                  <LuEllipsis />
+                </Button>
+              </Menu.Trigger>
+              <Portal>
+                <Menu.Positioner>
+                  <Menu.Content>
+                    <Menu.Item
+                    className=" cursor-pointer"
+                      value="edit"
+                      onClick={() => {
+                        setSelectedRow(row.row.original);
+                        onOpen();
+                      }}
+                    >
+                      Edit
+                    </Menu.Item>  
+                    {/* <Menu.Item
+                      value="update"
+                      onClick={() => {
+                        setSelectedRow(row.row.original);
+                        onOpen();
+                      }}
+                    >
+                     
+                    </Menu.Item> */}
+                     <MarkupModal
+                     onUpdate={(percentage)=>{
+                      console.log("Updating markup from menu:", percentage);
+                        if(selectedRow) {
+                          handleUpdateMarkup(percentage, row.row.original.SN);
+                        }
+                      }}/>
+                  </Menu.Content>
+                </Menu.Positioner>
+              </Portal>
+            </Menu.Root>
+          </>
         );
       },
     },
@@ -64,9 +119,17 @@ const ManageCharges = () => {
   const countryCollection = createListCollection({
     items: validCountriesOptions,
   });
+
+
   return (
     <div className="space-y-7">
       <PageTitle title={"Manage User"} />
+      <MarkupModal
+        // isOpen={isOpen}
+        onClose={onClose}
+        onUpdate={handleUpdateMarkup}
+        onEdit={handleEditMarkup}
+      />
       <div className="flex gap-[18px]">
         <div className="basis-2/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
@@ -112,7 +175,9 @@ const ManageCharges = () => {
                 /> */}
               </div>
               <Button
-                className="bg-brand-primary text-white rounded-xl"
+              background={`#0F00BD`}
+              color="white" 
+                variant="solid"
                 onClick={handleSubmit(onSubmit)}
               >
                 Save
