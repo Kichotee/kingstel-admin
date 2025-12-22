@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Controller, FieldValues } from "react-hook-form";
 import { IInputProps } from "./type";
 
@@ -28,13 +29,12 @@ export const ControlledInput = <T extends FieldValues>({
             className="*:text-black"
           >
             <Input
-              bg={"white"}
-              _placeholder={{ fontSize: "12px" }}
+           
+              
               type={type}
               className=" !border-[#AAAAAA] min-w-[352px] px-2 py-4 rounded-[10px]  !border !bg-white-900"
               onChange={onChange}
-              variant={variant}
-              size={size}
+              // size={size}
               placeholder={placeholder}
             />
           </Field>
