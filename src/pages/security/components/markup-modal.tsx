@@ -1,74 +1,74 @@
 import { useState } from "react";
-import { Dialog, Input, Button, Stack, Portal } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
-// import { toaster } from "@/components/ui/toaster";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface MarkupModalProps {
-  onUpdate: (percentage: string) => void;
-  // onEdit: (percentage: string) => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onConfirm: (percentage: string) => Promise<void>;
+  isPending?: boolean;
+  rate?: string;
 }
 
 export const MarkupModal = ({
-  onUpdate,
-}: // onEdit,
-MarkupModalProps) => {
+  open,
+  onOpenChange,
+  onConfirm,
+  isPending = false,
+}: MarkupModalProps) => {
   const [percentage, setPercentage] = useState("");
 
   const handleUpdate = async () => {
-    await onUpdate(percentage);
+    await onConfirm(percentage);
     setPercentage("");
   };
 
-  const handleCancel = () => {
-    setPercentage("");
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      setPercentage("");
+    }
+    onOpenChange(isOpen);
   };
 
   return (
-    <Dialog.Root size={`md`}>
-      <Dialog.Trigger asChild>
-        <Button variant="outline" size="sm" px={2} fontSize="sm">
-          Update Markup
-        </Button>
-      </Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content className="bg-white rounded-md shadow-lg p-2 w-full max-w-md">
-            <Dialog.Header>
-              <Dialog.Title>Update Markup</Dialog.Title>
-            </Dialog.Header>
-            <Dialog.CloseTrigger />
-            <Dialog.Body>
-              <Stack gap={4}>
-                <Input
-                  placeholder="Markup percentage"
-                  className="border"
-                  color={percentage ? "black" : "gray"}
-                  value={percentage}
-                  onChange={(e) => setPercentage(e.target.value)}
-                  type="text"
-                  step="0.01"
-                />
-              </Stack>
-            </Dialog.Body>
-            <Dialog.Footer gap={3}>
-              <Button variant="outline" onClick={handleCancel}>
-                Cancel
-              </Button>
-
-              <Button
-                onClick={handleUpdate}
-                bg="#0F00BD"
-                color="white"
-                px={4}
-                py={2}
-              >
-                Update
-              </Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
-    </Dialog.Root>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className="w-full max-w-md">
+        <DialogHeader>
+          <DialogTitle>Update Markup</DialogTitle>
+        </DialogHeader>
+        <div className="py-4">
+          <Input
+            placeholder="Markup percentage"
+            type="number"
+            step="0.01"
+            value={percentage}
+            onChange={(e) => setPercentage(e.target.value)}
+            className="w-full"
+          />
+        </div>
+        <DialogFooter className="flex gap-3 justify-end">
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            loading={isPending}
+            onClick={handleUpdate}
+            className="bg-brand-primary hover:bg-brand-primary/90"
+          >
+            Update
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };

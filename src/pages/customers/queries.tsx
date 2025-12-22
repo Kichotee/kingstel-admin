@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toaster } from "@/components/ui/toaster";
+import { toast } from "sonner";
 import instance from "@/lib/api";
 import { MultiResponse, SingleResponseData } from "@/lib/api/type";
 import { UserCardTransactions, UserResponse } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const getCardDetails = async (id: string, email: string) => {
+const getCardTransactions = async (id: string, email: string) => {
   try {
     const response = await instance.get(
       `/admin/transactions?email=${email}&id=${id}`
@@ -19,6 +19,22 @@ const getCardDetails = async (id: string, email: string) => {
 const getCardTransacts = async (id: string) => {
   try {
     const res = await instance.get<MultiResponse<UserCardTransactions>>(`/admin/transaction/card/${id}`);
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error?.data?.message || error?.message);
+  }
+};
+const getSingleCardDetails = async (id: string) => {
+  try {
+    const res = await instance.get<MultiResponse<UserCardTransactions>>(`/admin/bridge-card/user/${id}`);
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error?.data?.message || error?.message);
+  }
+};
+const updateCardPin = async (id: string) => {
+  try {
+    const res = await instance.get<MultiResponse<UserCardTransactions>>(`/admin/bridge-card/update-pin/${id}`);
     return res.data;
   } catch (error: any) {
     throw new Error(error?.data?.message || error?.message);
@@ -59,7 +75,7 @@ export const useGetCardDetails = (id: string, email: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ["card-details", id, email],
     queryFn: () => {
-      return getCardDetails(id, email);
+      return getCardTransactions(id, email);
     },
   });
   return { data, isLoading };
@@ -91,6 +107,16 @@ export const useGetCardTransactions = (email: string) => {
 
   return { cardTranscts: data, transactionsLoading: isLoading };
 };
+export const useGetSingleCardDetails = (id: string) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["card-details", id],
+    queryFn: () => {
+      return getSingleCardDetails(id);
+    },
+  });
+
+  return { cardDetails: data, transactiondetailsLoading: isLoading };
+};
 
 export const useRestrictUser = () => {
   const queryClient = useQueryClient();
@@ -102,9 +128,7 @@ export const useRestrictUser = () => {
       return restrictUser(ref, status);
     },
     onSuccess() {
-      toaster.success({
-        description: "User status changed",
-      });
+      toast.success("User status changed");
       queryClient.invalidateQueries({ queryKey: ["single-customer"] });
     },
   });

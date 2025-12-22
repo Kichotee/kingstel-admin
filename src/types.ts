@@ -23,7 +23,7 @@ export interface ICompliance {
   name: string;
   date_submitted: string;
   date_approved: string;
-  status: "successful" | "pending" | "failed"|"approved" ;
+  status: "successful" | "pending" | "failed" | "approved";
 }
 export interface ICardRequests {
   SN: number;
@@ -52,12 +52,32 @@ export interface IUsers {
   status: string;
 }
 export interface ICharge {
-  to: string;
-  SN: number;
-  country: string;
+  id: number;
+  from_currency: string;
+  to_currency: string;
+  base_rate: string;
+  markup_percentage: string;
+  rate: string;
+  transaction_type: string;
+  service: string;
+  last_fetched_at: string;
+  is_active: boolean;
+  created_at: string | null;
+  updated_at: string;
+}
+
+export interface IFee {
+  id: number;
+  service_type: string;
+  name: string;
   charge: string;
   percentage: string;
+  cap: null;
   currency: string;
+  is_active: true;
+  description: string;
+  created_at: string;
+  updated_at: string;
 }
 export interface ICustomers {
   SN: number;
@@ -89,12 +109,11 @@ export interface ICreateUser {
   role: string;
   status: string;
 }
-export interface IChangeUserPassword{
-  current_password:string;
-  new_password:string;
-  confirm_password:string;
+export interface IChangeUserPassword {
+  current_password: string;
+  new_password: string;
+  confirm_password: string;
 }
-
 
 type User = {
   id: number;

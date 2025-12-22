@@ -3,26 +3,52 @@ import StatusBadge from "@/shared/UI/Table/status-badge";
 import { ColumnDef } from "@tanstack/react-table";
 import { CardRequestsCard } from "../components/card-requests-card";
 import {
-  PopoverRoot,
+  Popover,
   PopoverTrigger,
-  Button,
+  
   PopoverContent,
-  PopoverArrow,
-  PopoverBody,
-} from "@chakra-ui/react";
+
+} from "@/components/ui/popover";
 import { VscEllipsis } from "react-icons/vsc";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { AcceptModal } from "../components/accept-modal";
-import { useApprovecard, useGetCards } from "../queries";
+import {  useFreezeCard, useGetCards, useUnfreezeCard } from "../queries";
 import { CardRequest } from "@/lib/api/type";
 import { format } from "date-fns";
 import { DeclineModal } from "../components/decline-modal";
-import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { ViewCardDetailsSheet } from "../components/view-card-details-sheet";
+
 
 export const CardRequests = () => {
   const { requestData } = useGetCards();
 
-  const { approveCardFn, isPending } = useApprovecard();
+  // const { approveCardFn, isPending } = useApprovecard();
+  const{ freezeCardFn,  freezeLoading } = useFreezeCard();
+  const {unfreezeCardFn,  unfreezeLoading } = useUnfreezeCard();
+
+  const [freezeDialogOpen, setFreezeDialogOpen] = useState(false);
+  const [freezeReference, setFreezeReference] = useState<string>("");
+  const [viewSheetOpen, setViewSheetOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<CardRequest | undefined>();
+
+  const handleOpenFreezeDialog = (ref: string) => {
+    setFreezeReference(ref);
+    setFreezeDialogOpen(true);
+  };
+
+  const handleConfirmFreeze = async (ref: string) => {
+    await freezeCardFn({ ref });
+    setFreezeDialogOpen(false);
+    setFreezeReference("");
+  };
+
+  const handleOpenViewSheet = (card: CardRequest) => {
+    setSelectedCard(card);
+    setViewSheetOpen(true);
+  };
+
   const columns: ColumnDef<CardRequest>[] = [
     {
       header: "S/N",
@@ -47,13 +73,13 @@ export const CardRequests = () => {
         return format(new Date(row?.created_at), "dd/MM/yyyy");
       },
     },
-    // {
-    //   header: "Date Issued",
-    //   accessorKey: "date_issued",
-    //   accessorFn: (row) => {
-    //     return format(new Date(row?.date_issued), "dd/MM/yyyy");
-    //   },
-    // },
+    {
+      header: "Date Issued",
+      accessorKey: "date_issued",
+      accessorFn: (row) => {
+        return format(new Date(row?.created_at), "dd/MM/yyyy");
+      },
+    },
     {
       header: "Status",
       accessorKey: "status",
@@ -70,36 +96,44 @@ export const CardRequests = () => {
       cell: (row) => {
         return (
           <div className="relative ">
-            <PopoverRoot lazyMount unmountOnExit>
+            <Popover >
               <PopoverTrigger asChild>
                 <Button size="sm" variant="outline">
                   <VscEllipsis />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="absolute  z-50 -left-[100%] -top-[100%] max-w-[87px]  p-0 bg-white shadow-none">
-                <PopoverArrow />
-                <PopoverBody className="p-0">
+              <PopoverContent side="left" className="absolute  z-50 max-w-[90px]   p-0 bg-white shadow-none">
+
                   <div className="flex flex-col gap-4 *:border-b  text-sm">
-                    <AcceptModal
-                      isPending={isPending}
-                      acceptFn={approveCardFn}
-                      reference={row.getValue() as string}
-                    />
+                    <Button
+                      variant="ghost"
+                      className="hover:bg-transparent"
+                      onClick={() => handleOpenViewSheet(row.row.original)}
+                    >
+                      View
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="hover:bg-transparent"
+                      onClick={() => handleOpenFreezeDialog(row.getValue() as string)}
+                    >
+                      Freeze
+                    </Button>
                     <DeclineModal
-                      isPending={isPending}
-                      acceptFn={approveCardFn}
+                      isPending={unfreezeLoading}
+                      acceptFn={unfreezeCardFn}
                       reference={row.getValue() as string}
                     />
 
-                    <Link to={`/dashboard/customers/${row.getValue() as string}`}>
+                    {/* <Link to={`/dashboard/customers/${row.getValue() as string}`}>
                       <Button className="p-[10px_20px] border-b">
                         Profile
                       </Button>
-                    </Link>
+                    </Link> */}
                   </div>
-                </PopoverBody>
+              
               </PopoverContent>
-            </PopoverRoot>
+            </Popover>
           </div>
         );
       },
@@ -145,6 +179,21 @@ export const CardRequests = () => {
           data={requestData?.data || []}
         />
       </div>
+
+      <AcceptModal
+        open={freezeDialogOpen}
+        onOpenChange={setFreezeDialogOpen}
+        reference={freezeReference}
+        isPending={freezeLoading}
+        onConfirm={handleConfirmFreeze}
+      />
+
+      <ViewCardDetailsSheet
+        open={viewSheetOpen}
+        onOpenChange={setViewSheetOpen}
+        card={selectedCard}
+        isLoading={false}
+      />
     </div>
   );
 };

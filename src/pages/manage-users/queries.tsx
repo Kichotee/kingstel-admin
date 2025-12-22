@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toaster } from "@/components/ui/toaster";
+
 import instance from "@/lib/api";
 import { SingleResponseData } from "@/lib/api/type";
 import { IChangeUserPassword, ICreateUser, ICustomers } from "@/types";
@@ -9,6 +9,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const createUser = async (body: ICreateUser) => {
   try {
@@ -78,19 +79,14 @@ export const useCreateAdmin = () => {
       return createUser(body);
     },
     onSuccess(data) {
-      toaster.create({
-        description: data.message,
-        type: "success",
-      });
+      toast .success(data.message);  
+   
       queryClient.invalidateQueries({
         queryKey: ["admins"],
       });
     },
     onError(error) {
-      toaster.create({
-        description: error.message,
-        type: "error",
-      });
+      toast.error(error.message);
     },
   });
   return { createAdminFn: mutateAsync, isPending };
@@ -103,19 +99,13 @@ export const useUpdateateAdmin = () => {
       return updateUser(body, id);
     },
     onSuccess(data) {
-      toaster.create({
-        description: data.message,
-        type: "success",
-      });
+      toast.success(data.message);
       queryClient.invalidateQueries({
         queryKey: ["admins"],
       });
     },
     onError(error) {
-      toaster.create({
-        description: error.message,
-        type: "error",
-      });
+      toast.error(error.message);
     },
   });
   return { updateAdminFn: mutateAsync, isPending };
@@ -146,16 +136,11 @@ export const usePasswordChange = () => {
       return updatePassword(data);
     },
     onSuccess(data) {
-      toaster.create({
-        description: data.message,
-        type: "success",
-      });
+      toast.success(data.message);
     },
     onError(error) {
-      toaster.create({
-        description: error.message,
-        type: "error",
-      });
+      toast.error(error.message);
+     
     },
   });
   return {changePassFn:mutateAsync, isPending}

@@ -1,27 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
-import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { DataTable } from "@/shared/UI/Table/common-table";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { ICharge } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+
 import { ExchangeRate, useGetRates, usePostExchangeRate } from "../queries";
-import { ControlledSelect } from "@/shared/UI/select/select";
+
 import { validCountriesOptions } from "@/shared/constants";
-import { Center, createListCollection, Menu, Portal, useDisclosure } from "@chakra-ui/react";
-import { LuEllipsis, LuMenu } from "react-icons/lu";
-import { FaV } from "react-icons/fa6";
+
+import { LuEllipsis } from "react-icons/lu";
+
 import { MarkupModal } from "../components/markup-modal";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+
 import { useUpdateMarkup } from "@/pages/manage-currency/queries";
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const ManageCharges = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { control, handleSubmit } = useForm<any>();
+
   const { ratesData, isLoading } = useGetRates();
-  const {  onOpen, onClose } = useDisclosure();
+
   const [selectedRow, setSelectedRow] = useState<ICharge | null>(null);
 
   console.log(ratesData);
@@ -32,11 +37,10 @@ const ManageCharges = () => {
     await addRates(data);
   };
 
-  const {mutateAsync,isPending}= useUpdateMarkup()
+  const { onUpdate, isPending } = useUpdateMarkup();
 
-
-  const handleUpdateMarkup = async (percentage: string, id: string) => {
-   await mutateAsync({id, value: percentage});
+  const handleUpdateMarkup = async ( id: string, percentage:string) => {
+    await onUpdate({ id, value: percentage });
     console.log("Update markup with percentage:", percentage, selectedRow);
     // Add your update logic here
   };
@@ -45,93 +49,89 @@ const ManageCharges = () => {
     console.log("Edit markup with percentage:", percentage, selectedRow);
     // Add your edit logic here
   };
+  const [isModalOpen, setIsModalOpen] = useState(0);
 
   const columns: ColumnDef<ICharge>[] = [
     {
       header: "S/N",
-      accessorKey: "SN",
+      accessorKey: "id",
     },
     {
       header: "From",
-      accessorKey: "from",
+      accessorKey: "from_currency",
     },
     {
       header: "To",
-      accessorKey: "to",
+      accessorKey: "to_currency",
+    },
+    {
+      header: "Base Rate ",
+      accessorKey: "base_rate",
     },
     {
       header: "Charge",
-      accessorKey: "rate",
+      accessorKey: "markup_percentage",
       cell: (info) => {
-        return Number(info.getValue());
+        return Number(info.getValue()) + "%";
       },
     },
     {
+      header: "Marked up Rate ",
+      accessorKey: "rate",
+    },
+    {
       header: "Action",
-      accessorKey: "from",
+      accessorKey: "id  ",
       cell: (row) => {
         return (
           <>
-            <Menu.Root>
-              <Menu.Trigger asChild>
+            <DropdownMenu
+              modal={false}
+              // onOpenChange={() => setSelectedRow(row.row.original.id)}
+            >
+              <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">
                   <LuEllipsis />
                 </Button>
-              </Menu.Trigger>
-              <Portal>
-                <Menu.Positioner>
-                  <Menu.Content>
-                    <Menu.Item
-                    className=" cursor-pointer"
-                      value="edit"
-                      onClick={() => {
-                        setSelectedRow(row.row.original);
-                        onOpen();
-                      }}
-                    >
-                      Edit
-                    </Menu.Item>  
-                    {/* <Menu.Item
-                      value="update"
-                      onClick={() => {
-                        setSelectedRow(row.row.original);
-                        onOpen();
-                      }}
-                    >
-                     
-                    </Menu.Item> */}
-                     <MarkupModal
-                     onUpdate={(percentage)=>{
-                      console.log("Updating markup from menu:", percentage);
-                        if(selectedRow) {
-                          handleUpdateMarkup(percentage, row.row.original.SN);
-                        }
-                      }}/>
-                  </Menu.Content>
-                </Menu.Positioner>
-              </Portal>
-            </Menu.Root>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    setSelectedRow(row.row.original);
+                    setIsModalOpen(row.row.original.id);
+                  }}
+                >
+                  Update Markup
+                </Button>
+
+                <DropdownMenuItem></DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </>
         );
       },
     },
   ];
-  const countryCollection = createListCollection({
-    items: validCountriesOptions,
-  });
-
 
   return (
     <div className="space-y-7">
-      <PageTitle title={"Manage User"} />
+      <PageTitle title={"Manage Rates"} />
       <MarkupModal
-        // isOpen={isOpen}
-        onClose={onClose}
-        onUpdate={handleUpdateMarkup}
-        onEdit={handleEditMarkup}
+        isPending={isPending}
+        open={  isModalOpen === selectedRow?.id }
+     
+        onOpenChange={() => setIsModalOpen(0)}
+        rate={selectedRow?.rate?.toString()}
+        onConfirm={async (percentage) => {
+          console.log("Updating markup from DropdownMenu:", percentage);
+          if (!selectedRow) return;
+          return await handleUpdateMarkup( selectedRow?.id.toString(), percentage);
+        }}
       />
-      <div className="flex gap-[18px]">
-        <div className="basis-2/5 bg-white">
+      <div className="flex justify-center gap-[18px]">
+        {/* <div className="basis-2/5 bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
             <p className="font-semibold text-center">Add new charge</p>
             <div className="flex flex-col gap-20">
@@ -165,14 +165,7 @@ const ManageCharges = () => {
                   label="Rate"
                   placeholder="Transfer charge"
                 />
-                {/* <ControlledInput
-                  variant={"outline"}
-                  control={control}
-                  name="iso_code"
-                  size="lg"
-                  label="Percentage%"
-                  placeholder="Percentage"
-                /> */}
+              
               </div>
               <Button
               background={`#0F00BD`}
@@ -184,14 +177,14 @@ const ManageCharges = () => {
               </Button>
             </div>
           </div>
-        </div>
-        <div className="basis-3/5 bg-white">
+        </div> */}
+        <div className=" w-full bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
-            <PageTitle title="Charges" />
+            <PageTitle title="Rates " />
             <DataTable<ICharge>
               columns={columns}
               loading={isLoading}
-              data={ratesData || []}
+              data={ratesData?.data || []}
             />
           </div>
         </div>

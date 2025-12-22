@@ -14,6 +14,7 @@ import EditCompliance from "@/pages/compliance/views/editCompliance";
 import ManageCharges from "@/pages/security/views/manage-charges";
 import ManageProfile from "@/pages/profile/views/manage-profile";
 import EditRates from "@/pages/security/views/edit-charge";
+import ManageFees from "@/pages/fees/views/fees";
 
 const AuthRoutes = () => {
   return (
@@ -30,6 +31,7 @@ const AuthRoutes = () => {
       <Route path="/transfers/manage-transfers" element={<ManageTransfers />} />
       <Route path="/compliance" element={<Compliance />} />
       <Route path="/compliance/:id" element={<EditCompliance />} />
+      <Route path="/charge/:id" element={<EditCompliance />} />
       <Route
         path="/manage-charge"
         // element={{ path: "/", element: <ManageCharges /> }}
@@ -37,7 +39,13 @@ const AuthRoutes = () => {
         <Route path="" element={<ManageCharges />} />
         <Route path="edit-rates/:id" element={<EditRates />} />
       </Route>
-      <Route path="/charge/:id" element={<EditCompliance />} />
+      <Route
+        path="/manage-fees"
+        // element={{ path: "/", element: <ManageCharges /> }}
+      >
+        <Route path="" element={<ManageFees />} />
+        {/* <Route path="edit-rates/:id" element={<EditRates />} /> */}
+      </Route>
       <Route path="/settings/profile" element={<ManageProfile />} />
     </Routes>
   );

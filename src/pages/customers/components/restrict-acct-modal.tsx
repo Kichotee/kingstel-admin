@@ -1,79 +1,61 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import {
-  DialogActionTrigger,
-  DialogBody,
+  Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
-  DialogRoot,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { useRestrictUser } from "../queries";
 import { useSearchParams } from "react-router-dom";
 
+export const RestrictModal = ({blocked}:{
+  blocked: boolean;
+}) => {
+  const { restrictFn } = useRestrictUser();
+  const [searchParams] = useSearchParams();
 
-export const RestrictModal = () => {
-
-  const {restrictFn}= useRestrictUser()
-  const [searchParams]= useSearchParams()
   return (
-    <DialogRoot>
-      <DialogTrigger>
-        <Switch
-        value={1}
-          variant="raised"
-          //   onChange={() => {
-          //     setsearchParams({ action: "restrict" });
-          //   }}
-        />
+    <Dialog>
+      <DialogTrigger asChild>
+       <Button className=" bg-brand-primary">
+        {blocked ? "Unrestrict Account" : "Restrict Account"}
+       </Button>
       </DialogTrigger>
-      <DialogContent
-        width={"276px"}
-        shadow={"sm"}
-        rounded={"lg"}
-        overflow={"hidden"}
-        bg={"white"}
-      >
-        <DialogBody bg={"inherit"}>
-          <p className="text-black mx-auto py-4 text-center max-w-[186px]">
+      <DialogContent className="w-[276px]">
+        <DialogHeader>
+          <DialogTitle className="sr-only">Restrict Account</DialogTitle>
+          <DialogDescription className="text-center text-black py-4 max-w-[186px] mx-auto">
             Restricting this account will limit the users ability to perform
             actions on the account
-          </p>
-        </DialogBody>
-        <DialogFooter
-          bg={"inherit"}
-          className="text-black *:tect-white flex justify-center *:border-black *:border  space-x-3"
-        >
-          <DialogActionTrigger asChild>
-            <Button
-              variant="solid"
-              bgColor={"#FF4F56"}
-              border={"none"}
-              color={"white"}
-              py={"5px"}
-              px={"10px"}
-              rounded="5px"
-            >
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter className="flex justify-center gap-3">
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm">
               No, Cancel
             </Button>
-          </DialogActionTrigger>
+          </DialogTrigger>
           <Button
-            variant={"solid"}
-            loading={false}
-            bgColor={"#1A8010"}
-            rounded={"5px"}
-            py={"5px"}
-            px={"10px"}
-            onClick={() => restrictFn({ ref: searchParams.get("email") as string, status: true })}
-            border={"none"}
-            color={"white"}
+            variant="default"
+            size="sm"
+            onClick={() =>
+              restrictFn({
+                ref: searchParams.get("email") as string,
+                status: true,
+              })
+            }
+            className="bg-green-600 hover:bg-green-700 text-white"
           >
-            Accept{" "}
+            Accept
           </Button>
         </DialogFooter>
       </DialogContent>
-    </DialogRoot>
+    </Dialog>
   );
 };
 

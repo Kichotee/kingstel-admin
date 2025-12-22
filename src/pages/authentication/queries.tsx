@@ -1,8 +1,9 @@
-import { toaster } from "@/components/ui/toaster";
+
 import instance from "@/lib/api";
 import Auth from "@/lib/api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const loginUser = async (body: { email: string; password: string }) => {
   try {
@@ -25,10 +26,7 @@ export const useLogin = () => {
       Auth.setToken(data.data.token);
     },
     onError(error, ) {
-      toaster.create({
-        description: error.message,
-        type: "error",
-      });
+      toast.error(error.message);
     },
   });
   return { login: mutateAsync, isPending };

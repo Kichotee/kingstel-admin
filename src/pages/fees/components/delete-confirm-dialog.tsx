@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { IFee } from "@/types";
 import {
   Dialog,
   DialogContent,
@@ -8,28 +9,28 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-interface AcceptModalProps {
+interface DeleteConfirmDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  reference: string;
+  charge: IFee | null;
+  onConfirm: () => Promise<void>;
   isPending: boolean;
-  onConfirm: (ref: string) => Promise<void>;
 }
 
-export const AcceptModal = ({
+export const DeleteConfirmDialog = ({
   open,
   onOpenChange,
-  reference,
-  isPending,
+  charge,
   onConfirm,
-}: AcceptModalProps) => {
+  isPending,
+}: DeleteConfirmDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Freeze Request</DialogTitle>
+          <DialogTitle>Delete Charge</DialogTitle>
           <DialogDescription>
-            Are you sure you want to freeze this card request?
+            Are you sure you want to delete "{charge?.name}"? This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
 
@@ -43,11 +44,11 @@ export const AcceptModal = ({
             Cancel
           </Button>
           <Button
+            variant="destructive"
             loading={isPending}
-            onClick={() => onConfirm(reference)}
-            className="bg-brand-primary hover:bg-brand-primary/90"
+            onClick={onConfirm}
           >
-            Freeze
+            Delete
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -3,7 +3,7 @@ import instance from "@/lib/api";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { ICreateCurrencyPayload, ICurrency } from "./types";
 import { MultiResponse, SingleResponseData } from "@/lib/api/type";
-import { toaster } from "@/components/ui/toaster";
+import { toast } from "sonner";
 
 const getCurrencies = async () => {
   try {
@@ -40,26 +40,45 @@ export const useGetCurrencies = () => {
 };
 
 export const useCreateCurrency = () => {
-  const queryClient= new QueryClient()
+  const queryClient = new QueryClient();
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (body: ICreateCurrencyPayload) => {
       return createCurrency(body);
     },
     onSuccess(data) {
-      toaster.create({
-        description: data?.message,
-        type: "success",
-      });
+      toast.success(data?.message);
       queryClient.invalidateQueries({
-        queryKey:["currencies"]
-      })
+        queryKey: ["currencies"],
+      });
     },
     onError(error) {
-      toaster.create({
-        description: error?.message ?? error,
-        type: "error",
-      });
+      toast.error(error?.message ?? error);
     },
   });
   return { createCurrency: mutateAsync, isPending };
+};
+
+export const useUpdateMarkup = () => {
+  const queryClient = new QueryClient();
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: ({ id, value }: { id: string; value: string }) => {
+      console.log("Updating markup in mutation:", id, value);
+      return instance.put(`/admin/exchange-rates/${id}`, {
+        markup_percentage: value,
+      });
+    },
+
+    onSuccess(data) {
+      queryClient.invalidateQueries({
+        queryKey: ["charges"],
+      });
+      toast.success(data?.data?.message);
+    },
+    onError(error) {
+      toast.error(error?.message ?? error);
+    
+    },
+  });
+  return { onUpdate: mutateAsync, isPending };
 };

@@ -1,17 +1,21 @@
-import { Tabs } from "@chakra-ui/react";
+
 import ProfileInfo from "../components/profile-info";
 import { WalletBanner } from "../components/wallet-banner";
 // import AllTransactions from "../components/all-transactions";
 import CardDetails from "../components/card-details";
-import {  useGetSingleCustomer } from "../queries";
+import {  useGetSingleCardDetails, useGetSingleCustomer } from "../queries";
 import { useParams } from "react-router-dom";
 import { UserResponse } from "@/types";
 import CustomerTransactions from "../components/customer-transactions";
 import { useMemo } from "react";
+import { TabsContent, TabsList, Tabs, TabsTrigger } from "@/components/ui/tabs";
 
 const CustomerDetails = () => {
   const { id } = useParams();
-  const { data } = useGetSingleCustomer(id!);
+  const { data, isLoading } = useGetSingleCustomer(id!);
+
+  const { cardDetails, transactiondetailsLoading } = useGetSingleCardDetails(id!);
+
   const walletDetails = useMemo(() => {
     return [
       {
@@ -32,19 +36,19 @@ const CustomerDetails = () => {
   const tabs = [
     {
       tab: "Profile information",
-      component: <ProfileInfo user={data as UserResponse} />,
+      component:() => <ProfileInfo loading={isLoading} user={data as UserResponse} />,
     },
     {
       tab: "Transactions",
-      component: <CustomerTransactions />,
+      component: () => <CustomerTransactions />,
     },
     {
       tab: "Card",
-      component: <CardDetails card={data?.cards}   />,
+      component: () =>   <CardDetails card={data?.cards}   />,
     },
   ];
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col pb-8 gap-4 items-center">
       <input
         type="text"
         className="py-2.5 mx-auto bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
@@ -53,23 +57,23 @@ const CustomerDetails = () => {
       <div className="space-y-8 w-full">
         <WalletBanner walletDetails={walletDetails} userDetails={data?.user} />
         <div className="">
-          <Tabs.Root defaultValue={"Profile information"}>
-            <Tabs.List>
+          <Tabs defaultValue={"Profile information"}>
+            <TabsList>
               {tabs.map((data) => {
                 return (
-                  <Tabs.Trigger px={6} value={data.tab}>
+                  <TabsTrigger value={data.tab}>
                     {data.tab}
-                  </Tabs.Trigger>
+                  </TabsTrigger>
                 );
               })}
-            </Tabs.List>
+            </TabsList>
 
             {tabs.map((data) => {
               return (
-                <Tabs.Content value={data.tab}>{data.component}</Tabs.Content>
+                <TabsContent value={data.tab}>{data.component(  )}</TabsContent>
               );
             })}
-          </Tabs.Root>
+          </Tabs>
         </div>
       </div>
     </div>

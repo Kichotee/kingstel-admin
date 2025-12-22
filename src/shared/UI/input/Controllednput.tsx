@@ -2,7 +2,8 @@ import { Controller, FieldValues } from "react-hook-form";
 import { IInputProps } from "./type";
 
 import { Field } from "@/components/ui/field";
-import { Input } from "@chakra-ui/react";
+import { Input } from "@/components/ui/input";
+
 
 type Props<T extends FieldValues> = {} & IInputProps<T>;
 export const ControlledInput = <T extends FieldValues>({
@@ -22,8 +23,8 @@ export const ControlledInput = <T extends FieldValues>({
       render={({ field: { onChange }, fieldState: { error } }) => {
         return (
           <Field
-            label={label}
-            helperText={error?.message || helperText}
+            
+            // helperText={error?.message || helperText}
             className="*:text-black"
           >
             <Input

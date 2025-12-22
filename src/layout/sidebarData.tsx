@@ -133,12 +133,24 @@ export const DASHBOARD_SIDEBAR_LINKS: SidebarLink = [
     visible: true,
   },
   {
-    key: "Rates",
-    label: "Rates",
+    key: "charges-Rates",
+    label: "Charges & Rates",
     path: "/dashboard/manage-charge",
     icon: <LuRefreshCcw size={18} />,
     allowedRoles: true,
     visible: true,
+    links:[
+      {
+        key: "rates",
+        label: "Rates",
+        path: "/dashboard/manage-charge",
+      },
+      {
+        key: "charges",
+        label: "Charges",
+        path: "/dashboard/manage-fees",
+      },
+    ]
   },
   // {
   //   key: "calender",

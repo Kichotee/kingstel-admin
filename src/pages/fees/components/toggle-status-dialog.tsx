@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { IFee } from "@/types";
 import {
   Dialog,
   DialogContent,
@@ -8,28 +9,32 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-interface AcceptModalProps {
+interface ToggleStatusDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  reference: string;
+  charge: IFee | null;
+  onConfirm: () => Promise<void>;
   isPending: boolean;
-  onConfirm: (ref: string) => Promise<void>;
 }
 
-export const AcceptModal = ({
+export const ToggleStatusDialog = ({
   open,
   onOpenChange,
-  reference,
-  isPending,
+  charge,
   onConfirm,
-}: AcceptModalProps) => {
+  isPending,
+}: ToggleStatusDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Freeze Request</DialogTitle>
+          <DialogTitle>
+            {charge?.is_active ? "Deactivate" : "Activate"} Charge
+          </DialogTitle>
           <DialogDescription>
-            Are you sure you want to freeze this card request?
+            Are you sure you want to{" "}
+            {charge?.is_active ? "deactivate" : "activate"} "
+            {charge?.name}"?
           </DialogDescription>
         </DialogHeader>
 
@@ -44,10 +49,10 @@ export const AcceptModal = ({
           </Button>
           <Button
             loading={isPending}
-            onClick={() => onConfirm(reference)}
+            onClick={onConfirm}
             className="bg-brand-primary hover:bg-brand-primary/90"
           >
-            Freeze
+            {charge?.is_active ? "Deactivate" : "Activate"}
           </Button>
         </DialogFooter>
       </DialogContent>

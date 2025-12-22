@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 // import { currencies } from "@/mockdata";
 import { ControlledInput } from "@/shared/UI/input/Controllednput";
@@ -113,7 +114,7 @@ const ManageCurrencies = () => {
               </div>
               <Button
                 loading={isPending}
-                variant="primary"
+                variant="default"
                 onClick={handleSubmit(onSubmit)}
               >
                 Save

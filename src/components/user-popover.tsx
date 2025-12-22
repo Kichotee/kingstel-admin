@@ -1,12 +1,8 @@
 // import {} from "@chakra-ui/react";
-import { IconButton, } from "@chakra-ui/react";
 import { Button } from "./ui/button";
 import {
-  PopoverArrow,
-  PopoverBody,
+  Popover,
   PopoverContent,
-  PopoverRoot,
-  
   PopoverTrigger,
 } from "./ui/popover";
 import { LuLogOut } from "react-icons/lu";
@@ -14,36 +10,23 @@ import { Link } from "react-router-dom";
 
 const UserPopover = () => {
   return (
-    <div className="">
-      <PopoverRoot>
+    <div>
+      <Popover>
         <PopoverTrigger asChild>
           <Button
             size="sm"
             variant="outline"
-            bgColor={"gray.600"}
-            borderColor={"black"}
-            rounded={"full"}
+            className="bg-gray-600 border-black rounded-full"
           >
             K
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          bg={"white"}
-          color={"black"}
-          shadow={"none"}
-          border={"solid"}
-          borderWidth={1}
-          borderColor={"#D1DFFE80"}
-        >
-          <PopoverArrow />
-          <PopoverBody className="space-y-[49px] w-full px-0">
-            <div className="flex-col flex gap-9 w-full items-center">
+        <PopoverContent className="w-80 border border-[#D1DFFE80] bg-white shadow-none">
+          <div className="space-y-[49px] w-full">
+            <div className="flex flex-col gap-9 w-full items-center">
               <div className="flex flex-col w-full gap-5 items-center">
-                <img src="/default-user.png" className="max-w-[60px]" alt="" />
-                <div className="flex-flex-col text-xs gap-2.5 text-center">
-                  <h2 className="font-semibold">Kingstel</h2>
-                  <p className="italic">{}</p>
-                </div>
+                
+               
               </div>
               <Link
                 to={"/dashboard/settings/profile"}
@@ -56,35 +39,21 @@ const UserPopover = () => {
                 </div>
               </Link>
             </div>
-            <div className="mx-auto flex justify-center">
+            <div className="flex justify-center mx-auto">
               <Link
                 to={"/login"}
-                className="bg-[#D1DFFE40] p-[10px_5px] w-full flex gap-2 items-center"
+                className="w-full"
               >
-                <IconButton
-                  display={"flex"}
-                  gap={"2"}
-                  mx={"auto"}
-                  w={"max"}
-                  bg={"#EC1C24"}
-                  px={"58.34px"}
-                  py={"8.34px"}
-                  color={"white"}
-                  rounded={"16px"}
+                <button
+                  className="bg-[#EC1C24] hover:bg-[#EC1C24]/90 text-white px-[58.34px] py-[8.34px] rounded-[16px] flex gap-2 items-center justify-center w-full"
                 >
                   <LuLogOut /> <p>Logout</p>
-                </IconButton>
+                </button>
               </Link>
             </div>
-
-            {/* <Text my="4">
-              Naruto is a Japanese manga series written and illustrated by
-              Masashi Kishimoto.
-            </Text>
-            <Input placeholder="Your fav. character" size="sm" /> */}
-          </PopoverBody>
+          </div>
         </PopoverContent>
-      </PopoverRoot>
+      </Popover>
     </div>
   );
 };

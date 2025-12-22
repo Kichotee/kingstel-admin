@@ -1,76 +1,52 @@
 import { Button } from "@/components/ui/button";
 import {
-  DialogActionTrigger,
-  DialogBody,
+  Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
-  DialogRoot,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
 type IProps = {
-  acceptFn: ({ref, status}:{ ref: string, status: boolean }) => void;
+  acceptFn: ({ ref }: { ref: string; }) => void;
   reference: string;
   isPending: boolean;
 };
 
 export const DeclineModal = ({ acceptFn, reference, isPending }: IProps) => {
   return (
-    <DialogRoot>
-      <DialogTrigger>
-        <Button
-          variant="outline"
-          _hover={{
-            bgColor: "gray.50",
-          }}
-          size={"lg"}
-        >
-          Decline
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="ghost"  className=" hover:bg-transparent">
+          Unfreeze
         </Button>
       </DialogTrigger>
-      <DialogContent
-        width={"276px"}
-        shadow={"sm"}
-        rounded={"lg"}
-        overflow={"hidden"}
-        bg={"white"}
-      >
-        <DialogBody bg={"inherit"}>
-          <p className="text-black mx-auto py-4 text-center max-w-[186px]">
-            Are you sure you want to decline this card request?
-          </p>
-        </DialogBody>
-        <DialogFooter
-          bg={"inherit"}
-          className="text-black *:tect-white flex justify-center *:border-black *:border  space-x-3"
-        >
-          <DialogActionTrigger asChild>
-            <Button
-              variant="solid"
-              bgColor={"#FF4F56"}
-              border={"none"}
-              py={"5px"}
-              px={"10px"}
-              rounded="5px"
-            >
+      <DialogContent className="w-[276px]">
+        <DialogHeader>
+          <DialogTitle className="sr-only">Confirm Decline</DialogTitle>
+          <DialogDescription className="text-center text-black py-4 max-w-[186px] mx-auto">
+            Are you sure you want to unfreeze this card request?
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter className="flex justify-center gap-3 pt-4">
+          <DialogTrigger >
+            <Button variant="outline" size="sm">
               No, Cancel
             </Button>
-          </DialogActionTrigger>
+          </DialogTrigger>
           <Button
-            variant={"solid"}
+            variant="default"
+            size="sm"
             loading={isPending}
-            bgColor={"#1A8010"}
-            rounded={"5px"}
-            py={"5px"}
-            px={"10px"}
-            onClick={() => acceptFn({ ref: reference, status: true })}
-            border={"none"}
-            color={"white"}
+            onClick={() => acceptFn({ ref: reference })}
+            className="bg-green-600 hover:bg-green-300 duration-200"
           >
-            Decline{" "}
+            Unfreeze
           </Button>
         </DialogFooter>
       </DialogContent>
-    </DialogRoot>
+    </Dialog>
   );
 };

@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toaster } from "@/components/ui/toaster";
+
+
 import instance from "@/lib/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export type ExchangeRate = {
   to_currency: string;
@@ -17,6 +19,8 @@ const getCharges = async () => {
     throw new Error(error.response.data.message);
   }
 };
+
+
 
 const postExchangeRate = async (data: ExchangeRate) => {
   try {
@@ -52,16 +56,11 @@ export const usePostExchangeRate = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: postExchangeRate,
     onSuccess: (data) => {
-      toaster.create({
-        description: data.message,
-        type: "success",
-      });
+      toast.success(data.message);
     },
     onError: (error) => {
-      toaster.create({
-        description: error.message,
-        type: "error",
-      });
+      toast.error(error.message);
+    
     },
   });
   return { addRates: mutateAsync, isPending };
@@ -71,16 +70,11 @@ export const useEditExchangeRate = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: updateExchangeRate,
     onSuccess: (data) => {
-      toaster.create({
-        description: data.message,
-        type: "success",
-      });
+      toast.success(data.message);  
+   
     },
     onError: (error) => {
-      toaster.create({
-        description: error.message,
-        type: "error",
-      });
+      toast.error(error.message);
     },
   });
   return { updateRates: mutateAsync, isPending };
