@@ -33,9 +33,6 @@ const ManageCharges = () => {
 
   const { addRates } = usePostExchangeRate();
 
-  const onSubmit = async (data: ExchangeRate) => {
-    await addRates(data);
-  };
 
   const { onUpdate, isPending } = useUpdateMarkup();
 
@@ -45,10 +42,6 @@ const ManageCharges = () => {
     // Add your update logic here
   };
 
-  const handleEditMarkup = (percentage: string) => {
-    console.log("Edit markup with percentage:", percentage, selectedRow);
-    // Add your edit logic here
-  };
   const [isModalOpen, setIsModalOpen] = useState(0);
 
   const columns: ColumnDef<ICharge>[] = [

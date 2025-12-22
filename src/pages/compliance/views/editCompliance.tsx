@@ -70,7 +70,7 @@ const EditCompliance = () => {
               
                 </div>
               </div>
-          <Button mx={"auto"} w={"max"} bg={"#0F00BD"} p={3} color={"white"}>Ask to upload</Button>
+          <Button variant={"default"}>Ask to upload</Button>
           </div>
         </div>
     </div>

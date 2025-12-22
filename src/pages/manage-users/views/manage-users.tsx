@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useCreateAdmin, useGetUsers } from "../queries";
 import { ControlledSelect } from "@/shared/UI/select/select";
-import { createListCollection } from "@chakra-ui/react";
+// import { createListCollection } from "@chakra-ui/react";
 
 const ManageUsers = () => {
   const { control, handleSubmit } = useForm<ICreateUser>();
@@ -20,7 +20,7 @@ const ManageUsers = () => {
       label: "Admin",
     },
   ];
-  const userCollection = createListCollection({ items: userOptions });
+  // const userCollection = createListCollection({ items: userOptions });
   const { data } = useGetUsers();
   console.log(data);
   const columns: ColumnDef<IUsers>[] = [
@@ -124,7 +124,7 @@ const ManageUsers = () => {
                 />
 
                 <ControlledSelect
-                  collection={userCollection}
+                  // collection={userCollection}
                   variant={"outline"}
                   control={control}
                   options={userOptions}
@@ -136,7 +136,7 @@ const ManageUsers = () => {
               </div>
               <Button
                 loading={isPending}
-                variant="primary"
+                variant="default"
                 onClick={handleSubmit(onSubmit)}
               >
                 Save

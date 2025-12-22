@@ -14,7 +14,8 @@ const CustomerDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleCustomer(id!);
 
-  const { cardDetails, transactiondetailsLoading } = useGetSingleCardDetails(id!);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  useGetSingleCardDetails(id!);
 
   const walletDetails = useMemo(() => {
     return [

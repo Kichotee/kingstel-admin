@@ -76,7 +76,7 @@ const ManageProfile = () => {
               />
             </div>
             <Button
-              variant="primary"
+              variant="default"
               // onClick={handleSubmit(onSubmit)}
             >
               Save

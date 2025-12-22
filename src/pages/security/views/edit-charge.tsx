@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useLocation, useParams } from "react-router-dom";
 import { ExchangeRate, useEditExchangeRate } from "../queries";
 import { validCountriesOptions } from "@/shared/constants";
-import { createListCollection } from "@chakra-ui/react";
+// import { createListCollection } from "@chakra-ui/react";
 import { ControlledSelect } from "@/shared/UI/select/select";
 import { useMemo } from "react";
 
@@ -31,9 +31,9 @@ const EditRates = () => {
   const onSubmit = async (data: ExchangeRate) => {
     await updateRates(data);
   };
-  const countryCollection = createListCollection({
-    items: validCountriesOptions,
-  });
+  // const countryCollection = createListCollection({
+  //   items: validCountriesOptions,
+  // });
   return (
     <div className="space-y-[52px] w-full ">
       <p className="font-semibold text-center">Edit rate</p>
@@ -42,7 +42,7 @@ const EditRates = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-5">
               <ControlledSelect
-                collection={countryCollection}
+                //collection={countryCollection}
                 options={validCountriesOptions}
                 variant={"outline"}
                 control={control}
@@ -53,7 +53,7 @@ const EditRates = () => {
               />
 
               <ControlledSelect
-                collection={countryCollection}
+                //collection={countryCollection}
                 options={validCountriesOptions}
                 variant={"outline"}
                 control={control}
@@ -75,7 +75,7 @@ const EditRates = () => {
           <Button
             onClick={handleSubmit(onSubmit)}
             loading={isPending}
-            variant="primary"
+            variant="default"
           >
             Save
           </Button>

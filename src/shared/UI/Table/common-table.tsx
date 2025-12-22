@@ -152,7 +152,7 @@ export const DataTable = <T,>({
                           };
                         });
                       }}
-                      variant={data?.active ? "outline" : "plain"}
+                      variant={data?.active ? "outline" : "default"}
                     >
                       {data?.label}
                     </Button>
@@ -161,7 +161,7 @@ export const DataTable = <T,>({
               </div>
               <Button
               className="bg-brand-primary text-white px-2"
-                variant={"solid"}
+                variant={"default"}
                 onClick={() =>
                   setPagination?.((prev) => ({
                     ...prev,
