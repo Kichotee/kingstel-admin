@@ -33,14 +33,6 @@ const getSingleCardDetails = async (id: string) => {
   }
 };
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const updateCardPin = async (id: string) => {
-  try {
-    const res = await instance.get<MultiResponse<UserCardTransactions>>(`/admin/bridge-card/update-pin/${id}`);
-    return res.data;
-  } catch (error: any) {
-    throw new Error(error?.data?.message || error?.message);
-  }
-};
 const getCustomers = async (page: number) => {
   try {
     const response = await instance.get(`/admin/user?page=` + page);

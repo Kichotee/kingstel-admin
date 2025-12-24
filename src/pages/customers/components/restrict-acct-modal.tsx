@@ -9,16 +9,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Switch } from "@/components/ui/switch";
 import { useRestrictUser } from "../queries";
-import { useSearchParams } from "react-router-dom";
+// import { useSearchParams } from "react-router-dom";
 
 export const RestrictModal = ({blocked, id}:{
   blocked: boolean;
   id:number
 }) => {
   const { restrictFn } = useRestrictUser();
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
 
   return (
     <Dialog>

@@ -80,7 +80,7 @@ const EditUser = () => {
           <Button
             onClick={handleSubmit(onSubmit)}
             loading={isPending}
-            variant="primary"
+            variant="default"
           >
             Save
           </Button>
