@@ -34,7 +34,7 @@ const EditCurrency = () => {
               label="Rate"
             />
           </div>
-          <Button variant="primary">
+          <Button variant="default" className="mx-auto">
             Save
           </Button>
         </div>

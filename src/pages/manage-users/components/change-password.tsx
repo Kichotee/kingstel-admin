@@ -47,7 +47,7 @@ const ChangePassword = () => {
         </div>
         <Button
           loading={isPending}
-          variant="primary"
+          variant="default"
           onClick={handleSubmit(onSubmit)}
         >
           Save

@@ -205,31 +205,4 @@ export const users = [
   },
 ];
 
-export const chargeData: ICharge[] = [
-  {
-    SN: 1,
-    country: "Ghana",
-    currency: "Cedi",
-    charge: "GHS10.00",
-    percentage: "0",
-    to: "",
-  },
 
-  {
-    SN: 2,
-    country: "Nigeria",
-    currency: "Naira",
-    charge: "NGN100.00",
-    percentage: "0",
-    to: "",
-  },
-
-  {
-    SN: 1,
-    country: "USA",
-    currency: "Dollar",
-    charge: "USD10.00",
-    percentage: "2",
-    to: "",
-  },
-];
