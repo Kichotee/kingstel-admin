@@ -13,8 +13,9 @@ import { Switch } from "@/components/ui/switch";
 import { useRestrictUser } from "../queries";
 import { useSearchParams } from "react-router-dom";
 
-export const RestrictModal = ({blocked}:{
+export const RestrictModal = ({blocked, id}:{
   blocked: boolean;
+  id:number
 }) => {
   const { restrictFn } = useRestrictUser();
   const [searchParams] = useSearchParams();
@@ -26,10 +27,10 @@ export const RestrictModal = ({blocked}:{
         {blocked ? "Unrestrict Account" : "Restrict Account"}
        </Button>
       </DialogTrigger>
-      <DialogContent className="w-[276px]">
+      <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="sr-only">Restrict Account</DialogTitle>
-          <DialogDescription className="text-center text-black py-4 max-w-[186px] mx-auto">
+          <DialogDescription className="text-center text-black py-4  mx-auto">
             Restricting this account will limit the users ability to perform
             actions on the account
           </DialogDescription>
@@ -45,13 +46,13 @@ export const RestrictModal = ({blocked}:{
             size="sm"
             onClick={() =>
               restrictFn({
-                ref: searchParams.get("email") as string,
-                status: true,
+                ref: id,
+                status: blocked ? `unblock` : `block`,
               })
             }
-            className="bg-green-600 hover:bg-green-700 text-white"
+            className=" bg-brand-primary hover:bg-brand-primary/80 duration-200 text-white"
           >
-            Accept
+            {blocked ? "Unrestrict" : "Restrict"}
           </Button>
         </DialogFooter>
       </DialogContent>

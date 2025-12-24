@@ -32,6 +32,7 @@ const getSingleCardDetails = async (id: string) => {
     throw new Error(error?.data?.message || error?.message);
   }
 };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const updateCardPin = async (id: string) => {
   try {
     const res = await instance.get<MultiResponse<UserCardTransactions>>(`/admin/bridge-card/update-pin/${id}`);
@@ -60,10 +61,11 @@ const getSingleCustomer = async (id: string) => {
     throw new Error(error);
   }
 };
-const restrictUser = async (email: string, status: boolean) => {
+const restrictUser = async (id: number, action:  `block` | `unblock`) => {
   try {
-    const res = await instance.put(`/admin/restrict_user?email=${email}`, {
-      status,
+    const res = await instance.post(`/admin/block-unblock-user?email=`, {
+      action,
+      user_id: id,
     });
     return res.data;
   } catch (error: any) {
@@ -124,7 +126,7 @@ export const useRestrictUser = () => {
   
   const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationKey: ["approveCard"],
-    mutationFn: ({ ref, status }: { ref: string; status: boolean }) => {
+    mutationFn: ({ ref, status }: { ref: number; status: `block` | `unblock` }) => {
       return restrictUser(ref, status);
     },
     onSuccess() {

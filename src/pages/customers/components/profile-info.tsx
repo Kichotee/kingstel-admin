@@ -88,7 +88,7 @@ const ProfileInfo = ({ user, loading }: IProps) => {
         <div className="flex flex-row gap-4 bg-white">
           <div className="px-6 text-brand-primary">Restrict account</div>
           <div className="px-6 ">
-            <RestrictModal blocked={user?.user?.is_blocked} />
+            <RestrictModal id={user?.user?.id} blocked={user?.user?.is_blocked == "1"} />
           </div>
         </div>
       </div>

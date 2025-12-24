@@ -136,6 +136,8 @@ type User = {
   updated_at: string;
   user_image: string | null;
   dob: string | null;
+  is_blocked:"0" | "1";
+  address: string | null;
 };
 
 type Card = {
