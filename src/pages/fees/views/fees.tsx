@@ -38,7 +38,7 @@ const ManageFees = () => {
   const [chargeToToggle, setChargeToToggle] = useState<IFee | null>(null);
 
   const { charge, singleChargeLoading } = useGetSingleCharge(
-    isViewOpen
+    isViewOpen || isModalOpen
   );
   const { updateChargeFn, isPending } = useUpdateCharge();
   const { toggleStatusFn, isPending: isToggling } = useToggleChargeStatus();

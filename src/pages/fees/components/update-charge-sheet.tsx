@@ -8,6 +8,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useForm } from "react-hook-form";
+import { useMemo } from "react";
 
 interface UpdateChargeSheetProps {
   open: boolean;
@@ -28,22 +29,24 @@ export const UpdateChargeSheet = ({
   isPending,
   onOpenModalChange,
 }: UpdateChargeSheetProps) => {
+
+  console.log('charge in update sheet:', charge);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<Partial<IFee>>({
-    defaultValues: {
-      name: "",
-      charge: "",
-      percentage: "",
-      cap: null,
-      currency: "",
-      is_active: true,
-      description: "",
-      service_type: "",
-    },
+    defaultValues: useMemo(() => ({
+      name: charge?.name || "",
+      charge: charge?.charge || "",
+      percentage: charge?.percentage || "",
+      cap: charge?.cap || null,
+      currency: charge?.currency || "",
+      is_active: charge?.is_active || true,
+      description: charge?.description || "",
+      service_type: charge?.service_type || "",
+    }), [charge]),
   });
 
   const handleOpenChange = (isOpen: boolean) => {
@@ -157,14 +160,14 @@ export const UpdateChargeSheet = ({
               )}
             </div>
 
-            <div className="pt-4 space-y-2">
+            {/* <div className="pt-4 space-y-2">
               <p className="text-xs text-gray-500">
                 Date Added: {charge?.created_at}
               </p>
               <p className="text-xs text-gray-500">
                 Last Modified: {charge?.updated_at}
               </p>
-            </div>
+            </div> */}
 
             <Button
               type="submit"
