@@ -30,7 +30,7 @@ export const UpdateChargeSheet = ({
   onOpenModalChange,
 }: UpdateChargeSheetProps) => {
 
-  console.log('charge in update sheet:', charge);
+  
   const {
     register,
     handleSubmit,

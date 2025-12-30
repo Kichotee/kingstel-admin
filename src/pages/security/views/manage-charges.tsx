@@ -114,11 +114,9 @@ const ManageCharges = () => {
       <MarkupModal
         isPending={isPending}
         open={  isModalOpen === selectedRow?.id }
-     
         onOpenChange={() => setIsModalOpen(0)}
         rate={selectedRow?.rate?.toString()}
         onConfirm={async (percentage) => {
-          console.log("Updating markup from DropdownMenu:", percentage);
           if (!selectedRow) return;
           return await handleUpdateMarkup( selectedRow?.id.toString(), percentage);
         }}

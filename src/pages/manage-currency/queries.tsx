@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import instance from "@/lib/api";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ICreateCurrencyPayload, ICurrency } from "./types";
 import { MultiResponse, SingleResponseData } from "@/lib/api/type";
 import { toast } from "sonner";
@@ -59,8 +59,7 @@ export const useCreateCurrency = () => {
 };
 
 export const useUpdateMarkup = () => {
-  const queryClient = new QueryClient();
-
+  const queryClient = useQueryClient()
   const { mutateAsync, isPending } = useMutation({
     mutationFn: ({ id, value }: { id: string; value: string }) => {
       console.log("Updating markup in mutation:", id, value);
