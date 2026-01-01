@@ -12,7 +12,14 @@ import { validCountriesOptions } from "@/shared/constants";
 import { LuEllipsis } from "react-icons/lu";
 
 import { MarkupModal } from "../components/markup-modal";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { useUpdateMarkup } from "@/pages/manage-currency/queries";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
@@ -28,21 +35,41 @@ const ManageCharges = () => {
   const { ratesData, isLoading } = useGetRates();
 
   const [selectedRow, setSelectedRow] = useState<ICharge | null>(null);
+  const [selectedTransactionType, setSelectedTransactionType] =
+    useState<string>("");
 
   console.log(ratesData);
 
   const { addRates } = usePostExchangeRate();
 
-
   const { onUpdate, isPending } = useUpdateMarkup();
 
-  const handleUpdateMarkup = async ( id: string, percentage:string) => {
+  const handleUpdateMarkup = async (id: string, percentage: string) => {
     await onUpdate({ id, value: percentage });
     console.log("Update markup with percentage:", percentage, selectedRow);
     // Add your update logic here
   };
 
   const [isModalOpen, setIsModalOpen] = useState(0);
+
+  // Get unique transaction types for filter options
+  const transactionTypes = useMemo(() => {
+    console.log(ratesData);
+    if (!ratesData?.data) return [];
+    const types = new Set(
+      ratesData?.data?.map((item) => item?.transaction_type).filter(Boolean)
+    );
+      
+    return Array.from(types);
+  }, [ratesData]);
+
+  // Filter data based on selected transaction type
+  const filteredData = useMemo(() => {
+    if (selectedTransactionType == '-') return ratesData?.data || [];
+    return (ratesData?.data || []).filter(
+      (item) => item.transaction_type === selectedTransactionType
+    );
+  }, [ratesData?.data, selectedTransactionType]);
 
   const columns: ColumnDef<ICharge>[] = [
     {
@@ -107,18 +134,22 @@ const ManageCharges = () => {
       },
     },
   ];
-
+  // console.log(transactionTypes, ratesData);
   return (
     <div className="space-y-7">
       <PageTitle title={"Manage Rates"} />
+
       <MarkupModal
         isPending={isPending}
-        open={  isModalOpen === selectedRow?.id }
+        open={isModalOpen === selectedRow?.id}
         onOpenChange={() => setIsModalOpen(0)}
         rate={selectedRow?.rate?.toString()}
         onConfirm={async (percentage) => {
           if (!selectedRow) return;
-          return await handleUpdateMarkup( selectedRow?.id.toString(), percentage);
+          return await handleUpdateMarkup(
+            selectedRow?.id.toString(),
+            percentage
+          );
         }}
       />
       <div className="flex justify-center gap-[18px]">
@@ -171,11 +202,35 @@ const ManageCharges = () => {
         </div> */}
         <div className=" w-full bg-white">
           <div className="p-[43px_37px] flex flex-col gap-[52px]">
-            <PageTitle title="Rates " />
+            <div className="flex gap-4 items-center">
+              <PageTitle title="Rates " />
+              <div className="flex gap-4">
+                <div className="w-48">
+                  {ratesData && (
+                    <Select
+                      value={selectedTransactionType}
+                      onValueChange={setSelectedTransactionType}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Filter by transaction type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="-">All Types</SelectItem>
+                        {transactionTypes.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                </div>
+              </div>
+            </div>
             <DataTable<ICharge>
               columns={columns}
               loading={isLoading}
-              data={ratesData?.data || []}
+              data={filteredData}
             />
           </div>
         </div>

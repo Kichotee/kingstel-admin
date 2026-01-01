@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-
 import instance from "@/lib/api";
+import { ICharge } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -13,14 +13,15 @@ export type ExchangeRate = {
 
 const getCharges = async () => {
   try {
-    const result = await instance.get("/admin/exchange-rates");
+    const result = await instance.get<{
+      data: { data: ICharge[] };
+    }>("/admin/exchange-rates");
+    console.log(result);
     return result?.data?.data;
   } catch (error: any) {
     throw new Error(error.response.data.message);
   }
 };
-
-
 
 const postExchangeRate = async (data: ExchangeRate) => {
   try {
@@ -37,7 +38,7 @@ const updateExchangeRate = async (data: ExchangeRate) => {
 
     return res?.data;
   } catch (error: any) {
-    console.log(error.response.data.message ??  error.response.message);
+    console.log(error.response.data.message ?? error.response.message);
     throw new Error(error.response.data.message ?? error.response.message);
   }
 };
@@ -60,7 +61,6 @@ export const usePostExchangeRate = () => {
     },
     onError: (error) => {
       toast.error(error.message);
-    
     },
   });
   return { addRates: mutateAsync, isPending };
@@ -70,8 +70,7 @@ export const useEditExchangeRate = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: updateExchangeRate,
     onSuccess: (data) => {
-      toast.success(data.message);  
-   
+      toast.success(data.message);
     },
     onError: (error) => {
       toast.error(error.message);
