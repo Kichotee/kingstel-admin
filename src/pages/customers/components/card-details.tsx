@@ -17,6 +17,8 @@ const CardDetails = ({ card }: IProp) => {
     pageIndex: 1,
     pageSize: 10,
   });
+
+  console.log(card)
   const { id } = useParams();
   const { cardTranscts } = useGetCardTransactions(id as string);
   const columns: ColumnDef<UserCardTransactions>[] = [
@@ -94,23 +96,23 @@ const CardDetails = ({ card }: IProp) => {
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Card Name</p>
             <p className="basis-3/5 p-[12px_24px] capitalize">
-              {card?.name_on_card ?? ""}
+              {card?.card_name ?? ""}
             </p>
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">
               Card Number
             </p>
-            {card?.pan ? (
+            {card?.card_number ? (
               <p className="basis-3/5 p-[12px_24px]">
-                {card?.pan.slice(0, 4) +
+                {card?.card_number?.slice(0, 4) +
                   "   " +
-                  card?.pan.slice(4, 8) +
+                  card?.card_number?.slice(4, 8) +
                   "   " +
                   "  " +
-                  card?.pan.slice(8, 12) +
+                  card?.card_number?.slice(8, 12) +
                   "   " +
-                  card?.pan.slice(12, 16)}
+                  card?.card_number.slice(12, 16)}
               </p>
             ) : (
               ""
@@ -124,11 +126,11 @@ const CardDetails = ({ card }: IProp) => {
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">cvv</p>
-            {/* <p className="basis-3/5 p-[12px_24px]">{card?.cvv ?? "-"}</p> */}
+            <p className="basis-3/5 p-[12px_24px]">{card?.cvv ?? "-"}</p>
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Status</p>
-            <p className="basis-3/5 p-[12px_24px]">{""}</p>
+            <p className="basis-3/5 p-[12px_24px]">{card?.is_active ? "yes":'no'}</p>
           </div>
         </div>
       </div>

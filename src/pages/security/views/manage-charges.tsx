@@ -65,7 +65,8 @@ const ManageCharges = () => {
 
   // Filter data based on selected transaction type
   const filteredData = useMemo(() => {
-    if (selectedTransactionType == '-') return ratesData?.data || [];
+    console.log(selectedTransactionType);
+    if (selectedTransactionType == '') return ratesData?.data || [];
     return (ratesData?.data || []).filter(
       (item) => item.transaction_type === selectedTransactionType
     );
@@ -208,6 +209,7 @@ const ManageCharges = () => {
                 <div className="w-48">
                   {ratesData && (
                     <Select
+                    defaultValue="-"
                       value={selectedTransactionType}
                       onValueChange={setSelectedTransactionType}
                     >

@@ -35,7 +35,7 @@ const getUsers = async () => {
 };
 const getSingleAdmin = async (id: string) => {
   try {
-    const response = await instance.get("/admin/user/" + id);
+    const response = await instance.get("/admin/details" + id);
     return response.data.data;
   } catch (e: any) {
     throw new Error(e);
@@ -46,8 +46,8 @@ const updatePassword = async (
   data: Omit<IChangeUserPassword, "confirm_password">
 ) => {
   try {
-    const response = await instance.put("/users/change-password", data);
-    return response.data.data;
+    const response = await instance.put("/admin/change-password", data);
+    return response.data;
   } catch (error: any) {
     throw new Error(error.data);
   }
@@ -136,6 +136,7 @@ export const usePasswordChange = () => {
       return updatePassword(data);
     },
     onSuccess(data) {
+      console.log(data);
       toast.success(data.message);
     },
     onError(error) {

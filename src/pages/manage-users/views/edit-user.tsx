@@ -4,14 +4,22 @@ import { useGetSingleCustomer } from "@/pages/customers/queries";
 import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useUpdateateAdmin } from "../queries";
+import { useGetSingleUser, useUpdateateAdmin } from "../queries";
+import { ControlledSelect } from "@/shared/UI/select/select";
 
 const EditUser = () => {
-  const { control, handleSubmit } = useForm();
   const { id } = useParams();
-  const { data } = useGetSingleCustomer(id as string);
+  const { data } = useGetSingleUser(id as string);
   console.log(data);
   
+  const { control, handleSubmit } = useForm();
+  
+  const userOptions = [
+    {
+      value: "Admin",
+      label: "Admin",
+    },
+  ];
 
   const { updateAdminFn,isPending } = useUpdateateAdmin();
 
@@ -67,14 +75,16 @@ const EditUser = () => {
                 label="Phone number"
                 placeholder="Enter Phone number"
               />
-              <ControlledInput
-                variant={"outline"}
-                control={control}
-                name="role"
-                size="lg"
-                label="Role"
-                placeholder="Select Role"
-              />
+             <ControlledSelect
+                            // collection={userCollection}
+                            variant={"outline"}
+                            control={control}
+                            options={userOptions}
+                            name="role"
+                            size="lg"
+                            label="Role"
+                            placeholder="Select Role"
+                          />
             </div>
           </div>
           <Button

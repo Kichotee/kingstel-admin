@@ -110,7 +110,7 @@ export interface ICreateUser {
   status: string;
 }
 export interface IChangeUserPassword {
-  current_password: string;
+  old_password: string;
   new_password: string;
   confirm_password: string;
 }
@@ -147,16 +147,23 @@ type Card = {
   reference: string;
   card_reference: string;
   currency: string;
+  card_currency: string;
+  card_type: string;
   brand: string | null;
   type: string;
+  cvv: string;
   pan: string;
   name_on_card: string;
+  balance:number|string;
+  card_name:string,
+  card_number:string;
   first_six_number: string | null;
   last_four_number: string | null;
   expiry_month: string;
   expiry_year: string;
   card_balance: number;
   status: string;
+  is_active:boolean;
   created_at: string;
   updated_at: string;
 };

@@ -163,7 +163,7 @@ export const CardRequests = () => {
       <div className="space-y-12 w-full">
         <div className="space-y-6">
           <PageTitle title="Card requests" />
-          <div className="px-14 py-[61px] rounded-2xl w-max bg-white flex gap-40">
+          {/* <div className="px-14 py-[61px] rounded-2xl w-max bg-white flex gap-40">
             {card.map((data) => {
               return (
                 <CardRequestsCard
@@ -172,7 +172,7 @@ export const CardRequests = () => {
                 />
               );
             })}
-          </div>
+          </div> */}
         </div>
         <DataTable<CardRequest>
           columns={columns}

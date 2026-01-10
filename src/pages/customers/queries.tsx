@@ -18,7 +18,9 @@ const getCardTransactions = async (id: string, email: string) => {
 };
 const getCardTransacts = async (id: string) => {
   try {
-    const res = await instance.get<MultiResponse<UserCardTransactions>>(`/admin/transaction/card/${id}`);
+    const res = await instance.get<MultiResponse<UserCardTransactions>>(
+      `/admin/transaction/card/${id}`
+    );
     return res.data;
   } catch (error: any) {
     throw new Error(error?.data?.message || error?.message);
@@ -26,7 +28,9 @@ const getCardTransacts = async (id: string) => {
 };
 const getSingleCardDetails = async (id: string) => {
   try {
-    const res = await instance.get<MultiResponse<UserCardTransactions>>(`/admin/bridge-card/user/${id}`);
+    const res = await instance.get<{ data: UserResponse["cards"] }>(
+      `/admin/card/${id}/secure-details`
+    );
     return res.data;
   } catch (error: any) {
     throw new Error(error?.data?.message || error?.message);
@@ -53,7 +57,7 @@ const getSingleCustomer = async (id: string) => {
     throw new Error(error);
   }
 };
-const restrictUser = async (id: number, action:  `block` | `unblock`) => {
+const restrictUser = async (id: number, action: `block` | `unblock`) => {
   try {
     const res = await instance.post(`/admin/block-unblock-user?email=`, {
       action,
@@ -107,6 +111,7 @@ export const useGetSingleCardDetails = (id: string) => {
     queryFn: () => {
       return getSingleCardDetails(id);
     },
+    enabled: !!id,
   });
 
   return { cardDetails: data, transactiondetailsLoading: isLoading };
@@ -115,10 +120,15 @@ export const useGetSingleCardDetails = (id: string) => {
 export const useRestrictUser = () => {
   const queryClient = useQueryClient();
 
-  
   const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationKey: ["approveCard"],
-    mutationFn: ({ ref, status }: { ref: number; status: `block` | `unblock` }) => {
+    mutationFn: ({
+      ref,
+      status,
+    }: {
+      ref: number;
+      status: `block` | `unblock`;
+    }) => {
       return restrictUser(ref, status);
     },
     onSuccess() {
@@ -128,4 +138,3 @@ export const useRestrictUser = () => {
   });
   return { restrictFn: mutateAsync, isPending, isSuccess };
 };
-

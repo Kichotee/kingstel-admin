@@ -13,10 +13,10 @@ import { TabsContent, TabsList, Tabs, TabsTrigger } from "@/components/ui/tabs";
 const CustomerDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleCustomer(id!);
-
+  
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  useGetSingleCardDetails(id!);
-
+  const {cardDetails} = useGetSingleCardDetails(data?.cards?.card_reference as string);
+  console.log(cardDetails)
   const walletDetails = useMemo(() => {
     return [
       {
@@ -45,7 +45,7 @@ const CustomerDetails = () => {
     },
     {
       tab: "Card",
-      component: () =>   <CardDetails card={data?.cards}   />,
+      component: () =>   <CardDetails card={cardDetails?.data}   />,
     },
   ];
   return (

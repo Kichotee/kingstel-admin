@@ -24,7 +24,7 @@ console.log(card);
         </div>
         <div className="flex flex-col items-center gap-2.5 ">
           <div className="flex gap-2.5 p-2.5 font-semibold text-[30px] leading-[45px] justify-center">
-            <p>$</p> <p> {viewPassword ? "*** " : card?.card_balance}</p>
+            <p>$</p> <p> {viewPassword ? "*** " : card?.balance}</p>
             <button
               className="transition-all duration-200"
               onClick={() => {
@@ -39,32 +39,32 @@ console.log(card);
           <div className="flex gap-4 text-xl text-[20px]  font-semibold">
             <input
               type="text"
-              value={card?.pan?.slice(0,4)}
+              value={card?.card_number?.slice(0,4)}
               className="border-none hover:border-none focus:border-none w-[50px] h-[30px] bg-transparent outline-none focus:outline-none "
             />
             <input
               type={`${viewPassword ? "password" : "text"}`}
-              value={card?.pan?.slice(4,8)}
+              value={card?.card_number?.slice(4,8)}
               className="border-none hover:border-none animate-fade-in-grow focus:border-none w-[50px] h-[30px] bg-transparent outline-none focus:outline-none "
             />
             <input
               type={`${viewPassword ? "password" : "text"}`}
-              value={card?.pan?.slice(8,12)}
+              value={card?.card_number?.slice(8,12)}
               className="border-none hover:border-none animate-fade-in-grow focus:border-none w-[50px] h-[30px] bg-transparent outline-none focus:outline-none "
             />
             <input
               type="text"
-              value={card?.pan?.slice(12,16)}
+              value={card?.card_number?.slice(12,16)}
               className="border-none hover:border-none focus:border-none w-[50px] h-[30px] bg-transparent outline-none focus:outline-none "
             />
           </div>
         </div>
         <div className="flex text-sm items-center gap-[50px] font-medium">
-          <p className="whitespace-nowrap">{card?.name_on_card}</p>
+          <p className="whitespace-nowrap">{card?.card_name}</p>
           {/* <p>{card?.cvv ?? "-"}</p> */}
           <p className="flex flex-col items-center">
             <span className="text-[8px] font-semibold uppercase">Valid thru</span>
-            <p>{card?.expiry_year}</p>
+            <p>{card?.expiry_month}/{card?.expiry_year}</p>
           </p>
 
           <div className="">

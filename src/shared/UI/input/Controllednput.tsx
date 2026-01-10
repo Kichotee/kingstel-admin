@@ -37,6 +37,9 @@ export const ControlledInput = <T extends FieldValues>({
               // size={size}
               placeholder={placeholder}
             />
+            {helperText && (
+              <p className="text-sm mt-1 text-gray-600">{helperText}</p>
+            )}
           </Field>
         );
       }}
