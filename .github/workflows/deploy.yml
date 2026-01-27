@@ -1,0 +1,55 @@
+name: Deployment to panel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: Deploy to Hostinger
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Enable Corepack and set Yarn version
+        run: |
+          corepack enable
+          corepack prepare yarn@4.1.0 --activate
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        env:
+          VITE_BASEURL: ${{ secrets.VITE_BASEURL }}
+          
+          VITE_APP_URL: ${{ secrets.VITE_APP_URL }}
+         
+        run: yarn build
+
+
+      - name: List output files
+        run: find dist/ -print
+      
+      - name: Verify deploy config
+        run: |
+          if [ -z "${{ secrets.PANEL_FTP_SERVER }}" ]; then echo "Missing secret: PANEL_FTP_SERVER"; exit 1; fi
+          if [ -z "${{ secrets.PANEL_FTP_USERNAME }}" ]; then echo "Missing secret: PANEL_FTP_USERNAME"; exit 1; fi
+          if [ -z "${{ secrets.PANEL_FTP_PASSWORD }}" ]; then echo "Missing secret: PANEL_FTP_PASSWORD"; exit 1; fi
+          echo "Secrets present. Proceeding to deployment."
+
+      - name: Sync files to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.PANEL_FTP_SERVER }}
+          username: ${{ secrets.PANEL_FTP_USERNAME }}
+          password: ${{ secrets.PANEL_FTP_PASSWORD }}
+          local-dir: dist/
