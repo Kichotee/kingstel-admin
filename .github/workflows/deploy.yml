@@ -3,7 +3,7 @@ name: Deployment to panel
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   web-deploy:
