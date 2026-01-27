@@ -1,0 +1,14 @@
+logFilters:
+  - code: YN0086
+    level: discard
+  - code: YN0002
+    level: discard
+
+nodeLinker: node-modules
+
+packageExtensions:
+  react-dropdown-select@*:
+    peerDependencies:
+      prop-types: "*"
+
+yarnPath: .yarn/releases/yarn-4.12.0.cjs
