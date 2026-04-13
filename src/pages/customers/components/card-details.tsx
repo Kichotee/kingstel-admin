@@ -1,6 +1,7 @@
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { CardBox } from "./card-box";
-import { UserCardTransactions, UserResponse } from "@/types";
+import { CardDetailsResponse, UserCardTransactions, UserResponse } from "@/types";
+import StatusBadge from "@/shared/UI/Table/status-badge";
 import { useGetCardTransactions } from "../queries";
 import { useState } from "react";
 import { PaginationState, ColumnDef } from "@tanstack/react-table";
@@ -9,7 +10,7 @@ import { DataTable } from "@/shared/UI/Table/common-table";
 import { useParams } from "react-router-dom";
 
 type IProp = {
-  card?: UserResponse["cards"];
+  card?: CardDetailsResponse;
 };
 
 const CardDetails = ({ card }: IProp) => {
@@ -96,23 +97,23 @@ const CardDetails = ({ card }: IProp) => {
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Card Name</p>
             <p className="basis-3/5 p-[12px_24px] capitalize">
-              {card?.card_name ?? ""}
+              {card?.cardDetails?.name_on_card ?? ""}
             </p>
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">
               Card Number
             </p>
-            {card?.card_number ? (
+            {card?.cardDetails?.pan ? (
               <p className="basis-3/5 p-[12px_24px]">
-                {card?.card_number?.slice(0, 4) +
+                {card?.cardDetails?.pan?.slice(0, 4) +
                   "   " +
-                  card?.card_number?.slice(4, 8) +
+                  card?.cardDetails?.pan?.slice(4, 8) +
                   "   " +
                   "  " +
-                  card?.card_number?.slice(8, 12) +
+                  card?.cardDetails?.pan?.slice(8, 12) +
                   "   " +
-                  card?.card_number.slice(12, 16)}
+                  card?.cardDetails?.pan?.slice(12, 16)}
               </p>
             ) : (
               ""
@@ -122,11 +123,11 @@ const CardDetails = ({ card }: IProp) => {
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">
               Expiry date
             </p>
-            <p className="basis-3/5 p-[12px_24px]">{card?.expiry_year ?? ""}</p>
+            <p className="basis-3/5 p-[12px_24px]">{card?.cardDetails?.expiry_year ?? ""}</p>
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">cvv</p>
-            <p className="basis-3/5 p-[12px_24px]">{card?.cvv ?? "-"}</p>
+            <p className="basis-3/5 p-[12px_24px]">{card?.cardDetails?.cvv ?? "-"}</p>
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Status</p>

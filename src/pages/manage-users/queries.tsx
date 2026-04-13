@@ -2,7 +2,7 @@
 
 import instance from "@/lib/api";
 import { SingleResponseData } from "@/lib/api/type";
-import { IChangeUserPassword, ICreateUser, ICustomers } from "@/types";
+import { EditUserFormData, IChangeUserPassword, ICreateUser, ICustomers } from "@/types";
 import {
   QueryClient,
   useMutation,
@@ -35,8 +35,8 @@ const getUsers = async () => {
 };
 const getSingleAdmin = async (id: string) => {
   try {
-    const response = await instance.get("/admin/details" + id);
-    return response.data.data;
+    const response = await instance.get("/admin/details/" + id);
+    return response.data.data.data  ;
   } catch (e: any) {
     throw new Error(e);
   }
@@ -53,7 +53,7 @@ const updatePassword = async (
   }
 };
 
-const updateUser = async (body: ICreateUser, id: string) => {
+const updateUser = async (body: EditUserFormData, id: string) => {
   console.log(body);
 
   try {
@@ -94,7 +94,7 @@ export const useCreateAdmin = () => {
 export const useUpdateateAdmin = () => {
   const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: ({ body, id }: { body: ICreateUser; id: string }) => {
+    mutationFn: ({ body, id }: { body: EditUserFormData; id: string }) => {
       console.log(body);
       return updateUser(body, id);
     },

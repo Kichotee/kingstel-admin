@@ -28,7 +28,7 @@ export const ControlledSelect = <T extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <div>
           {label && <label className="text-sm font-medium">{label}</label>}
           <Select value={field.value} onValueChange={field.onChange}>
@@ -43,10 +43,10 @@ export const ControlledSelect = <T extends FieldValues>({
               ))}
             </SelectContent>
           </Select>
-          {helperText && <p className="text-sm text-gray-500 mt-1">{helperText}</p>}
-          {errors?.[name] && (
-            <p className="text-sm text-red-500 mt-1">{errors[name]?.message as string}</p>
+          {error?.message && (
+            <p className="text-sm text-red-500 mt-1">{error.message}</p>
           )}
+          {!error && helperText && <p className="text-sm text-gray-500 mt-1">{helperText}</p>}
         </div>
       )}
     />

@@ -189,6 +189,7 @@ export const CardRequests = () => {
       />
 
       <ViewCardDetailsSheet
+        userEmail={selectedCard?.email || ""}
         open={viewSheetOpen}
         onOpenChange={setViewSheetOpen}
         card={selectedCard}

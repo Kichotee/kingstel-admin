@@ -21,7 +21,7 @@ const TableHeader = React.forwardRef<
   return (
     <thead
       ref={ref}
-      className={`w-full bg-brand-primary text-[#fff] rounded-2xl text-sm' ${className}`}
+      className={`w-full bg-brand-primary text-[#fff] rounded-2xl text-[13px]' ${className}`}
       {...props}
     />
   );
@@ -32,7 +32,7 @@ const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => {
-  return <tbody ref={ref} className={`w-full text-sm  bg-[#D1DFFE80]  ${className}`} {...props} />;
+  return <tbody ref={ref} className={`w-full text-[13px]  bg-[#D1DFFE80]  ${className}`} {...props} />;
 });
 
 TableBody.displayName = "TableBody";
@@ -41,7 +41,7 @@ const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => {
-  return <tfoot ref={ref} className={` bg-[#D1DFFE80] caption-bottom text-sm ${className}`} {...props} />;
+  return <tfoot ref={ref} className={` bg-[#D1DFFE80] caption-bottom text-[13px] ${className}`} {...props} />;
 });
 
 TableFooter.displayName = "TableFooter";

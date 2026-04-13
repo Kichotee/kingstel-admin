@@ -2,13 +2,13 @@
 import { toast } from "sonner";
 import instance from "@/lib/api";
 import { MultiResponse, SingleResponseData } from "@/lib/api/type";
-import { UserCardTransactions, UserResponse } from "@/types";
+import { CardDetailsResponse, UserCardTransactions, UserResponse } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const getCardTransactions = async (id: string, email: string) => {
   try {
     const response = await instance.get(
-      `/admin/transactions?email=${email}&id=${id}`
+      `/admin/transactions?email=${email}&id=${id}`,
     );
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,19 +19,19 @@ const getCardTransactions = async (id: string, email: string) => {
 const getCardTransacts = async (id: string) => {
   try {
     const res = await instance.get<MultiResponse<UserCardTransactions>>(
-      `/admin/transaction/card/${id}`
+      `/admin/transaction/card/${id}`,
     );
     return res.data;
   } catch (error: any) {
     throw new Error(error?.data?.message || error?.message);
   }
 };
-const getSingleCardDetails = async (id: string) => {
+const getSingleCardDetails = async (id: string, email: string) => {
   try {
-    const res = await instance.get<{ data: UserResponse["cards"] }>(
-      `/admin/card/${id}/secure-details`
-    );
-    return res.data;
+    const res = await instance.get<{
+      data: { data: CardDetailsResponse };
+    }>(`/admin/card_details/?id=${id}&email=${email}`);
+    return res.data.data.data;
   } catch (error: any) {
     throw new Error(error?.data?.message || error?.message);
   }
@@ -105,13 +105,13 @@ export const useGetCardTransactions = (email: string) => {
 
   return { cardTranscts: data, transactionsLoading: isLoading };
 };
-export const useGetSingleCardDetails = (id: string) => {
+export const useGetSingleCardDetails = (id: string, email: string) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["card-details", id],
+    queryKey: ["card-details", id, email],
     queryFn: () => {
-      return getSingleCardDetails(id);
+      return getSingleCardDetails(id, email);
     },
-    enabled: !!id,
+    // enabled: !!id && !!email,
   });
 
   return { cardDetails: data, transactiondetailsLoading: isLoading };

@@ -104,18 +104,28 @@ export interface ICreateUser {
   last_name?: string;
   email: string;
   phone_number: string;
-  password: string;
+  password?: string;
   confirm_password?: string;
   role: string;
   status: string;
 }
+export type EditUserFormData = {
+  name: string;
+  email: string;
+  password?: string;
+  phone: string;
+  role: string;
+};
+
+
+
 export interface IChangeUserPassword {
   old_password: string;
   new_password: string;
   confirm_password: string;
 }
 
-type User = {
+type    User = {
   id: number;
   first_name: string;
   last_name: string;
@@ -126,6 +136,7 @@ type User = {
   naira_balance: number;
   cedis_balance: number;
   dollar_balance: number;
+  bridge_cardholder_id:string;
   kyc_verified: boolean; // Assuming 0 represents false and 1 represents true
   bvn_verified: boolean; // Assuming 0 represents false and 1 represents true
   kingstel_tag: string | null;
@@ -205,4 +216,37 @@ export interface UserCardTransactions {
   status: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface CardDetails {
+  id: number;
+  email: string;
+  resource: string;
+  reference: string;
+  card_reference: string;
+  currency: string;
+  brand: string | null;
+  type: string;
+  pan: string | null;
+  name_on_card: string;
+  first_six_number: string | null;
+  last_four_number: string | null;
+  card_balance: number;
+  status: string;
+  provider: string;
+  cardholder_id: string;
+  is_admin_blocked: number;
+  created_at: string;
+  updated_at: string;
+  account_id: string | null;
+  bridge_card_id: string;
+  user_id: number;
+  last_four: string;
+  card_type: string;
+  is_active: number;
+}
+
+export interface CardDetailsResponse {
+  cardDetails: CardDetails;
+  transactions: UserCardTransactions[];
 }

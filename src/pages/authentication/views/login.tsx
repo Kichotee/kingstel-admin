@@ -41,8 +41,8 @@ const Login = () => {
             <div className="flex flex-col gap-5 w-full =">
               <ControlledInput<ILoginPayload>
                 control={control}
-                placeholder=""
-                label="Email address"
+                placeholder="Enter your email address"
+                label="Enter your email address"
                 name="email"
                 size="lg"
                 type="email"
@@ -51,19 +51,20 @@ const Login = () => {
               <ControlledInput<ILoginPayload>
                 size="lg"
                 control={control}
-                label="Password"
+                placeholder="Enter your password"
                 name="password"
                 type="password"
                 errors={errors}
+                label={"Password"}
               />
               <div className="">
-                <Link to="/forgot-password">
+                {/* <Link to="/forgot-password">
                   <button>
                     <p className="text-[#aaa] fonr-semibold text-xs">
                       Forgot your password
                     </p>
                   </button>
-                </Link>
+                </Link> */}
               </div>
             </div>
             <Button

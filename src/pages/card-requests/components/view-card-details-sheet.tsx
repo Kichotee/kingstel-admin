@@ -6,12 +6,14 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useGetSingleCardDetails } from "@/pages/customers/queries";
+import { formatCurrencyNumber } from "@/lib/format-currency";
 
 interface ViewCardDetailsSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   card: CardRequest | undefined;
   isLoading: boolean;
+  userEmail: string;
 }
 
 export const ViewCardDetailsSheet = ({
@@ -19,9 +21,12 @@ export const ViewCardDetailsSheet = ({
   onOpenChange,
   card,
   isLoading,
+  userEmail,
+
 }: ViewCardDetailsSheetProps) => {
   const { cardDetails, transactiondetailsLoading } = useGetSingleCardDetails(
-    card?.card_reference || ""
+    card?.card_reference || "",
+    userEmail
   );
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -37,70 +42,69 @@ export const ViewCardDetailsSheet = ({
             <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600">Name:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.card_name}
+                {cardDetails?.cardDetails?.name_on_card || "N/A"}
               </div>
             </div>
             {/* <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Email:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.email}
+                {cardDetails?.cardDetails?.email}
               </div>
             </div> */}
             <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Card Type:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.card_type}
+                {cardDetails?.cardDetails?.card_type}
               </div>
             </div>
             <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Brand:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.brand || "N/A"}
+                {cardDetails?.cardDetails?.brand || "N/A"}
               </div>
             </div>
             <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Pan:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.card_number}
+                {cardDetails?.cardDetails?.pan || "N/A"}
               </div>
             </div>
             {/* <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Last Four Digits:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.last_four_number || "N/A"}
+                {cardDetails?.cardDetails?.last_four_number || "N/A"}
               </div>
             </div> */}
             <div className="border-b pb-1 flex items-center justify-between">
-              <div className=" text-gray-600 text-sm">Expiry:</div>
+              <div className=" text-gray-600 text-sm">Last Four:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.expiry_month}/
-                {cardDetails?.data?.expiry_year}
+                {cardDetails?.cardDetails?.last_four || "N/A"}
               </div>
             </div>
             <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Currency:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.card_currency}
+                {cardDetails?.cardDetails?.currency}
               </div>
             </div>
             <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Balance:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.balance}
+                {formatCurrencyNumber(Number(cardDetails?.cardDetails?.card_balance))}
               </div>
             </div>
             <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Status:</div>
               <div className="text-xs text-brand-primary">
-                {cardDetails?.data?.is_active ? "Active" : "Inactive"}
+                {cardDetails?.cardDetails?.status}
               </div>
             </div>
             <div className="border-b pb-1 flex items-center justify-between">
               <div className=" text-gray-600 text-sm">Date Added:</div>
               <div className="text-xs text-brand-primary">
-                {new Date(
-                  Number(cardDetails?.data?.created_at) * 1000
-                ).toLocaleDateString()}
+                {cardDetails?.cardDetails?.created_at
+                  ? new Date(cardDetails.cardDetails.created_at).toLocaleDateString()
+                  : "N/A"}
               </div>
             </div>
           </div>

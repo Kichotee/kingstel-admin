@@ -4,6 +4,7 @@ import { IInputProps } from "./type";
 
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 
 type Props<T extends FieldValues> = {} & IInputProps<T>;
@@ -21,23 +22,28 @@ export const ControlledInput = <T extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({ field: { onChange }, fieldState: { error } }) => {
+      render={({ field: { onChange, value }, fieldState: { error } }) => {
         return (
           <Field
             
             // helperText={error?.message || helperText}
-            className="*:text-black"
+            className="*:text-black space-y-0 gap-1"
           >
+            <Label className="text-sm text-gray-600">{label}</Label>
             <Input
            
               
               type={type}
-              className=" !border-[#AAAAAA] min-w-[352px] px-2 py-4 rounded-[10px]  !border !bg-white-900"
+              className=" !border-[#AAAAAA] text-sm placeholder:text-xs focus:outline-none focus:border-none  min-w-[352px] px-2  rounded-[10px]  !border !bg-white-900"
               onChange={onChange}
+              value={value ?? ""}
               // size={size}
               placeholder={placeholder}
             />
-            {helperText && (
+            {error?.message && (
+              <p className="text-sm mt-1 text-red-500">{error.message}</p>
+            )}
+            {!error && helperText && (
               <p className="text-sm mt-1 text-gray-600">{helperText}</p>
             )}
           </Field>
