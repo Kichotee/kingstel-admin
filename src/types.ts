@@ -244,6 +244,8 @@ export interface CardDetails {
   last_four: string;
   card_type: string;
   is_active: number;
+  expiry_year?: string;
+  cvv?: string;
 }
 
 export interface CardDetailsResponse {

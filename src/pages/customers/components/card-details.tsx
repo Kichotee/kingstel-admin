@@ -92,7 +92,7 @@ const CardDetails = ({ card }: IProp) => {
   return (
     <div className="">
       <div className="flex justify-center gap-7">
-        <CardBox card={card} />
+        <CardBox card={card?.cardDetails as unknown as UserResponse["cards"]} />
         <div className="bg-white   text-xs w-[342px]">
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Card Name</p>
@@ -131,7 +131,7 @@ const CardDetails = ({ card }: IProp) => {
           </div>
           <div className=" flex border-b font-medium border-[#D1DFFE]">
             <p className="basis-2/5 text-[#0F00BD] p-[12px_24px]">Status</p>
-            <p className="basis-3/5 p-[12px_24px]">{card?.is_active ? "yes":'no'}</p>
+            <p className="basis-3/5 p-[12px_24px]">{card?.cardDetails?.is_active ? "yes":'no'}</p>
           </div>
         </div>
       </div>
