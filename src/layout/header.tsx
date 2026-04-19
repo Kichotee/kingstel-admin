@@ -1,17 +1,55 @@
 import UserPopover from "@/components/user-popover";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { SidebarNav } from "./sidebar";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 
 const Header = () => {
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
   return (
     <header className="sticky z-10 top-0 bg-white text-neutral-black h-[90px] base-theme-container flex items-center border-b border-gray-200 justify-between md:px-7 px-5">
       {/* left side */}
       <div className=" w-full flex gap-4 justify-between items-center">
-        <div className="flex items-center gap-[77px]">
+        <div className="flex items-center gap-3 sm:gap-[77px]">
+          <Sheet open={isMobileSidebarOpen} onOpenChange={setIsMobileSidebarOpen}>
+            <SheetTrigger asChild>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="flex sm:hidden rounded-full border-[#D1DFFE]"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[86%] max-w-[320px] border-r bg-white px-4 py-6">
+              <SheetHeader className="border-b border-[#E5E7EB] pb-4 text-left">
+                <SheetTitle className="text-base font-semibold text-neutral-black">
+                  Navigation
+                </SheetTitle>
+              </SheetHeader>
+              <SidebarNav
+                isMobile
+                onNavigate={() => {
+                  setIsMobileSidebarOpen(false);
+                }}
+              />
+            </SheetContent>
+          </Sheet>
           <img src="/logo.png" className="w-[122px] h-[32.5px]" alt="" />
-          <p className="common-sub-text">Welcome Kingstel</p>
+          <p className="common-sub-text hidden md:block">Welcome Kingstel</p>
         </div>
         {/* right side */}
-        <div className="flex w-max items-center gap-3.5">
+        <div className="flex w-max items-center gap-2 sm:gap-3.5">
           <div className="flex items-center gap-5">{/* <RatePopOver /> */}</div>
           <svg
             width="20"

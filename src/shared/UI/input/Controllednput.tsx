@@ -29,12 +29,12 @@ export const ControlledInput = <T extends FieldValues>({
             // helperText={error?.message || helperText}
             className="*:text-black space-y-0 gap-1"
           >
-            <Label className="text-sm text-gray-600">{label}</Label>
+            <Label className="text-xs sm:text-sm text-gray-600">{label}</Label>
             <Input
            
               
               type={type}
-              className=" !border-[#AAAAAA] text-sm placeholder:text-xs focus:outline-none focus:border-none  min-w-[352px] px-2  rounded-[10px]  !border !bg-white-900"
+              className=" !border-[#AAAAAA] text-xs sm:text-sm placeholder:text-xs focus:outline-none focus:border-none w-full px-2  rounded-[10px]  !border !bg-white-900"
               onChange={onChange}
               value={value ?? ""}
               // size={size}

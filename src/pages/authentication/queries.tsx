@@ -22,8 +22,8 @@ export const useLogin = () => {
       return loginUser(body);
     },
     onSuccess(data) {
-      navigate("/dashboard/home");
       Auth.setToken(data.data.token);
+      navigate("/dashboard/home");
     },
     onError(error, ) {
       toast.error(error.message);

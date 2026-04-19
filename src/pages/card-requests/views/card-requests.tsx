@@ -155,11 +155,11 @@ export const CardRequests = () => {
   ];
   return (
     <div className="flex flex-col gap-4 w-full items-center">
-      <input
+      {/* <input
         type="text"
         className="py-2.5 bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
-      />
+      /> */}
       <div className="space-y-12 w-full">
         <div className="space-y-6">
           <PageTitle title="Card requests" />

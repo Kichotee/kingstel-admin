@@ -4,7 +4,6 @@ import { PageTitle } from "@/shared/UI/general-page-title";
 import { Status } from "@/shared/constants";
 import { ColumnDef } from "@tanstack/react-table";
 import { ReactNode, useState } from "react";
-import { Link } from "react-router-dom";
 import { useGetDocuments } from "../queries";
 import { ComplianceDocument } from "../types";
 import { format } from "date-fns";
@@ -13,8 +12,7 @@ import { ViewComplianceDocument } from "../components/view-compliance-document";
 const Compliance = () => {
   const { documents: compliance } = useGetDocuments();
   const [viewDocumentSheet, setViewDocumentSheet] = useState(false);
-  const [selectedDocument, setSelectedDocument] =
-    useState<string|number | null>(null);
+  const [selectedDocument, setSelectedDocument] = useState<string | number | null>(null);
 
   const handleOpenViewSheet = (id: string | number) => {
     setSelectedDocument(id);
@@ -75,10 +73,12 @@ const Compliance = () => {
     },
   ];
   return (
-    <div className="">
-      <div className="space-y-10">
+    <div className="w-full">
+      <div className="space-y-6 sm:space-y-10">
         <PageTitle title="KYCS" />
-        <DataTable columns={columns} data={compliance?.data || []} />
+        <div className="w-full overflow-x-auto">
+          <DataTable columns={columns} data={compliance?.data || []} />
+        </div>
       </div>
       <ViewComplianceDocument
         id={selectedDocument as string}

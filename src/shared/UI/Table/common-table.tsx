@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-nested-ternary */
-
 import {
   ColumnDef,
   flexRender,
@@ -67,114 +64,121 @@ export const DataTable = <T,>({
   });
   // const getPages = () => {};
   return (
-    <div>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => {
-            return (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header?.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header?.column?.columnDef?.header,
-                            header?.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
-        </TableHeader>
-
-        <TableBody>
-          {table?.getRowModel()?.rows?.length ? (
-            table?.getRowModel()?.rows?.map((row) => {
+    <div className="w-full">
+      <div className="overflow-x-auto relative rounded-xl max-w-[90vw] sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-full">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => {
               return (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => {
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
                     return (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
+                      <TableHead key={header?.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header?.column?.columnDef?.header,
+                              header?.getContext()
+                            )}
+                      </TableHead>
                     );
                   })}
                 </TableRow>
               );
-            })
-          ) : loading ? (
+            })}
+          </TableHeader>
+
+          <TableBody>
+            {table?.getRowModel()?.rows?.length ? (
+              table?.getRowModel()?.rows?.map((row) => {
+                return (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell) => {
+                      return (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })
+            ) : loading ? (
+              <TableRow>
+                {" "}
+                <TableCell colSpan={columns?.length}>
+                  <div className="mx-auto w-max">
+                    <CircularProgress />{" "}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns?.length}
+                  className="h-24 text-black text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+
+          <TableFooter>
             <TableRow>
-              {" "}
               <TableCell colSpan={columns?.length}>
-                <div className="mx-auto w-max">
-                  <CircularProgress />{" "}
+                <div className="flex w-[80vw] sticky left-6 bottom-0 flex-row sm:items-center justify-between">
+                  <Button
+                   onClick={() =>
+                      setPagination?.((prev) => ({
+                        ...prev,
+                        pageIndex: prev.pageIndex - 1,
+                      }))
+                    }
+                  className="bg-brand-primary px-3 py-2 text-white"
+                   variant={"outline"}>Prev</Button>
+                  <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+                    {paginationLinks?.slice(1, -2).map((data) => {
+                      return (
+                        <Button
+                          key={data.label}
+                          onClick={() => {
+                            setPagination?.((prev) => {
+                              return {
+                                ...prev,
+                                pageIndex: data?.label as number,
+                              };
+                            });
+                          }}
+                          variant={data?.active ? "outline" : "default"}
+                          className="min-w-9 px-3 text-xs sm:text-sm"
+                        >
+                          {data?.label}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                  <Button
+                  className="bg-brand-primary px-3 py-2 text-white"
+                    variant={"default"}
+                    onClick={() =>
+                      setPagination?.((prev) => ({
+                        ...prev,
+                        pageIndex: prev.pageIndex + 1,
+                      }))
+                    }
+                  >
+                    Next
+                  </Button>
                 </div>
               </TableCell>
             </TableRow>
-          ) : (
-            <TableRow>
-              <TableCell
-                colSpan={columns?.length}
-                className="h-24 text-black text-center"
-              >
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <TableCell colSpan={columns?.length}>
-            <div className="flex justify-between pr-4">
-              <Button
-               onClick={() =>
-                  setPagination?.((prev) => ({
-                    ...prev,
-                    pageIndex: prev.pageIndex - 1,
-                  }))
-                }
-              className="bg-brand-primary text-white px-2"
-               variant={"outline"}>Prev</Button>
-              <div className="flex gap-4 max-w-1/2">
-                {paginationLinks?.slice(1, -2).map((data) => {
-                  return (
-                    <Button
-                      onClick={() => {
-                        setPagination?.((prev) => {
-                          return {
-                            ...prev,
-                            pageIndex: data?.label as number,
-                          };
-                        });
-                      }}
-                      variant={data?.active ? "outline" : "default"}
-                    >
-                      {data?.label}
-                    </Button>
-                  );
-                })}
-              </div>
-              <Button
-              className="bg-brand-primary text-white px-2"
-                variant={"default"}
-                onClick={() =>
-                  setPagination?.((prev) => ({
-                    ...prev,
-                    pageIndex: prev.pageIndex + 1,
-                  }))
-                }
-              >
-                Next
-              </Button>
-            </div>
-          </TableCell>
-        </TableFooter>
-      </Table>
+          </TableFooter>
+        </Table>
+      </div>
     </div>
   );
 };

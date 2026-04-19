@@ -45,33 +45,36 @@ const Dashboard = () => {
   const { analytics } = useGetAnalytics();
 
   return (
-    <div className="flex flex-col gap-[30px] text-black font-poppins">
-      <input
+    <div className="flex flex-col gap-5 text-black font-poppins sm:gap-[30px]">
+      {/* <input
         type="text"
-        className="py-2.5 mx-auto bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
+        className="mx-auto w-full rounded-[15px] bg-white px-4 py-3 text-sm placeholder:text-left placeholder:text-xs sm:max-w-[639px] sm:py-2.5 sm:placeholder:text-center"
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
-      />
-      <div className="gap-y-6 flex flex-col w-full items-center">
+      /> */}
+      <div className="flex w-full flex-col gap-y-5 items-center sm:gap-y-6">
         <div className="flex flex-col w-full gap-6">
           <PageTitle title="Quick Overview" />
-          <div className="rounded-[20px] bg-white p-[61px_58px] flex gap-4 justify-between">
+          <div className="grid grid-cols-1 gap-4 rounded-[20px] bg-white p-4 sm:grid-cols-2 sm:p-8 lg:grid-cols-3 lg:gap-5 lg:p-[61px_58px]">
             {overview.map((data) => {
               return (
-                <div className="flex max-h-[216px] min-w-[220px] flex-col gap-4 items-center rounded-[30px] border-brand-primary/40 border  py-[22px]  px-2.5">
-                  <img src={data.icon} className="max-w-[74px]" alt="" />
-                  <p className="text-brand-primary text-sm font-semibold">
+                <div
+                  key={data.title}
+                  className="flex min-h-[180px] flex-col items-center justify-center gap-3 rounded-[24px] border border-brand-primary/40 px-2 py-3 text-center sm:min-h-[200px] sm:gap-4 sm:rounded-[30px]"
+                >
+                  <img src={data.icon} className="w-14 max-w-[74px] sm:w-auto" alt="" />
+                  <p className="text-xs font-semibold text-brand-primary sm:text-sm">
                     {data.title}
                   </p>
-                  <p className="font-bold">{data.number}</p>
+                  <p className="text-lg font-bold sm:text-xl">{data.number}</p>
                 </div>
               );
             })}
           </div>
         </div>
-        <div className="bg-white w-full p-5 rounded-[20px]">
-          <BarChart data={analytics as AnalyticsResponse} />
+        <div className="w-full rounded-[20px] bg-white p-3 sm:p-5">
+          {/*  <BarChart data={analytics as AnalyticsResponse} /> */}
         </div>
-        <div className="bg-white w-full p-5 rounded-2xl">
+        <div className="w-full rounded-2xl bg-white p-3 sm:p-5">
           <AllTransactions />
         </div>
       </div>

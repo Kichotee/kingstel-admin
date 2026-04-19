@@ -6,9 +6,17 @@ import {
   PopoverTrigger,
 } from "./ui/popover";
 import { LuLogOut } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Auth from "@/lib/api/auth";
 
 const UserPopover = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Auth.removeToken();
+    navigate("/logon", { replace: true });
+  };
+
   return (
     <div>
       <Popover>
@@ -40,16 +48,13 @@ const UserPopover = () => {
               </Link>
             </div>
             <div className="flex justify-center mx-auto">
-              <Link
-                to={"/login"}
-                className="w-full"
+              <button
+                className="bg-[#EC1C24] hover:bg-[#EC1C24]/90 text-white px-[58.34px] py-[8.34px] rounded-[16px] flex gap-2 items-center justify-center w-full"
+                onClick={handleLogout}
+                type="button"
               >
-                <button
-                  className="bg-[#EC1C24] hover:bg-[#EC1C24]/90 text-white px-[58.34px] py-[8.34px] rounded-[16px] flex gap-2 items-center justify-center w-full"
-                >
-                  <LuLogOut /> <p>Logout</p>
-                </button>
-              </Link>
+                <LuLogOut /> <p>Logout</p>
+              </button>
             </div>
           </div>
         </PopoverContent>

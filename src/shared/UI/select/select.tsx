@@ -32,7 +32,7 @@ export const ControlledSelect = <T extends FieldValues>({
         <div>
           {label && <label className="text-sm font-medium">{label}</label>}
           <Select value={field.value} onValueChange={field.onChange}>
-            <SelectTrigger className="w-[352px] rounded-[10px] border-[#AAAAAA]">
+            <SelectTrigger className="w-full rounded-[10px] border-[#AAAAAA]">
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>

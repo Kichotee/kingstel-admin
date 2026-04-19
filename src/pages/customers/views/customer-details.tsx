@@ -12,10 +12,12 @@ import { TabsContent, TabsList, Tabs, TabsTrigger } from "@/components/ui/tabs";
 
 const CustomerDetails = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleCustomer(id!);console.log(data)
+  const { data, isLoading } = useGetSingleCustomer(id!);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {cardDetails} = useGetSingleCardDetails(data?.user?.bridge_cardholder_id as string, data?.user?.email as string);
-  console.log(cardDetails)
+  const { cardDetails } = useGetSingleCardDetails(
+    data?.user?.bridge_cardholder_id as string,
+    data?.user?.email as string
+  );
   const walletDetails = useMemo(() => {
     return [
       {
@@ -36,7 +38,7 @@ const CustomerDetails = () => {
   const tabs = [
     {
       tab: "Profile information",
-      component:() => <ProfileInfo loading={isLoading} user={data as UserResponse} />,
+      component: () => <ProfileInfo loading={isLoading} user={data as UserResponse} />,
     },
     {
       tab: "Transactions",
@@ -44,24 +46,24 @@ const CustomerDetails = () => {
     },
     {
       tab: "Card",
-      component: () =>   <CardDetails card={cardDetails}   />,
+      component: () => <CardDetails card={cardDetails} />,
     },
   ];
   return (
-    <div className="flex flex-col pb-8 gap-4 items-center">
-      <input
+    <div className="flex flex-col pb-8 gap-4 sm:gap-6 items-center w-full">
+      {/* <input
         type="text"
-        className="py-2.5 mx-auto bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
+        className="py-2.5 px-3 mx-auto bg-white placeholder:text-left sm:placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
-      />
-      <div className="space-y-8 w-full">
+      /> */}
+      <div className="space-y-6 sm:space-y-8 w-full">
         <WalletBanner walletDetails={walletDetails} userDetails={data?.user} />
-        <div className="">
+        <div className="w-full overflow-hidden">
           <Tabs defaultValue={"Profile information"}>
-            <TabsList>
+            <TabsList className="w-full max-w-full overflow-x-auto whitespace-nowrap justify-start">
               {tabs.map((data) => {
                 return (
-                  <TabsTrigger value={data.tab}>
+                  <TabsTrigger key={data.tab} value={data.tab} className="shrink-0">
                     {data.tab}
                   </TabsTrigger>
                 );
@@ -69,9 +71,7 @@ const CustomerDetails = () => {
             </TabsList>
 
             {tabs.map((data) => {
-              return (
-                <TabsContent value={data.tab}>{data.component(  )}</TabsContent>
-              );
+              return <TabsContent key={data.tab} value={data.tab}>{data.component()}</TabsContent>;
             })}
           </Tabs>
         </div>

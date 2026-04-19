@@ -4,7 +4,6 @@ import CircularProgress from "@/shared/CircularProgress";
 import Logo from "@/shared/UI/icons/logo";
 import { ControlledInput } from "@/shared/UI/input/Controllednput";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { useLogin } from "../queries";
 
 const Login = () => {
@@ -21,24 +20,23 @@ const Login = () => {
   } = useForm<ILoginPayload>();
 
   const onSubmit = async (body: ILoginPayload) => {
- 
     await login(body);
   };
   return (
-    <div className="bg-neutral-commonBg min-h-screen gap-[25px] flex flex-col justify-center items-center">
+    <div className="bg-neutral-commonBg min-h-screen px-4 py-8 sm:px-6 gap-6 sm:gap-[25px] flex flex-col justify-center items-center">
       <div className="rounded-md">
         <Logo />
       </div>
-      <div className="bg-white min-w-[30%]  items-center p-[25px_26px] rounded-[30px]">
-        <div className="flex  flex-col gap-16">
+      <div className="bg-white w-full max-w-[560px] items-center p-5 sm:p-[25px_26px] rounded-2xl sm:rounded-[30px]">
+        <div className="flex flex-col gap-10 sm:gap-16">
           <div className="flex flex-col gap-2.5 text-center">
             <p className="font-semibold text-[15px] leading-[22.5px]">
               Welcome back
             </p>
             <p className="text-sm leading-[0.8em]">Sign in with your email</p>
           </div>
-          <div className=" flex flex-col gap-[60px] w-full">
-            <div className="flex flex-col gap-5 w-full =">
+          <div className="flex flex-col gap-8 sm:gap-[60px] w-full">
+            <div className="flex flex-col gap-5 w-full">
               <ControlledInput<ILoginPayload>
                 control={control}
                 placeholder="Enter your email address"
@@ -69,11 +67,8 @@ const Login = () => {
             </div>
             <Button
               onClick={handleSubmit(onSubmit)}
-              //   themeColor="main"
-
               className="w-full flex bg-brand-primary rounded-xl justify-center items-center"
               type="submit"
-              //   onClick={handleSubmit(onSubmit)}
             >
               {isPending ? (
                 <CircularProgress size={24} color="white" />
@@ -81,7 +76,6 @@ const Login = () => {
                 "Sign in"
               )}
             </Button>
-          
           </div>
         </div>
       </div>

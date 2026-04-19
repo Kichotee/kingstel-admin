@@ -203,9 +203,9 @@ const ManageFees = () => {
   ];
 
   return (
-    <div className="space-y-7">
-      <div className="w-full bg-white">
-        <div className="p-[43px_37px] flex flex-col gap-[52px]">
+    <div className="space-y-5 sm:space-y-7">
+      <div className="w-full rounded-xl bg-white">
+        <div className="flex flex-col gap-6 p-4 sm:gap-10 sm:p-6 lg:gap-[52px] lg:p-[43px_37px]">
           <PageTitle title="Fees" />
           <DataTable<IFee>
             columns={columns}

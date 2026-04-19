@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { AnalyticsResponse } from "../queries";
 
@@ -9,125 +6,153 @@ type Props = {
 };
 
 export const BarChart = ({ data }: Props) => {
-  console.log(data);
-  const [state, setState] = useState({
-    series: [
+  const categories = data?.map((item) => item.month) || [];
+  const series = [
+    {
+      name: "Inactive",
+      data: data?.map((item) => Number(item?.active_customers ?? 0)) || [],
+    },
+    {
+      name: "Active",
+      data: data?.map((item) => Number(item?.inactive_customers ?? 0)) || [],
+    },
+  ];
+
+  const options: ApexCharts.ApexOptions = {
+    chart: {
+      type: "bar",
+      height: 350,
+      stacked: true,
+      toolbar: {
+        show: false,
+      },
+      zoom: {
+        enabled: false,
+      },
+      parentHeightOffset: 0,
+    },
+    responsive: [
       {
-        name: "Inactive",
-        data: [],
-      },
-      {
-        name: "active",
-        data: [],
-      },
-    ],
-    options: {
-      chart: {
-        type: "bar",
-        height: 350,
-        stacked: true,
-        toolbar: {
-          show: true,
-        },
-        zoom: {
-          enabled: false,
-        },
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          dataLabels: {
-            enabled: false,
-            enabledOnSeries: [],
+        breakpoint: 768,
+        options: {
+          chart: {
+            height: 320,
           },
-          options: {
-            legend: {
-              position: "bottom",
-              offsetX: -10,
-              offsetY: 0,
+          plotOptions: {
+            bar: {
+              columnWidth: "50%",
+            },
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              trim: true,
+              hideOverlappingLabels: true,
             },
           },
         },
-      ],
-      dataLabels: {
-        enabled: false,
       },
-
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "45px",
-          borderRadius: 1,
-          // borderRadiusApplication: "end", // 'around', 'end'
-          // borderRadiusWhenStacked: "last", // 'all', 'last'
-          dataLabels: {
-            // position:"bottom",
-            enabled: false,
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            height: 280,
+          },
+          grid: {
+            padding: {
+              left: 0,
+              right: 0,
+            },
+          },
+          plotOptions: {
+            bar: {
+              columnWidth: "60%",
+              borderRadius: 4,
+            },
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              rotateAlways: true,
+              trim: true,
+              style: {
+                fontSize: "10px",
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                fontSize: "10px",
+              },
+            },
           },
         },
       },
-      xaxis: {
-        categories: data?.map((d) => d.month) || [],
-        type: "month",
-        lines: {
-          show: false,
-        },
-      },
-      yaxis: {
-        lines: {
-          show: false,
-        },
-      },
-      legend: {
-        enabled: false,
-        // position: "right",
-        // offsetY: 40,
-      },
-      fill: {
-        colors: ["#0F00BD", "#D1DFFE"],
-        // opacity: 1,
+    ],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: true,
+      width: 1,
+      colors: ["transparent"],
+    },
+    grid: {
+      borderColor: "#E5E7EB",
+      strokeDashArray: 4,
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "38%",
+        borderRadius: 6,
       },
     },
-  });
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-expect-error
-    setState((prev) => {
-      return {
-        ...prev,
-        series: [
-          {
-            name: "Inactive",
-            data: data?.map((d) => {
-              return d?.active_customers ?? "0";
-            }),
-          },
-          {
-            name: "Active",
-            data: data?.map((d) => {
-              return d?.inactive_customers ?? "0";
-            }),
-          },
-        ],
-        options: {
-          xaxis: {
-            ...prev.options.xaxis,
-            categories: data?.map((d) => d.month) || [],
-          },
+    xaxis: {
+      categories,
+      labels: {
+        trim: true,
+        hideOverlappingLabels: false,
+        style: {
+          fontSize: "12px",
         },
-        ...prev.options
-      };
-    });
-  }, [data]);
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          fontSize: "12px",
+        },
+      },
+    },
+    legend: {
+      show: true,
+      position: "top",
+      horizontalAlign: "left",
+      fontSize: "12px",
+    },
+    fill: {
+      colors: ["#0F00BD", "#D1DFFE"],
+      opacity: 1,
+    },
+  };
+
   return (
-    <div>
-      <div id="chart">
+    <div className="w-full">
+      <div id="chart" className="w-full">
         <ReactApexChart
-          options={state.options as unknown as ApexCharts.ApexOptions}
-          series={state.series}
+          options={options}
+          series={series}
           type="bar"
           height={350}
+          width="100%"
         />
       </div>
     </div>

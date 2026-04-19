@@ -73,13 +73,13 @@ const ManageUsers = () => {
     await createAdminFn(data);
   };
   return (
-    <div className="space-y-7">
+    <div className="space-y-5 sm:space-y-7">
       <PageTitle title={"Manage User"} />
-      <div className="flex gap-[18px]">
-        <div className="basis-2/5 bg-white">
-          <div className="p-[43px_37px] flex flex-col gap-[52px]">
-            <p className="font-semibold text-center">Create new user</p>
-            <div className="flex flex-col gap-20">
+      <div className="flex flex-col gap-5 lg:flex-row lg:gap-[18px]">
+        <div className="w-full lg:basis-2/5 bg-white rounded-xl">
+          <div className="p-5 sm:p-8 lg:p-[43px_37px] flex flex-col gap-8 lg:gap-[52px]">
+            <p className="font-semibold text-center text-sm sm:text-base">Create new user</p>
+            <div className="flex flex-col gap-10 lg:gap-20">
               <div className="flex flex-col gap-5">
                 <ControlledInput
                   variant={"outline"}
@@ -144,11 +144,10 @@ const ManageUsers = () => {
             </div>
           </div>
         </div>
-        <div className="basis-3/5 bg-white">
-          <div className="p-[43px_37px] flex flex-col gap-[52px]">
+        <div className="w-full lg:basis-3/5 space-y-3 rounded-xl">
             <PageTitle title="Available Admin users" />
             <DataTable<IUsers> columns={columns} data={data?.data || []} />
-          </div>
+       
         </div>
       </div>
     </div>

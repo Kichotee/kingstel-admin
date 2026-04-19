@@ -69,15 +69,15 @@ const Customers = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-4 items-center">
-      <input
+    <div className="flex flex-col gap-4 sm:gap-6 items-center w-full">
+      {/* <input
         type="text"
-        className="py-2.5 mx-auto bg-white  placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
+        className="py-2.5 px-3 mx-auto bg-white placeholder:text-left sm:placeholder:text-center w-full max-w-[639px] rounded-[15px] placeholder:text-xs"
         placeholder="Search customer by Phone Number, Email, BVN, Kingstelpay tag 🔍"
-      />
-      <div className="w-full space-y-8">
+      /> */}
+      <div className="w-full space-y-6 sm:space-y-8">
         <PageTitle title="All Customers" />
-        <div className="w-full">
+        <div className="w-full overflow-x-auto">
           <DataTable
             columns={columns}
             pagination={pagination}

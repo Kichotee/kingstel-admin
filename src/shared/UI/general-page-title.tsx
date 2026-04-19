@@ -4,7 +4,7 @@ type Props = {
 export const PageTitle = ({ title }: Props) => {
   return (
     <div>
-      <p className="font-semibold">{title}</p>
+      <p className="font-semibold text-sm sm:text-base">{title}</p>
     </div>
   );
 };
