@@ -130,7 +130,7 @@ export const DataTable = <T,>({
           <TableFooter>
             <TableRow>
               <TableCell colSpan={columns?.length}>
-                <div className="flex w-[80vw] sticky left-6 bottom-0 flex-row sm:items-center justify-between">
+                <div className="flex w-[80vw] sm:w-full sticky left-6 bottom-0 flex-row sm:items-center justify-between">
                   <Button
                    onClick={() =>
                       setPagination?.((prev) => ({

@@ -72,7 +72,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="w-full rounded-[20px] bg-white p-3 sm:p-5">
-          {/*  <BarChart data={analytics as AnalyticsResponse} /> */}
+           <BarChart data={analytics as AnalyticsResponse} />
         </div>
         <div className="w-full rounded-2xl bg-white p-3 sm:p-5">
           <AllTransactions />
