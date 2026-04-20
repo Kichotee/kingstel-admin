@@ -15,7 +15,7 @@ const Customers = () => {
   });
   const { customers, isLoading } = useGetAllCustomers(pagination.pageIndex);
 
-  console.log(customers?.data);
+  console.log(customers)
   const columns: ColumnDef<ICustomers>[] = [
     {
       header: "S/N",
@@ -86,7 +86,7 @@ const Customers = () => {
             pageCount={customers?.data?.total as number}
             currentPage={customers?.data?.current_page as number}
             loading={isLoading}
-            data={customers?.data?.data || []}
+            data={customers?.data || []}
           />
         </div>
       </div>

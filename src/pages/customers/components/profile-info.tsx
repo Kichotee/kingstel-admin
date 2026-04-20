@@ -74,7 +74,7 @@ const ProfileInfo = ({ user, loading }: IProps) => {
   // const [searchParams, setsearchParams] = useSearchParams();
   return  (
     <div className="flex gap-14 items-stretch">
-      <div className="flex flex-col basis-1/2 rounded-xl overflow-hidden gap-y-[1px] *:py-3 ">
+      <div className="flex flex-col h-full basis-1/2 rounded-xl overflow-hidden gap-y-[1px] *:py-3 ">
         {userData.map((data) => {
           return (
             <div className="grid grid-cols-[1.5fr_3fr]   bg-white">
@@ -85,18 +85,18 @@ const ProfileInfo = ({ user, loading }: IProps) => {
             </div>
           );
         })}
-        <div className="flex flex-row gap-4 bg-white">
+        <div className="flex flex-row  gap-4 bg-white">
           <div className="px-6 text-brand-primary">Restrict account</div>
           <div className="px-6 ">
             <RestrictModal id={user?.user?.id} blocked={user?.user?.is_blocked == "1"} />
           </div>
         </div>
       </div>
-      <div className="">
+      <div className=" basis-1/2 grid place-items-center ">
         {user?.user?.user_image ? (
           <img
             src={user?.user?.user_image?.replace(/\\/g, "/") || "/usermock.png"}
-            className="w-[320px]"
+            className="w-[320px] h-80"
             alt=""
           />
         ) : (

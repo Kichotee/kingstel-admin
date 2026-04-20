@@ -40,6 +40,7 @@ const getSingleCardDetails = async (id: string, email: string) => {
 const getCustomers = async (page: number) => {
   try {
     const response = await instance.get(`/admin/user?page=` + page);
+    console.log(response?.data?.data?.data)
     return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

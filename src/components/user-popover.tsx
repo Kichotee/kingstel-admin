@@ -14,7 +14,7 @@ const UserPopover = () => {
 
   const handleLogout = () => {
     Auth.removeToken();
-    navigate("/logon", { replace: true });
+    navigate("/login", { replace: true });
   };
 
   return (

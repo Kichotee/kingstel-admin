@@ -117,15 +117,13 @@ export type EditUserFormData = {
   role: string;
 };
 
-
-
 export interface IChangeUserPassword {
   old_password: string;
   new_password: string;
   confirm_password: string;
 }
 
-type    User = {
+type User = {
   id: number;
   first_name: string;
   last_name: string;
@@ -136,7 +134,7 @@ type    User = {
   naira_balance: number;
   cedis_balance: number;
   dollar_balance: number;
-  bridge_cardholder_id:string;
+  bridge_cardholder_id: string;
   kyc_verified: boolean; // Assuming 0 represents false and 1 represents true
   bvn_verified: boolean; // Assuming 0 represents false and 1 represents true
   kingstel_tag: string | null;
@@ -147,36 +145,37 @@ type    User = {
   updated_at: string;
   user_image: string | null;
   dob: string | null;
-  is_blocked:"0" | "1";
+  is_blocked: "0" | "1";
   address: string | null;
 };
 
 type Card = {
-  id: number;
-  email: string;
-  resource: string;
-  reference: string;
-  card_reference: string;
-  currency: string;
-  card_currency: string;
-  card_type: string;
-  brand: string | null;
-  type: string;
-  cvv: string;
-  pan: string;
-  name_on_card: string;
-  balance:number|string;
-  card_name:string,
-  card_number:string;
-  first_six_number: string | null;
-  last_four_number: string | null;
-  expiry_month: string;
-  expiry_year: string;
+  account_id: string | null;
+  billing_address: string;
+  brand: string;
+  bridge_card_id: string;
   card_balance: number;
-  status: string;
-  is_active:boolean;
+  card_reference: string;
+  card_type: string;
+  cardholder_id: string;
   created_at: string;
+  currency: string;
+  email: string;
+  first_six_number: string | null;
+  id: number;
+  is_active: number;
+  is_admin_blocked: number;
+  last_four: string;
+  last_four_number: string | null;
+  name_on_card: string;
+  pan: string | null;
+  provider: string;
+  reference: string;
+  resource: string;
+  status: string;
+  type: string;
   updated_at: string;
+  user_id: number;
 };
 
 type DvaAccount = {
