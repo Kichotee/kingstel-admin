@@ -142,6 +142,7 @@ type User = {
   kingstel_tag: string | null;
   qr_image: string;
   gender: string | null;
+  status: "active" | "inactive"; // Assuming status can be either "active" or "inactive"
   card_reference: string | null;
   created_at: string;
   updated_at: string;

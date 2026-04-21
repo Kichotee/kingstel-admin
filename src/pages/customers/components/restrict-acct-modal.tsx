@@ -10,20 +10,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useRestrictUser } from "../queries";
+import CircularProgress from "@/shared/CircularProgress";
 // import { useSearchParams } from "react-router-dom";
 
 export const RestrictModal = ({blocked, id}:{
   blocked: boolean;
   id:number
 }) => {
-  const { restrictFn } = useRestrictUser();
+  const { restrictFn, isPending } = useRestrictUser();
   // const [searchParams] = useSearchParams();
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-       <Button className=" bg-brand-primary">
-        {blocked ? "Unrestrict Account" : "Restrict Account"}
+       <Button className={`${blocked ? "bg-red-600":" bg-brand-primary"}`}>
+        {isPending ? <CircularProgress color="white"/> : blocked ? "Activate Account" : "Restrict Account"}
        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md">
@@ -49,9 +50,9 @@ export const RestrictModal = ({blocked, id}:{
                 status: blocked ? `unblock` : `block`,
               })
             }
-            className=" bg-brand-primary hover:bg-brand-primary/80 duration-200 text-white"
+            className={`" ${blocked ? "bg-red-600 !text-white":" bg-brand-primary"} !text-white hover:bg-brand-primary/80 duration-200 text-white"`}
           >
-            {blocked ? "Unrestrict" : "Restrict"}
+            {isPending ? <CircularProgress color="white"/>: blocked ? "Activate Account" : "Restrict Account"}
           </Button>
         </DialogFooter>
       </DialogContent>
