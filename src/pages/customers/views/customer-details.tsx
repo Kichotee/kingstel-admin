@@ -21,15 +21,15 @@ const CustomerDetails = () => {
   const walletDetails = useMemo(() => {
     return [
       {
-        amount: data?.user?.naira_balance,
+        amount: data?.user?.balances?.naira_balance,
         currency: "NG",
       },
       {
-        amount: data?.user?.cedis_balance,
+        amount: data?.user?.balances?.cedis_balance,
         currency: "GH",
       },
       {
-        amount: data?.user?.dollar_balance,
+        amount: data?.user?.balances?.dollar_balance,
         currency: "US",
       },
     ];

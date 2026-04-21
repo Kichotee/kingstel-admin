@@ -131,9 +131,11 @@ type User = {
   username: string;
   phone_number: string;
   is_verified: boolean; // Assuming 0 represents false and 1 represents true
-  naira_balance: number;
-  cedis_balance: number;
-  dollar_balance: number;
+  balances: {
+    naira_balance: number;
+    cedis_balance: number;
+    dollar_balance: number;
+  };
   bridge_cardholder_id: string;
   kyc_verified: boolean; // Assuming 0 represents false and 1 represents true
   bvn_verified: boolean; // Assuming 0 represents false and 1 represents true

@@ -19,6 +19,15 @@ export const BarChart = ({ data }: Props) => {
   ];
 
   const options: ApexCharts.ApexOptions = {
+    title: {
+      text: "Active/Inactive customers",
+      align: "center",
+      style: {
+        fontFamily: "Poppins, sans-serif",
+        fontSize: "16px",
+        fontWeight: "500",
+      },
+    },
     chart: {
       type: "bar",
       height: 350,
@@ -148,6 +157,7 @@ export const BarChart = ({ data }: Props) => {
     <div className="w-full">
       <div id="chart" className="w-full">
         <ReactApexChart
+        
           options={options}
           series={series}
           type="bar"

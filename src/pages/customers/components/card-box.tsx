@@ -24,7 +24,7 @@ console.log(card);
         </div>
         <div className="flex flex-col items-center gap-2.5 ">
           <div className="flex gap-2.5 p-2.5 font-semibold text-[30px] leading-[45px] justify-center">
-            <p>$</p> <p> {viewPassword ? "*** " : card?.card_balance}</p>
+            {viewPassword ? "*** " : Number(card?.card_balance ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             <button
               className="transition-all duration-200"
               onClick={() => {

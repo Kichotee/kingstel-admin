@@ -2,7 +2,11 @@
 import { toast } from "sonner";
 import instance from "@/lib/api";
 import { MultiResponse, SingleResponseData } from "@/lib/api/type";
-import { CardDetailsResponse, UserCardTransactions, UserResponse } from "@/types";
+import {
+  CardDetailsResponse,
+  UserCardTransactions,
+  UserResponse,
+} from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const getCardTransactions = async (id: string, email: string) => {
@@ -40,7 +44,7 @@ const getSingleCardDetails = async (id: string, email: string) => {
 const getCustomers = async (page: number) => {
   try {
     const response = await instance.get(`/admin/user?page=` + page);
-    console.log(response?.data?.data?.data)
+    console.log(response?.data?.data?.data);
     return response.data.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -76,6 +80,14 @@ export const useGetCardDetails = (id: string, email: string) => {
     queryFn: () => {
       return getCardTransactions(id, email);
     },
+    retryDelay(failureCount, error) {
+      if (failureCount === 3) {
+        return 10000;
+      }
+
+      return 5000;
+    },
+    enabled: !!id || !!email,
   });
   return { data, isLoading };
 };
