@@ -45,11 +45,11 @@ const ManageUsers = () => {
     },
     {
       header: "status",
-      accessorKey: "status",
+      accessorKey: "is_blocked",
       cell: (row) => {
         return (
           <button className="text-[#2FBE22] capitalize">
-            {row.getValue() as string}
+            {row.getValue() as boolean ? "Blocked" : "Active"}
           </button>
         );
       },
@@ -70,7 +70,7 @@ const ManageUsers = () => {
             </PopoverTrigger>
             <PopoverContent
               side="left"
-              className="absolute  z-50 max-w-[120px] p-2 bg-white shadow-none flex flex-col gap-2"
+              className="absolute text-sm z-50 max-w-[120px] p-2 bg-white shadow-none flex flex-col gap-2"
             >
               <Link to={`/dashboard/edit-user/${row.getValue()}`}>
                 <button className="text-brand-primary w-full text-left">Edit</button>
@@ -108,7 +108,7 @@ const ManageUsers = () => {
   return (
     <div className="space-y-5 sm:space-y-7">
       <PageTitle title={"Manage User"} />
-      <div className="flex flex-col gap-5 lg:flex-row lg:gap-[18px]">
+      <div className="flex flex-col gap-5 xl:flex-row lg:gap-[18px]">
         <div className="w-full lg:basis-2/5 bg-white rounded-xl">
           <div className="p-5 sm:p-8 lg:p-[43px_37px] flex flex-col gap-8 lg:gap-[52px]">
             <p className="font-semibold text-center text-sm sm:text-base">
@@ -179,7 +179,7 @@ const ManageUsers = () => {
             </div>
           </div>
         </div>
-        <div className="w-full lg:basis-3/5 space-y-3 rounded-xl">
+        <div className="w-full xl:basis-3/5 space-y-3 rounded-xl">
           <PageTitle title="Available Admin users" />
           <DataTable<IUsers> columns={columns} data={data?.data || []} />
         </div>
