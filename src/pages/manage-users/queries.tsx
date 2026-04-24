@@ -50,7 +50,7 @@ const getSingleAdmin = async (id: string) => {
 
 const blockUnblockUser = async (body: { id: number; is_blocked:boolean }) => {
   try {
-    const response = await instance.post<SingleResponseData<any>>(
+    const response = await instance.put<SingleResponseData<any>>(
       "/admin/update",
       body
     );
