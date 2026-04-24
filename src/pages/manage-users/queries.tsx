@@ -48,10 +48,10 @@ const getSingleAdmin = async (id: string) => {
 };
 
 
-const blockUnblockUser = async (body: { user_id: number; action: "block" | "unblock" }) => {
+const blockUnblockUser = async (body: { id: number; is_blocked:boolean }) => {
   try {
     const response = await instance.post<SingleResponseData<any>>(
-      "/admin/block-unblock-user",
+      "/admin/update",
       body
     );
     return response.data;
@@ -172,7 +172,7 @@ export const usePasswordChange = () => {
 export const useBlockUnblockUser = () => {
   const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: (body: { user_id: number; action: "block" | "unblock" }) => blockUnblockUser(body),
+    mutationFn: (body: { id:number, is_blocked: boolean }) => blockUnblockUser(body),
     onSuccess(data) {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["admins"] });

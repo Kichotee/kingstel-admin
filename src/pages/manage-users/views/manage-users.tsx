@@ -80,8 +80,8 @@ const ManageUsers = () => {
                 disabled={isBlockPending}
                 onClick={async () => {
                   await blockUnblockUserFn({
-                    user_id: Number(row.getValue()),
-                    action: isBlocked ? "unblock" : "block",
+                    id: Number(row.getValue()),
+                    is_blocked: isBlocked ? true : false,
                   });
                 }}
               >
