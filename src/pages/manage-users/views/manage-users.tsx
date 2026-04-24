@@ -15,6 +15,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { VscEllipsis } from "react-icons/vsc";
+import CircularProgress from "@/shared/CircularProgress";
 // import { createListCollection } from "@chakra-ui/react";
 
 const ManageUsers = () => {
@@ -76,7 +77,7 @@ const ManageUsers = () => {
                 <button className="text-brand-primary w-full text-left">Edit</button>
               </Link>
               <button
-                className={`w-full text-left ${isBlocked ? "text-red-500" : "text-green-600"}`}
+                className={`w-full text-left flex items-center gap-2 ${isBlocked ? "text-red-500" : "text-green-600"}`}
                 disabled={isBlockPending}
                 onClick={async () => {
                   await blockUnblockUserFn({
@@ -85,6 +86,7 @@ const ManageUsers = () => {
                   });
                 }}
               >
+                {isBlockPending && <CircularProgress size={16} color={isBlocked ? "red" : "green"} />}
                 {isBlocked ? "Unblock" : "Block"}
               </button>
             </PopoverContent>
