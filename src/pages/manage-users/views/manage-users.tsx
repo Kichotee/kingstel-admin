@@ -82,7 +82,7 @@ const ManageUsers = () => {
                 onClick={async () => {
                   await blockUnblockUserFn({
                     id: Number(row.getValue()),
-                    is_blocked: isBlocked ? true : false,
+                    is_blocked: isBlocked ? false : true,
                   });
                 }}
               >
