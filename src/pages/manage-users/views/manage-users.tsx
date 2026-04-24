@@ -7,8 +7,14 @@ import { ICreateUser, IUsers } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useCreateAdmin, useGetUsers } from "../queries";
+import { useCreateAdmin, useGetUsers, useBlockUnblockUser } from "../queries";
 import { ControlledSelect } from "@/shared/UI/select/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { VscEllipsis } from "react-icons/vsc";
 // import { createListCollection } from "@chakra-ui/react";
 
 const ManageUsers = () => {
@@ -22,6 +28,7 @@ const ManageUsers = () => {
   ];
   // const userCollection = createListCollection({ items: userOptions });
   const { data } = useGetUsers();
+  const { blockUnblockUserFn, isPending: isBlockPending } = useBlockUnblockUser();
   console.log(data);
   const columns: ColumnDef<IUsers>[] = [
     {
@@ -51,11 +58,37 @@ const ManageUsers = () => {
       header: "Action",
       accessorKey: "id",
       cell: (row) => {
+        // Get the full user row to access is_blocked and id
+        const user = row.row.original as IUsers;
+        const isBlocked = user.is_blocked;
         return (
-          <Link to={`/dashboard/edit-user/${row.getValue()}`}>
-            {" "}
-            <button className="text-brand-primary">Edit</button>
-          </Link>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="outline">
+                <VscEllipsis />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              side="left"
+              className="absolute  z-50 max-w-[120px] p-2 bg-white shadow-none flex flex-col gap-2"
+            >
+              <Link to={`/dashboard/edit-user/${row.getValue()}`}>
+                <button className="text-brand-primary w-full text-left">Edit</button>
+              </Link>
+              <button
+                className={`w-full text-left ${isBlocked ? "text-red-500" : "text-green-600"}`}
+                disabled={isBlockPending}
+                onClick={async () => {
+                  await blockUnblockUserFn({
+                    user_id: Number(row.getValue()),
+                    action: isBlocked ? "unblock" : "block",
+                  });
+                }}
+              >
+                {isBlocked ? "Unblock" : "Block"}
+              </button>
+            </PopoverContent>
+          </Popover>
         );
       },
     },
@@ -68,7 +101,7 @@ const ManageUsers = () => {
       name: body.first_name + " " + body.last_name,
       role: body.role,
     };
-    // console.log(data);
+    
 
     await createAdminFn(data);
   };
@@ -78,7 +111,9 @@ const ManageUsers = () => {
       <div className="flex flex-col gap-5 lg:flex-row lg:gap-[18px]">
         <div className="w-full lg:basis-2/5 bg-white rounded-xl">
           <div className="p-5 sm:p-8 lg:p-[43px_37px] flex flex-col gap-8 lg:gap-[52px]">
-            <p className="font-semibold text-center text-sm sm:text-base">Create new user</p>
+            <p className="font-semibold text-center text-sm sm:text-base">
+              Create new user
+            </p>
             <div className="flex flex-col gap-10 lg:gap-20">
               <div className="flex flex-col gap-5">
                 <ControlledInput
@@ -145,9 +180,8 @@ const ManageUsers = () => {
           </div>
         </div>
         <div className="w-full lg:basis-3/5 space-y-3 rounded-xl">
-            <PageTitle title="Available Admin users" />
-            <DataTable<IUsers> columns={columns} data={data?.data || []} />
-       
+          <PageTitle title="Available Admin users" />
+          <DataTable<IUsers> columns={columns} data={data?.data || []} />
         </div>
       </div>
     </div>

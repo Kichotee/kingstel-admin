@@ -50,6 +50,7 @@ export interface IUsers {
   email: string;
   role: string;
   status: string;
+  is_blocked:boolean
 }
 export interface ICharge {
   id: number;

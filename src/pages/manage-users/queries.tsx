@@ -1,3 +1,8 @@
+
+// ...existing code...
+
+// Block/Unblock User API function (placed at the bottom)
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import instance from "@/lib/api";
@@ -42,6 +47,20 @@ const getSingleAdmin = async (id: string) => {
   }
 };
 
+
+const blockUnblockUser = async (body: { user_id: number; action: "block" | "unblock" }) => {
+  try {
+    const response = await instance.post<SingleResponseData<any>>(
+      "/admin/block-unblock-user",
+      body
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || error.response?.data?.error || "An error occurred");
+  }
+};
+
+
 const updatePassword = async (
   data: Omit<IChangeUserPassword, "confirm_password">
 ) => {
@@ -79,7 +98,7 @@ export const useCreateAdmin = () => {
       return createUser(body);
     },
     onSuccess(data) {
-      toast .success(data.message);  
+      toast.success(data.message);  
    
       queryClient.invalidateQueries({
         queryKey: ["admins"],
@@ -145,4 +164,22 @@ export const usePasswordChange = () => {
     },
   });
   return {changePassFn:mutateAsync, isPending}
+};
+
+
+
+
+export const useBlockUnblockUser = () => {
+  const queryClient = useQueryClient();
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: (body: { user_id: number; action: "block" | "unblock" }) => blockUnblockUser(body),
+    onSuccess(data) {
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["admins"] });
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+  });
+  return { blockUnblockUserFn: mutateAsync, isPending };
 };
