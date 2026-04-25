@@ -105,6 +105,7 @@ const ManageFees = () => {
       header: "Description ",
       accessorKey: "description",
     },
+   
     {
       header: "Active ",
       accessorKey: "is_active",

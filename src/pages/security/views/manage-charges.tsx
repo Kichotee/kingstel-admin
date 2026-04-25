@@ -29,16 +29,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const ManageCharges = () => {
+const ManageRates = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   const { ratesData, isLoading } = useGetRates();
 
   const [selectedRow, setSelectedRow] = useState<ICharge | null>(null);
   const [selectedTransactionType, setSelectedTransactionType] =
-    useState<string>("");
-
-  console.log(ratesData);
+    useState<string>("-");
 
   const { addRates } = usePostExchangeRate();
 
@@ -54,21 +52,21 @@ const ManageCharges = () => {
 
   // Get unique transaction types for filter options
   const transactionTypes = useMemo(() => {
-    console.log(ratesData);
+ 
     if (!ratesData?.data) return [];
     const types = new Set(
-      ratesData?.data?.map((item) => item?.transaction_type).filter(Boolean)
+      ratesData?.data?.map((item) => item?.transaction_type).filter(Boolean),
     );
-      
+
     return Array.from(types);
   }, [ratesData]);
 
   // Filter data based on selected transaction type
   const filteredData = useMemo(() => {
-    console.log(selectedTransactionType);
-    if (selectedTransactionType == '') return ratesData?.data || [];
+    
+    if (selectedTransactionType == '-') return ratesData?.data || [];
     return (ratesData?.data || []).filter(
-      (item) => item.transaction_type === selectedTransactionType
+      (item) => item.transaction_type === selectedTransactionType,
     );
   }, [ratesData?.data, selectedTransactionType]);
 
@@ -88,6 +86,13 @@ const ManageCharges = () => {
     {
       header: "Base Rate ",
       accessorKey: "base_rate",
+    },
+    {
+      header: "Transaction type ",
+      accessorKey: "transaction_type",
+      cell: (info) => {
+        return info.getValue()?.toString()?.replace("_", " ");
+      }
     },
     {
       header: "Charge",
@@ -149,7 +154,7 @@ const ManageCharges = () => {
           if (!selectedRow) return;
           return await handleUpdateMarkup(
             selectedRow?.id.toString(),
-            percentage
+            percentage,
           );
         }}
       />
@@ -209,18 +214,18 @@ const ManageCharges = () => {
                 <div className="w-48">
                   {ratesData && (
                     <Select
-                    defaultValue="-"
+                      defaultValue="-"
                       value={selectedTransactionType}
                       onValueChange={setSelectedTransactionType}
                     >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Filter by transaction type" />
+                      <SelectTrigger className="capitalize">
+                        <SelectValue  placeholder="Filter by transaction type" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="-">All Types</SelectItem>
                         {transactionTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
+                          <SelectItem key={type} className="capitalize" value={type}>
+                            {type.replace("_", " ")}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -241,4 +246,4 @@ const ManageCharges = () => {
   );
 };
 
-export default ManageCharges;
+export default ManageRates;

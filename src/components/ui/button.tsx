@@ -53,10 +53,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
           <div className="flex items-center justify-center gap-2">
-          {loading && <CircularProgress size={4} />}
+          {loading && <CircularProgress color="white" size={4} />}
           {children}
         </div>
-      </Comp>
+      </Comp>   
     );
   }
 );

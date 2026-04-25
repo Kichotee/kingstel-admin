@@ -5,14 +5,12 @@ import { CardRequestsCard } from "../components/card-requests-card";
 import {
   Popover,
   PopoverTrigger,
-  
   PopoverContent,
-
 } from "@/components/ui/popover";
 import { VscEllipsis } from "react-icons/vsc";
 import { PageTitle } from "@/shared/UI/general-page-title";
 import { AcceptModal } from "../components/accept-modal";
-import {  useFreezeCard, useGetCards, useUnfreezeCard } from "../queries";
+import { useFreezeCard, useGetCards, useUnfreezeCard } from "../queries";
 import { CardRequest } from "@/lib/api/type";
 import { format } from "date-fns";
 import { DeclineModal } from "../components/decline-modal";
@@ -20,16 +18,17 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ViewCardDetailsSheet } from "../components/view-card-details-sheet";
 
-
 export const CardRequests = () => {
   const { requestData } = useGetCards();
 
   // const { approveCardFn, isPending } = useApprovecard();
-  const{ freezeCardFn,  freezeLoading } = useFreezeCard();
-  const {unfreezeCardFn,  unfreezeLoading } = useUnfreezeCard();
+  const { freezeCardFn, freezeLoading } = useFreezeCard();
+  const { unfreezeCardFn, unfreezeLoading } = useUnfreezeCard();
 
   const [freezeDialogOpen, setFreezeDialogOpen] = useState(false);
   const [freezeReference, setFreezeReference] = useState<string>("");
+  const [unfreezeDialogOpen, setUnfreezeDialogOpen] = useState(false);
+  const [unfreezeReference, setUnfreezeReference] = useState<string>("");
   const [viewSheetOpen, setViewSheetOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardRequest | undefined>();
 
@@ -42,6 +41,17 @@ export const CardRequests = () => {
     await freezeCardFn({ ref });
     setFreezeDialogOpen(false);
     setFreezeReference("");
+  };
+
+  const handleOpenUnfreezeDialog = (ref: string) => {
+    setUnfreezeReference(ref);
+    setUnfreezeDialogOpen(true);
+  };
+
+  const handleConfirmUnfreeze = async (ref: string) => {
+    await unfreezeCardFn({ ref });
+    setUnfreezeDialogOpen(false);
+    setUnfreezeReference("");
   };
 
   const handleOpenViewSheet = (card: CardRequest) => {
@@ -96,42 +106,51 @@ export const CardRequests = () => {
       cell: (row) => {
         return (
           <div className="relative ">
-            <Popover >
+            <Popover>
               <PopoverTrigger asChild>
                 <Button size="sm" variant="outline">
                   <VscEllipsis />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent side="left" className="absolute  z-50 max-w-[90px]   p-0 bg-white shadow-none">
+              <PopoverContent
+                side="left"
+                className="absolute  z-50 max-w-[90px]   p-0 bg-white shadow-none"
+              >
+                <div className="flex flex-col gap-4 *:border-b  text-sm">
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-transparent"
+                    onClick={() => handleOpenViewSheet(row.row.original)}
+                  >
+                    View
+                  </Button>
 
-                  <div className="flex flex-col gap-4 *:border-b  text-sm">
-                    <Button
-                      variant="ghost"
-                      className="hover:bg-transparent"
-                      onClick={() => handleOpenViewSheet(row.row.original)}
-                    >
-                      View
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      className="hover:bg-transparent"
-                      onClick={() => handleOpenFreezeDialog(row.getValue() as string)}
-                    >
-                      Freeze
-                    </Button>
-                    <DeclineModal
-                      isPending={unfreezeLoading}
-                      acceptFn={unfreezeCardFn}
-                      reference={row.getValue() as string}
-                    />
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-transparent"
+                    onClick={() =>
+                      handleOpenFreezeDialog(row.getValue() as string)
+                    }
+                  >
+                    Freeze
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-transparent"
+                    onClick={() =>
+                      handleOpenUnfreezeDialog(row.getValue() as string)
+                    }
+                  >
+                    Unfreeze
+                  </Button>
+               
 
-                    {/* <Link to={`/dashboard/customers/${row.getValue() as string}`}>
+                  {/* <Link to={`/dashboard/customers/${row.getValue() as string}`}>
                       <Button className="p-[10px_20px] border-b">
                         Profile
                       </Button>
                     </Link> */}
-                  </div>
-              
+                </div>
               </PopoverContent>
             </Popover>
           </div>
@@ -186,6 +205,13 @@ export const CardRequests = () => {
         reference={freezeReference}
         isPending={freezeLoading}
         onConfirm={handleConfirmFreeze}
+      />
+      <DeclineModal
+        open={unfreezeDialogOpen}
+        onOpenChange={setUnfreezeDialogOpen}
+        reference={unfreezeReference}
+        isPending={unfreezeLoading}
+        onConfirm={handleConfirmUnfreeze}
       />
 
       <ViewCardDetailsSheet

@@ -35,7 +35,7 @@ const freezeCard = async (ref: string) => {
 };
 const unfreezeCard = async (ref: string) => {
   try {
-          const res = await instance.post(`/admin/bridge-card/freeze/${ref}`);
+          const res = await instance.post(`/admin/bridge-card/unfreeze/${ref}`);
     return res.data;
   } catch (error: any) {
     throw new Error(error?.data?.message || error?.message);

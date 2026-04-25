@@ -11,10 +11,11 @@ import ManageTransfers from "@/pages/manage-transfers/views/transfers";
 import Compliance from "@/pages/compliance/views/compliance";
 import CustomerDetails from "@/pages/customers/views/customer-details";
 import EditCompliance from "@/pages/compliance/views/editCompliance";
-import ManageCharges from "@/pages/security/views/manage-charges";
+
 import ManageProfile from "@/pages/profile/views/manage-profile";
 import EditRates from "@/pages/security/views/edit-charge";
 import ManageFees from "@/pages/fees/views/fees";
+import ManageRates from "@/pages/security/views/manage-charges";
 
 const AuthRoutes = () => {
   return (
@@ -36,7 +37,7 @@ const AuthRoutes = () => {
         path="/manage-charge"
         // element={{ path: "/", element: <ManageCharges /> }}
       >
-        <Route path="" element={<ManageCharges />} />
+        <Route path="" element={<ManageRates/>} />
         <Route path="edit-rates/:id" element={<EditRates />} />
       </Route>
       <Route

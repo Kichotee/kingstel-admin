@@ -6,42 +6,46 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
-type IProps = {
-  acceptFn: ({ ref }: { ref: string; }) => void;
+interface DeclineModalProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   reference: string;
   isPending: boolean;
-};
+  onConfirm: (ref: string) => Promise<void>;
+}
 
-export const DeclineModal = ({ acceptFn, reference, isPending }: IProps) => {
+export const DeclineModal = ({
+  open,
+  onOpenChange,
+  reference,
+  isPending,
+  onConfirm,
+}: DeclineModalProps) => {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="ghost"  className=" hover:bg-transparent">
-          Unfreeze
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="w-[276px]">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="sr-only">Confirm Decline</DialogTitle>
-          <DialogDescription className="text-center text-black py-4 max-w-[186px] mx-auto">
+          <DialogTitle>Unfreeze Request</DialogTitle>
+          <DialogDescription>
             Are you sure you want to unfreeze this card request?
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex justify-center gap-3 pt-4">
-          <DialogTrigger >
-            <Button variant="outline" size="sm">
-              No, Cancel
-            </Button>
-          </DialogTrigger>
+
+        <DialogFooter className="flex gap-3 justify-end">
           <Button
-            variant="default"
-            size="sm"
+            variant="outline"
+            onClick={() => {
+              onOpenChange(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
             loading={isPending}
-            onClick={() => acceptFn({ ref: reference })}
-            className="bg-green-600 hover:bg-green-300 duration-200"
+            onClick={() => onConfirm(reference)}
+            className=""
           >
             Unfreeze
           </Button>
